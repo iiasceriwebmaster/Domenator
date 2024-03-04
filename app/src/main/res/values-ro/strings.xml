@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Domenator</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Conectare</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Nu este un nume de utilizator valid</string>
+    <string name="invalid_password">Parola trebuie să aibă >5 caractere</string>
+    <string name="login_failed">"Autentificare eșuată"</string>
+    <string name="main_mid_text">Pentru a începe adăugarea datelor despre combustibilul consumat, apăsați butonul “Începeți raportul”</string>
+    <string name="start_report">Începeți Raportul</string>
+    <string name="finish_report">Terminați Raportul</string>
+    <string name="sign_in_into_your_account">Intra in contul tau</string>
+    <string name="select_app_language">Selectați limba aplicației</string>
+</resources>
