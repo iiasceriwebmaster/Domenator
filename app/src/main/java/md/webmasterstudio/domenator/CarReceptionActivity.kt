@@ -29,6 +29,11 @@ class CarReceptionActivity : AppCompatActivity() {
             insets
         }
 
+        binding.saveBtn.setOnClickListener {
+            val intent = Intent(this, ReportActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.standardFab.setOnClickListener {
             // initialising intent
             // initialising intent
