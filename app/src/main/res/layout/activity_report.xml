@@ -14,14 +14,14 @@
             android:id="@+id/LL1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:background="@color/primary"
+            android:layout_weight="0.1"
+            android:background="@color/colorPrimary"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
+                android:layout_marginHorizontal="@dimen/top_bar_margin_horizontal"
                 android:layout_marginTop="35dp"
                 android:orientation="horizontal">
 
@@ -44,14 +44,17 @@
                     android:background="@color/transparent"
                     android:src="@drawable/menu_right" />
             </RelativeLayout>
-
+            <TextView
+                android:text="Title"
+                style="@style/TitleTextStyle">
+            </TextView>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/LL2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="0.9"
             android:background="@color/primary_white"
             android:orientation="vertical" />
 
@@ -79,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="bla"
-        app:srcCompat="@drawable/ic_add" />
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_add"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
