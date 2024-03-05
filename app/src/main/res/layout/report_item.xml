@@ -1,0 +1,29 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="report"
+            type="md.webmasterstudio.domenator.ui.adapters.ReportItem" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_gravity="top|start"
+            android:id="@+id/reportDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{report.date}"
+            android:textColor="@color/app_text_gray"
+            android:textSize="13sp" />
+
+
+
+    </LinearLayout>
+
+</layout>

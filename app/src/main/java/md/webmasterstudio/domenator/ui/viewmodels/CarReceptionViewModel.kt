@@ -1,4 +1,4 @@
-package md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewmodels
+package md.webmasterstudio.domenator.ui.viewmodels
 
 import android.net.Uri
 import androidx.lifecycle.LiveData

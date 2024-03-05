@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.adapters.ImageAdapter
-import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewmodels.CarReceptionViewModel
+import md.webmasterstudio.domenator.ui.viewmodels.CarReceptionViewModel
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 import md.webmasterstudio.domenator.ui.activities.NotificationActivity
 
