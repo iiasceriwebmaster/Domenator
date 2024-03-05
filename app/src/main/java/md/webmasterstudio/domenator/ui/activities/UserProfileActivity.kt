@@ -49,8 +49,5 @@ class UserProfileActivity : AppCompatActivity() {
         binding.textViewEmail.text = "Email: ${user.email}"
         binding.textViewDOB.text = "Date of Birth: ${user.dateOfBirth}"
 
-        binding.buttonBack.setOnClickListener {
-            onBackPressed()
-        }
     }
 }
