@@ -11,10 +11,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
-import md.webmasterstudio.domenator.md.webmasterstudio.domenator.adapters.ImageAdapter
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewmodels.CarReceptionViewModel
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 import md.webmasterstudio.domenator.ui.activities.NotificationActivity
+import md.webmasterstudio.domenator.ui.adapters.ImageAdapter
 
 class CarReceptionActivity : AppCompatActivity() {
 
@@ -67,12 +67,13 @@ class CarReceptionActivity : AppCompatActivity() {
         }
 
         binding.standardFab.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
+            val intent = Intent().apply {
+                type = "*/*"
+                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                action = Intent.ACTION_GET_CONTENT
+            }
             startActivityForResult(
-                Intent.createChooser(intent, "Select Picture"),
+                Intent.createChooser(intent, "Select Files"),
                 PICK_IMAGE_MULTIPLE
             )
         }

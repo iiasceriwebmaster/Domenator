@@ -4,8 +4,8 @@
     <solid android:color="@color/primary_white" /> <!-- Background color -->
     <corners android:radius="8dp" /> <!-- Rounded corners -->
     <padding
+        android:bottom="5dp"
         android:left="10dp"
         android:right="10dp"
-        android:top="5dp"
-        android:bottom="5dp" /> <!-- Padding to accommodate the icon -->
+        android:top="5dp" /> <!-- Padding to accommodate the icon -->
 </shape>

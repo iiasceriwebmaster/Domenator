@@ -1,4 +1,4 @@
-package md.webmasterstudio.domenator.md.webmasterstudio.domenator.adapters
+package md.webmasterstudio.domenator.ui.adapters
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,31 +9,38 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import md.webmasterstudio.domenator.R
 
-class ImageAdapter(private var imageUris: List<Uri>) :
-    RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+class ImageAdapter(private var files: List<Uri>) : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
-        return ImageViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val imageUri = imageUris[position]
-        // Load image into ImageView using Glide or Picasso or any other image loading library
-        Glide.with(holder.itemView)
-            .load(imageUri)
-            .into(holder.imageView)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val fileUri = files[position]
+        // Check the MIME type of the file
+        val mimeType = holder.itemView.context.contentResolver.getType(fileUri)
+        if (mimeType == "application/pdf") {
+            // Display PDF file placeholder
+            holder.imageView.setImageResource(R.drawable.baseline_picture_as_pdf_24)
+        } else {
+            // Display image using Glide or any other image loading library
+            Glide.with(holder.itemView)
+                .load(fileUri)
+                .into(holder.imageView)
+        }
     }
 
-    override fun getItemCount() = imageUris.size
+    override fun getItemCount(): Int {
+        return files.size
+    }
 
-    fun updateData(newImageUris: List<Uri>) {
-        imageUris = newImageUris
+    fun updateData(newFiles: List<Uri>) {
+        files = newFiles
         notifyDataSetChanged()
     }
 
-    inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
     }
-
 }
