@@ -44,10 +44,10 @@
                     android:background="@color/transparent"
                     android:src="@drawable/menu_right" />
             </RelativeLayout>
+
             <TextView
-                android:text="Title"
-                style="@style/TitleTextStyle">
-            </TextView>
+                style="@style/TitleTextStyle"
+                android:text="Title"></TextView>
         </LinearLayout>
 
         <LinearLayout
@@ -83,6 +83,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:backgroundTint="@color/primary_color"
-        android:src="@drawable/ic_add"/>
+        android:src="@drawable/ic_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

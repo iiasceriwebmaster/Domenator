@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Domenator</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="title_activity_login">АктивностьВхода</string>
+    <string name="prompt_email">Эл. почта</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in">Войти или зарегистрироваться</string>
     <string name="action_sign_in_short">Войти</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">Добро пожаловать!</string>
     <string name="invalid_username">Недействительное имя пользователя</string>
     <string name="invalid_password">Пароль должен быть >5 символов</string>
     <string name="login_failed">"Ошибка входа"</string>
@@ -15,8 +15,20 @@
     <string name="finish_report">Завершить Отчет</string>
     <string name="sign_in_into_your_account">Войдите в свой аккаунт</string>
     <string name="select_app_language">Выберите язык приложения</string>
-    <string name="photos">Photos</string>
-    <string name="documents">Documents</string>
-    <string name="todo">TODO</string>
-    <string name="save">Save</string>
+    <string name="photos">Фотографии</string>
+    <string name="documents">Документы</string>
+    <string name="todo">Список задач</string>
+    <string name="save">Сохранить</string>
+
+    <string name="title_activity_nav">АктивностьНавигации</string>
+    <string name="navigation_drawer_open">Открыть панель навигации</string>
+    <string name="navigation_drawer_close">Закрыть панель навигации</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Заголовок навигации</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="menu_home">Домой</string>
+    <string name="menu_gallery">Галерея</string>
+    <string name="menu_slideshow">Слайд-шоу</string>
 </resources>

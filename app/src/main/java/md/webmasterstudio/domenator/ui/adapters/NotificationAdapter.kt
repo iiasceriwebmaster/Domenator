@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
 import md.webmasterstudio.domenator.R
+
 class NotificationItem(val date: String, val title: String, val preview: String)
 
 class NotificationAdapter(context: Context, notificationItems: List<NotificationItem>) :

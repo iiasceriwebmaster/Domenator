@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import md.webmasterstudio.domenator.data.LoginDataSource
 import md.webmasterstudio.domenator.data.LoginRepository
+import md.webmasterstudio.domenator.ui.activities.login.LoginViewModel
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

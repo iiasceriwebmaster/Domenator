@@ -1,14 +1,15 @@
-package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login
+package md.webmasterstudio.domenator.ui.activities.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
+import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.LoginRepository
 import md.webmasterstudio.domenator.data.Result
-
-import md.webmasterstudio.domenator.R
-
+import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoggedInUserView
+import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoginFormState
+import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoginResult
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
@@ -30,12 +31,27 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     }
 
     fun loginDataChanged(username: String, password: String) {
-        if (!isUserNameValid(username)) {
-            _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
+        val currentState = _loginForm.value
+        val newState = if (!isUserNameValid(username)) {
+            LoginFormState(usernameError = R.string.invalid_username)
         } else if (!isPasswordValid(password)) {
-            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
+            LoginFormState(passwordError = R.string.invalid_password)
         } else {
-            _loginForm.value = LoginFormState(isDataValid = true)
+            LoginFormState(isDataValid = true)
+        }
+
+        // Reset the errors when language is changed
+        if (currentState?.usernameError != newState.usernameError) {
+            newState.usernameError = null
+        }
+
+        if (currentState?.passwordError != newState.passwordError) {
+            newState.passwordError = null
+        }
+
+        // Only update the login form state if it's different from the current state
+        if (currentState != newState) {
+            _loginForm.value = newState
         }
     }
 

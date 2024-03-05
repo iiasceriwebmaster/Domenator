@@ -5,9 +5,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import md.webmasterstudio.domenator.databinding.ActivityNotificationBinding
 import md.webmasterstudio.domenator.ui.adapters.NotificationAdapter
 import md.webmasterstudio.domenator.ui.adapters.NotificationItem
-import md.webmasterstudio.domenator.databinding.ActivityNotificationBinding
 
 class NotificationActivity : AppCompatActivity() {
 

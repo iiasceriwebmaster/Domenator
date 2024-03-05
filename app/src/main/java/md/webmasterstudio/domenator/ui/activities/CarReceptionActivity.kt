@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
-import md.webmasterstudio.domenator.md.webmasterstudio.domenator.adapters.ImageAdapter
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.ui.activities.NotificationActivity
 import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
+import md.webmasterstudio.domenator.md.webmasterstudio.domenator.adapters.ImageAdapter
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewmodels.CarReceptionViewModel
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
+import md.webmasterstudio.domenator.ui.activities.NotificationActivity
 
 class CarReceptionActivity : AppCompatActivity() {
 
@@ -43,11 +43,19 @@ class CarReceptionActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing) // Change to your desired spacing
+        val spacingInPixels =
+            resources.getDimensionPixelSize(R.dimen.spacing) // Change to your desired spacing
         val spanCount = 4 // Change to your desired span count
-        val includeEdge = true // Set to true if you want to include spacing at the edges of the grid
+        val includeEdge =
+            true // Set to true if you want to include spacing at the edges of the grid
 
-        binding.grid.addItemDecoration(GridSpacingItemDecoration(spanCount, spacingInPixels, includeEdge))
+        binding.grid.addItemDecoration(
+            GridSpacingItemDecoration(
+                spanCount,
+                spacingInPixels,
+                includeEdge
+            )
+        )
 
         // Initialize adapter
         adapter = ImageAdapter(emptyList())
@@ -88,6 +96,7 @@ class CarReceptionActivity : AppCompatActivity() {
                     val photos = viewModel.selectedPhotos.value ?: emptyList()
                     adapter.updateData(photos)
                 }
+
                 R.id.radioBtnDocuments -> {
                     // Load selected documents
                     val documents = viewModel.selectedDocuments.value ?: emptyList()

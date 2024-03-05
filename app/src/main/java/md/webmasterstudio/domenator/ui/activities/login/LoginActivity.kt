@@ -3,21 +3,21 @@ package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.log
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import md.webmasterstudio.domenator.ui.activities.MainActivity
-import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
+import md.webmasterstudio.domenator.ui.activities.MainActivity
+import md.webmasterstudio.domenator.ui.activities.login.LoginViewModel
 import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
@@ -26,11 +26,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private fun setLocale(lang: String) {
-        val locale = Locale(lang)
-        Locale.setDefault(locale)
-        val config = Configuration()
-        config.locale = locale
-        resources.updateConfiguration(config, resources.displayMetrics)
+        val currentLocale = resources.configuration.locale
+        val newLocale = Locale(lang)
+        if (currentLocale != newLocale) {
+            Locale.setDefault(newLocale)
+            val config = Configuration()
+            config.locale = newLocale
+            resources.updateConfiguration(config, resources.displayMetrics)
+            // Clear error fields if locale is changed
+            binding.username.error = null
+            binding.password.error = null
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +60,10 @@ class LoginActivity : AppCompatActivity() {
             recreate()
         }
 
+        // Clear error fields after recreation
+        binding.username.error = null
+        binding.password.error = null
+
         val username = binding.username
         val password = binding.password
         val login = binding.login
@@ -69,10 +79,10 @@ class LoginActivity : AppCompatActivity() {
             login.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError)
+                username.error = getString(loginState.usernameError!!)
             }
             if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError)
+                password.error = getString(loginState.passwordError!!)
             }
         })
 
