@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarReceptionActivity">
+    tools:context=".md.webmasterstudio.domenator.activities.CarReceptionActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/LL1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/primary_color"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -59,6 +59,7 @@
             </TextView>
 
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="18dp"
@@ -134,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/primary_color"
         android:src="@drawable/camera" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

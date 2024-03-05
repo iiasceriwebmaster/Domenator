@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -21,9 +19,18 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
-
-            android:name=".CarReceptionActivity"
-            android:exported="true" >
+            android:name=".ui.activities.NotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".md.webmasterstudio.domenator.activities.CarReceptionActivity"
+            android:exported="true" />
+        <activity
+            android:name=".md.webmasterstudio.domenator.activities.ReportActivity"
+            android:exported="true" />
+        <activity
+            android:name=".md.webmasterstudio.domenator.activities.login.LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,15 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ReportActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login">
-        </activity>
-        <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true" />
     </application>
 

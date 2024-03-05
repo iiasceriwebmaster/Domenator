@@ -1,4 +1,4 @@
-package md.webmasterstudio.domenator.ui.login
+package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login
 
 import android.app.Activity
 import android.content.Intent
@@ -14,7 +14,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
-import md.webmasterstudio.domenator.MainActivity
+import md.webmasterstudio.domenator.ui.activities.MainActivity
 import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
 
 import md.webmasterstudio.domenator.R
@@ -39,17 +39,17 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.roLangBtn?.setOnClickListener {
+        binding.roLangBtn.setOnClickListener {
             setLocale("ro")
             recreate()
         }
 
-        binding.ruLangBtn?.setOnClickListener {
+        binding.ruLangBtn.setOnClickListener {
             setLocale("ru")
             recreate()
         }
 
-        binding.enLangBtn?.setOnClickListener {
+        binding.enLangBtn.setOnClickListener {
             setLocale("en")
             recreate()
         }

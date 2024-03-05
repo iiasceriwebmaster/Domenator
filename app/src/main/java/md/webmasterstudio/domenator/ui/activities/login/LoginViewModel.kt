@@ -1,4 +1,4 @@
-package md.webmasterstudio.domenator.ui.login
+package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

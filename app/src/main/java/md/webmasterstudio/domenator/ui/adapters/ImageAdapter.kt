@@ -1,4 +1,4 @@
-package md.webmasterstudio.domenator
+package md.webmasterstudio.domenator.md.webmasterstudio.domenator.adapters
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import md.webmasterstudio.domenator.R
 
-class ImageAdapter(private val imageUris: List<Uri>) :
+class ImageAdapter(private var imageUris: List<Uri>) :
     RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
@@ -26,7 +27,13 @@ class ImageAdapter(private val imageUris: List<Uri>) :
 
     override fun getItemCount() = imageUris.size
 
+    fun updateData(newImageUris: List<Uri>) {
+        imageUris = newImageUris
+        notifyDataSetChanged()
+    }
+
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
     }
+
 }

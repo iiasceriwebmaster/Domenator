@@ -1,10 +1,11 @@
-package md.webmasterstudio.domenator
+package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import md.webmasterstudio.domenator.R
 
 class ReportActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +17,6 @@ class ReportActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
     }
 }
