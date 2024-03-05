@@ -3,11 +3,11 @@ package md.webmasterstudio.domenator.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityMainBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.CarReceptionActivity
@@ -50,27 +50,38 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, UserProfileActivity::class.java))
                     return@setNavigationItemSelectedListener true
                 }
+
                 R.id.nav_car_acceptance -> {
                     // Open car acceptance activity
                     startActivity(Intent(this, CarReceptionActivity::class.java))
                     return@setNavigationItemSelectedListener true
                 }
+
                 R.id.nav_driver_regulations -> {
                     // Open driver regulations activity
-//                startActivity(Intent(this, DriverRegulationsActivity::class.java))
+                    val intent = Intent(this, TextualActivity::class.java)
+                    intent.putExtra("txt", "driver regulations")
+                    startActivity(intent)
                     return@setNavigationItemSelectedListener true
                 }
+
                 R.id.nav_driver_help -> {
                     // Open driver help activity
-//                startActivity(Intent(this, DriverHelpActivity::class.java))
+                    val intent = Intent(this, TextualActivity::class.java)
+                    intent.putExtra("txt", "driver help")
+                    startActivity(intent)
                     return@setNavigationItemSelectedListener true
                 }
+
                 R.id.nav_logout -> {
                     // Perform logout action
 //                logoutUser()
                     return@setNavigationItemSelectedListener true
                 }
-                else -> return@setNavigationItemSelectedListener super.onOptionsItemSelected(menuItem)
+
+                else -> return@setNavigationItemSelectedListener super.onOptionsItemSelected(
+                    menuItem
+                )
             }
         }
     }
@@ -84,6 +95,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // Clear selected item in the navigation drawer
-        binding.navView.menu.findItem(R.id.nav_car_acceptance)?.isChecked = false
+        binding.navView.menu.forEachIndexed { index, item ->
+            item.isChecked = false
+        }
     }
 }

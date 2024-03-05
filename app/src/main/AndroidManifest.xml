@@ -19,6 +19,9 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activities.TextualActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.ActivityNotificationDetails"
             android:exported="false" />
         <activity

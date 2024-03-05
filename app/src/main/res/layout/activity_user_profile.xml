@@ -1,60 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     android:id="@+id/main"
-    android:background="@color/primary_color"
-    android:gravity="center_vertical"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color">
 
-    <TextView
-        style="@style/TitleTextStyle"
-        android:id="@+id/textViewName"
+    <RelativeLayout
+        android:id="@+id/main2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="@dimen/top_bar_margin_top"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/leftButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:src="@drawable/back_arrow" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name:"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        style="@style/TitleTextStyle"
-        android:id="@+id/textViewSurname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Surname:"
-        android:textSize="16sp"
-        android:layout_below="@id/textViewName"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"/>
+        <TextView
+            android:id="@+id/textViewName"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Name:"
+            android:textSize="16sp" />
 
-    <TextView
-        style="@style/TitleTextStyle"
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email:"
-        android:textSize="16sp"
-        android:layout_below="@id/textViewSurname"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"/>
+        <TextView
+            android:id="@+id/textViewSurname"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewName"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Surname:"
+            android:textSize="16sp" />
 
-    <TextView
-        style="@style/TitleTextStyle"
-        android:id="@+id/textViewDOB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date of Birth:"
-        android:textSize="16sp"
-        android:layout_below="@id/textViewEmail"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"/>
+        <TextView
+            android:id="@+id/textViewEmail"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSurname"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Email:"
+            android:textSize="16sp" />
 
-    <Button
-        style="@style/MainBtnStyle"
-        android:id="@+id/buttonBack"
-        android:text="Back"
-        android:layout_below="@id/textViewDOB"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        <TextView
+            android:id="@+id/textViewDOB"
+            style="@style/TitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewEmail"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Date of Birth:"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
