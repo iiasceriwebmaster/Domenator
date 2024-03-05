@@ -10,7 +10,6 @@ import md.webmasterstudio.domenator.data.Result
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoggedInUserView
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoginFormState
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoginResult
-
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
