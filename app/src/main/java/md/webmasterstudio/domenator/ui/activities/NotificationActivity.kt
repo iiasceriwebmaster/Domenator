@@ -20,6 +20,9 @@ class NotificationActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupViews()
 
+        binding.leftButton.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun setupViews() {
@@ -34,7 +37,10 @@ class NotificationActivity : AppCompatActivity() {
         for (i in 1..10) {
             val date = "2024-03-$i" // Example date
             val title = "Notification $i" // Example title
-            val preview = "Preview of Notification $i" // Example preview
+            val preview =
+                "Preview of Notification $i With this modification, \n" +
+                        "clicking on any item within the list will toggle the isExpanded state of the corresponding\n" +
+                        "NotificationItem, and notifyDataSetChanged() will " // Example preview
             val notification = NotificationItem(date, title, preview)
             notifications.add(notification)
         }
@@ -43,9 +49,12 @@ class NotificationActivity : AppCompatActivity() {
         val adapter = NotificationAdapter(this, notifications)
         binding.notificationListView.adapter = adapter
 
-        // Handle click on notification items (optional)
-        binding.notificationListView.setOnItemClickListener { _, _, position, _ ->
-            // Handle click action on notification item here
-        }
+//        // Handle click on notification items (optional)
+//        binding.notificationListView.setOnItemClickListener { _, _, position, _ ->
+//            // Handle click action on notification item here
+//            val notification = adapter.getItem(position)
+//            notification?.isExpanded = !notification?.isExpanded!!
+//            adapter.notifyDataSetChanged()
+//        }
     }
 }

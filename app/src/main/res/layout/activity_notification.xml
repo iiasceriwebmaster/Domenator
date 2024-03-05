@@ -4,11 +4,35 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_color"
     tools:context=".ui.activities.NotificationActivity">
 
+    <!-- ImageButton and LinearLayout with ImageView and TextView -->
+    <RelativeLayout
+        android:id="@+id/main2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_bar_height"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="@dimen/top_bar_margin_top"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/leftButton"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:src="@drawable/back_arrow" />
+
+    </RelativeLayout>
+
+    <!-- Your ListView or other main content -->
     <ListView
         android:id="@+id/notificationListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/main2"/>
 
 </RelativeLayout>

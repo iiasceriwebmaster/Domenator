@@ -1,7 +1,9 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Domenator" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
+        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primary_color</item>
     </style>
+
+    <style name="Theme.Domenator" parent="Base.Theme.Domenator" />
 </resources>

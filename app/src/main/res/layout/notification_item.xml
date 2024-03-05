@@ -1,33 +1,56 @@
-<!-- notification_item.xml -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/notificationDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    <data>
 
-    <TextView
-        android:id="@+id/notificationTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        <variable
+            name="notification"
+            type="md.webmasterstudio.domenator.ui.adapters.NotificationItem" />
 
-    <TextView
-        android:id="@+id/notificationPreview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="14sp" />
+    </data>
 
-    <Button
-        android:id="@+id/viewMoreButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View More" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:background="@color/primary_color"
+        android:padding="8dp">
+
+        <TextView
+            android:textColor="@color/white"
+            android:id="@+id/notificationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@{notification.date}" />
+
+        <TextView
+            android:textColor="@color/white"
+            android:id="@+id/notificationTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="@{notification.title}" />
+
+        <TextView
+            android:textColor="@color/white"
+            android:id="@+id/notificationContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{notification.content}" />
+
+        <TextView
+            android:textColor="@color/white"
+            android:id="@+id/tapToSeeMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@string/tap_to_see_more" />
+
+    </LinearLayout>
+
+</layout>

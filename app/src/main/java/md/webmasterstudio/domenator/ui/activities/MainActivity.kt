@@ -3,6 +3,7 @@ package md.webmasterstudio.domenator.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -39,11 +40,50 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
         }
+
+        binding.navView.menu.getItem(0).isChecked = false
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            binding.drawerLayout.close()
+            when (menuItem.itemId) {
+                R.id.nav_personal_cabinet -> {
+                    // Open personal cabinet
+                    startActivity(Intent(this, UserProfileActivity::class.java))
+                    return@setNavigationItemSelectedListener true
+                }
+                R.id.nav_car_acceptance -> {
+                    // Open car acceptance activity
+                    startActivity(Intent(this, CarReceptionActivity::class.java))
+                    return@setNavigationItemSelectedListener true
+                }
+                R.id.nav_driver_regulations -> {
+                    // Open driver regulations activity
+//                startActivity(Intent(this, DriverRegulationsActivity::class.java))
+                    return@setNavigationItemSelectedListener true
+                }
+                R.id.nav_driver_help -> {
+                    // Open driver help activity
+//                startActivity(Intent(this, DriverHelpActivity::class.java))
+                    return@setNavigationItemSelectedListener true
+                }
+                R.id.nav_logout -> {
+                    // Perform logout action
+//                logoutUser()
+                    return@setNavigationItemSelectedListener true
+                }
+                else -> return@setNavigationItemSelectedListener super.onOptionsItemSelected(menuItem)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.nav, menu)
+        menuInflater.inflate(R.menu.activity_main_drawer, menu)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Clear selected item in the navigation drawer
+        binding.navView.menu.findItem(R.id.nav_car_acceptance)?.isChecked = false
     }
 }

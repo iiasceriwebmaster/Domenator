@@ -11,6 +11,8 @@
     <dimen name="l_txt_size">32sp</dimen>
 
     <dimen name="top_bar_margin_horizontal">10dp</dimen>
+    <dimen name="top_bar_margin_top">35dp</dimen>
+    <dimen name="top_bar_height">30dp</dimen>
 
     <dimen name="margin_title_horizontal">25dp</dimen>
     <dimen name="margin_title_top">15dp</dimen>
