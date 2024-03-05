@@ -11,19 +11,42 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_gravity="top|start"
             android:id="@+id/reportDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{report.date}"
+            android:layout_gravity="top|start"
             android:textColor="@color/app_text_gray"
             android:textSize="13sp" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/reportDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/reportConsumption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/app_text_gray"
+                android:textSize="13sp">
+
+            </TextView>
 
 
+        </LinearLayout>
     </LinearLayout>
 
 </layout>
