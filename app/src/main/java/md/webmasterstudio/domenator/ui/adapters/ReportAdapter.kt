@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import md.webmasterstudio.domenator.R
 
 
-class ReportItem(val date: String, val km: String, val quantityAndPricePerUnit: String)
+class ReportItem(val date: String, val km: String, val quantity: String, val pricePerUnit: String)
 
 class ReportAdapter(private var reportItems: List<ReportItem>) :
     RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
@@ -24,7 +24,12 @@ class ReportAdapter(private var reportItems: List<ReportItem>) :
         val reportItem = reportItems[position]
         holder.reportDate.text = reportItem.date
         holder.reportDistance.text = reportItem.km
-        holder.reportConsumption.text = reportItem.quantityAndPricePerUnit
+
+
+        val languageLiterSymbol = "L"
+        val fuelTxt = "${reportItem.quantity} $languageLiterSymbol | ${reportItem.pricePerUnit} \$/$languageLiterSymbol"
+
+        holder.reportConsumption.text = fuelTxt
 
         if (position == reportItems.lastIndex) {
             holder.stroke.visibility = View.INVISIBLE

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?><!-- dialog_add_report.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <EditText
+            android:textAlignment="center"
+            android:id="@+id/editTextDate"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="6"
+            android:background="@drawable/edit_text_background"
+            android:cursorVisible="false"
+            android:drawableStart="@drawable/calendar_add_on_black"
+            android:drawablePadding="8dp"
+            android:hint="@string/date"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="date"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey" />
+
+        <Button
+            android:textSize="@dimen/s_txt_size"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary_color"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:id="@+id/pickDateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:id="@+id/editTextFuel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background"
+        android:drawableStart="@drawable/ic_fuel"
+        android:drawablePadding="8dp"
+        android:hint="@string/fuel_quantity"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey" />
+
+
+    <EditText
+        android:id="@+id/editTextKM"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background"
+        android:drawableStart="@drawable/ic_km_black"
+        android:drawablePadding="8dp"
+        android:hint="@string/speedometer_value"
+        android:inputType="number"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey" />
+
+    <EditText
+        android:id="@+id/editTextPrice"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background"
+        android:drawableStart="@drawable/euro_symbol"
+        android:drawablePadding="8dp"
+        android:hint="@string/fuel_price"
+        android:inputType="numberDecimal"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey" />
+
+
+</LinearLayout>

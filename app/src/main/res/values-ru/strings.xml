@@ -46,4 +46,7 @@
     <string name="speedometer_value">Speedometer Value</string>
     <string name="pick_date">Pick date</string>
     <string name="date">Date</string>
+    <string name="fuel_quantity">Fuel Quantity</string>
+    <string name="fuel_price">Fuel Price</string>
+    <string name="change">Change</string>
 </resources>

@@ -12,8 +12,9 @@ import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
 import md.webmasterstudio.domenator.ui.adapters.ReportItem
 import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
+import md.webmasterstudio.domenator.ui.fragments.AddReportDialogFragment
 
-class ReportActivity : AppCompatActivity() {
+class ReportActivity : AppCompatActivity(), AddReportDialogFragment.DialogAddReportFragmentListener {
 
     private lateinit var binding: ActivityReportBinding
 
@@ -37,8 +38,8 @@ class ReportActivity : AppCompatActivity() {
         binding.titleDate.text = date
 
         binding.standardFab.setOnClickListener {
-            val dialog = AddCarInfoDialogFragment()
-            dialog.show(supportFragmentManager, "AddCarInfoDialogFragment")
+            val dialog = AddReportDialogFragment()
+            dialog.show(supportFragmentManager, "AddReportDialogFragment")
         }
 
         val reports = mutableListOf<ReportItem>()
@@ -108,5 +109,9 @@ class ReportActivity : AppCompatActivity() {
                 )
             }
         }
+    }
+
+    override fun onReportInfoAdded(reportItem: ReportItem) {
+
     }
 }
