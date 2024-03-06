@@ -11,6 +11,7 @@ import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
 import md.webmasterstudio.domenator.ui.adapters.ReportItem
+import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
 
 class ReportActivity : AppCompatActivity() {
 
@@ -34,6 +35,11 @@ class ReportActivity : AppCompatActivity() {
         binding.licencePlateNrTV.text = licencePlateNr
         binding.titleKm.text = km
         binding.titleDate.text = date
+
+        binding.standardFab.setOnClickListener {
+            val dialog = AddCarInfoDialogFragment()
+            dialog.show(supportFragmentManager, "AddCarInfoDialogFragment")
+        }
 
         val reports = mutableListOf<ReportItem>()
 //        for (i in 10 downTo 1) {
