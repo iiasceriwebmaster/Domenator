@@ -6,13 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class CarReceptionViewModel : ViewModel() {
-    private val _selectedPhotos = MutableLiveData<List<Uri>>()
-    private val _selectedDocuments = MutableLiveData<List<Uri>>()
+    private val _selectedPhotos = MutableLiveData<MutableList<Uri>>()
+    private val _selectedDocuments = MutableLiveData<MutableList<Uri>>()
 
-    val selectedPhotos: LiveData<List<Uri>>
+    val selectedPhotos: LiveData<MutableList<Uri>>
         get() = _selectedPhotos
 
-    val selectedDocuments: LiveData<List<Uri>>
+    val selectedDocuments: LiveData<MutableList<Uri>>
         get() = _selectedDocuments
 
     fun addSelectedImage(imageUri: Uri, isDocument: Boolean) {

@@ -31,7 +31,7 @@
             android:name=".ui.activities.NotificationActivity"
             android:exported="false" />
         <activity
-            android:name=".md.webmasterstudio.domenator.activities.CarReceptionActivity"
+            android:name=".ui.activities.CarReceptionActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.ReportActivity"

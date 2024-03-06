@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityMainBinding
-import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.CarReceptionActivity
 
 class MainActivity : AppCompatActivity() {
 
