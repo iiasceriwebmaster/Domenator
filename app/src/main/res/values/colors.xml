@@ -7,6 +7,7 @@
     <color name="primary_color">#3E41C9</color>
     <color name="primary_white">#F6F7FB</color>
     <color name="main_text_color">#3E41CA</color>
+
     <color name="transparent">#00FFFFFF</color>
     <color name="black">#000000</color> <!-- Dark text color -->
     <color name="grey">#808080</color> <!-- Light hint color -->
