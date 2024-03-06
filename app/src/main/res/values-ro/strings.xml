@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Domenator</string>
-    <string name="title_activity_login">ActivitateLogare</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Parolă</string>
     <string name="action_sign_in">Conectare sau înregistrare</string>
@@ -38,4 +37,13 @@
     <string name="title_date">01.01.2023</string>
     <string name="no_records_yet">You have no records yet. Press the \'+\' button to add fuel data.</string>
     <string name="you_didn_t_add_any_photos_yet_press_button_to_add_them">You didn\'t add any photos yet, press 📷 button to add them</string>
+    <string name="user_profile">User Profile</string>
+    <string name="car_acceptance">Car Acceptance</string>
+    <string name="driver_regulations">Driver Regulations</string>
+    <string name="driver_help">Driver Help</string>
+    <string name="logout">Logout</string>
+    <string name="licence_plate_nr">Licence plate nr</string>
+    <string name="speedometer_value">Speedometer Value</string>
+    <string name="pick_date">Pick date</string>
+    <string name="date">Date</string>
 </resources>

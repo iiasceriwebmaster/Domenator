@@ -10,8 +10,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityMainBinding
+import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
+import md.webmasterstudio.domenator.ui.fragments.CarInfoItem
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarFragmentListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -27,8 +29,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.startReportBtn.setOnClickListener {
-            val intent = Intent(this, CarReceptionActivity::class.java)
-            startActivity(intent)
+            val dialog = AddCarInfoDialogFragment()
+            dialog.show(supportFragmentManager, "AddCarInfoDialogFragment")
+
         }
 
         binding.leftButton.setOnClickListener {
@@ -44,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.close()
             when (menuItem.itemId) {
-                R.id.nav_personal_cabinet -> {
-                    // Open personal cabinet
+                R.id.nav_user_profile -> {
+                    // Open user profile
                     startActivity(Intent(this, UserProfileActivity::class.java))
                     return@setNavigationItemSelectedListener true
                 }
@@ -85,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.activity_main_drawer, menu)
@@ -97,5 +101,15 @@ class MainActivity : AppCompatActivity() {
         binding.navView.menu.forEachIndexed { index, item ->
             item.isChecked = false
         }
+    }
+
+    override fun onCarInfoAdded(carInfoItem: CarInfoItem) {
+        val intent = Intent(this, CarReceptionActivity::class.java)
+
+        intent.putExtra("km", carInfoItem.km)
+        intent.putExtra("date", carInfoItem.date)
+        intent.putExtra("licencePlateNr", carInfoItem.licencePlateNr)
+
+        startActivity(intent)
     }
 }

@@ -22,9 +22,6 @@
             android:name=".ui.activities.TextualActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.ActivityNotificationDetails"
-            android:exported="false" />
-        <activity
             android:name=".ui.activities.UserProfileActivity"
             android:exported="false" />
         <activity
@@ -38,8 +35,7 @@
             android:exported="true" />
         <activity
             android:name=".md.webmasterstudio.domenator.activities.login.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

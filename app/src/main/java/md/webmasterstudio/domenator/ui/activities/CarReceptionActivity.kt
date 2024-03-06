@@ -23,6 +23,8 @@ class CarReceptionActivity : AppCompatActivity() {
     private lateinit var adapter: ImageAdapter
     private var PICK_IMAGE_MULTIPLE = 123
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,6 +35,12 @@ class CarReceptionActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val date = intent.getStringExtra("date")
+        val km = intent.getStringExtra("km")
+        val licencePlateNr = intent.getStringExtra("licencePlateNr")
+
+        binding
 
         binding.leftButton.setOnClickListener {
             onBackPressed()
@@ -65,6 +73,11 @@ class CarReceptionActivity : AppCompatActivity() {
 
         binding.saveBtn.setOnClickListener {
             val intent = Intent(this, ReportActivity::class.java)
+
+            intent.putExtra("km", km)
+            intent.putExtra("date", date)
+            intent.putExtra("licencePlateNr", licencePlateNr)
+            
             startActivity(intent)
         }
 

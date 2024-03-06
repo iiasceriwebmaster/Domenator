@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?><!-- dialog_add_report.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:cursorVisible="false"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/calendar_add_on_black"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:id="@+id/editTextDate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/date"
+        android:inputType="date" />
+
+    <EditText
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_licence_plate_nr"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:id="@+id/editTextLicencePlateNr"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/licence_plate_nr"
+        android:inputType="textCapCharacters"/>
+
+    <EditText
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_km_black"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey"
+        android:id="@+id/editTextKM"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/speedometer_value"
+        android:inputType="number" />
+
+    <!--    <LinearLayout-->
+    <!--        android:orientation="horizontal"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content">-->
+
+
+    <!--        <TextView-->
+    <!--            android:text="@string/pick_date"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content" />-->
+
+    <!--        <ImageButton-->
+    <!--            android:background="@color/transparent"-->
+    <!--            android:src="@drawable/calendar_add_on_24px"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content" />-->
+    <!--    </LinearLayout>-->
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/editTextQuantity"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Fuel Quantity"-->
+    <!--        android:inputType="date"/>-->
+
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/editTextPrice"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:hint="Price per Unit"/>-->
+
+</LinearLayout>

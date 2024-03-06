@@ -5,28 +5,28 @@
 
     <group android:id="@+id/group_navs" android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_personal_cabinet"
+            android:id="@+id/nav_user_profile"
             android:icon="@drawable/baseline_account_circle_24"
-            android:title="Personal Cabinet" />
+            android:title="@string/user_profile" />
 
         <item
             android:id="@+id/nav_car_acceptance"
             android:icon="@drawable/baseline_airport_shuttle_24"
-            android:title="Car Acceptance" />
+            android:title="@string/car_acceptance" />
 
         <item
             android:id="@+id/nav_driver_regulations"
             android:icon="@drawable/baseline_assignment_24"
-            android:title="Driver Regulations" />
+            android:title="@string/driver_regulations" />
 
         <item
             android:id="@+id/nav_driver_help"
             android:icon="@drawable/baseline_help_outline_24"
-            android:title="Driver Help" />
+            android:title="@string/driver_help" />
 
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/baseline_logout_24"
-            android:title="Logout" />
+            android:title="@string/logout" />
     </group>
 </menu>

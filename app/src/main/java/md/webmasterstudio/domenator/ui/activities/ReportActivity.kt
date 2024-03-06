@@ -9,8 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
-import md.webmasterstudio.domenator.ui.adapters.NotificationAdapter
-import md.webmasterstudio.domenator.ui.adapters.NotificationItem
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
 import md.webmasterstudio.domenator.ui.adapters.ReportItem
 
@@ -28,13 +26,21 @@ class ReportActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // Create dummy list of notifications
+
+        val date = intent.getStringExtra("date")
+        val km = intent.getStringExtra("km") + " km"
+        val licencePlateNr = intent.getStringExtra("licencePlateNr")
+
+        binding.licencePlateNrTV.text = licencePlateNr
+        binding.titleKm.text = km
+        binding.titleDate.text = date
+
         val reports = mutableListOf<ReportItem>()
-        for (i in 10 downTo 1) {
-            val date = "2024-03-$i" // Example date
-            val report = ReportItem(date, "002569 km", "150 L | 26.80 $/L")
-            reports.add(report)
-        }
+//        for (i in 10 downTo 1) {
+//            val date = "2024-03-$i" // Example date
+//            val report = ReportItem(date, "002569 km", "150 L | 26.80 $/L")
+//            reports.add(report)
+//        }
 
         // Create adapter and set it to ListView or RecyclerView
 
@@ -57,8 +63,8 @@ class ReportActivity : AppCompatActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             binding.activityReportMainLayout.close()
             when (menuItem.itemId) {
-                R.id.nav_personal_cabinet -> {
-                    // Open personal cabinet
+                R.id.nav_user_profile -> {
+                    // Open user profile
                     startActivity(Intent(this, UserProfileActivity::class.java))
                     return@setNavigationItemSelectedListener true
                 }
