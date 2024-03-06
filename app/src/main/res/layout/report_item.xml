@@ -9,11 +9,13 @@
     </data>
 
     <LinearLayout
+        android:gravity="top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
+            android:layout_marginTop="2dp"
             android:id="@+id/reportDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -21,29 +23,49 @@
             android:textColor="@color/app_text_gray"
             android:textSize="13sp" />
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
 
-            <!-- Dot -->
             <View
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:background="@drawable/listdot"/>
-
-            <!-- Stroke -->
-            <View
+                android:layout_centerInParent="true"
                 android:id="@+id/stroke"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@color/report_stroke"/>
 
-        </LinearLayout>
+            <View
+                android:visibility="invisible"
+                android:id="@+id/whiteHelperStroke"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_width="1dp"
+                android:layout_height="6dp"
+                android:background="@color/primary_white"/>
+
+            <View
+                android:visibility="invisible"
+                android:id="@+id/grayHelperStroke"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_width="1dp"
+                android:layout_height="6dp"
+                android:background="@color/report_stroke"/>
+
+            <View
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:background="@drawable/ic_dot"/>
+
+        </RelativeLayout>
 
         <LinearLayout
+            android:layout_marginBottom="25dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
@@ -67,6 +89,7 @@
         </LinearLayout>
 
         <ImageButton
+            android:layout_marginTop="5dp"
             android:background="@color/transparent"
             android:src="@drawable/ic_crayon"
             android:layout_width="0dp"

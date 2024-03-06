@@ -1,14 +1,14 @@
 package md.webmasterstudio.domenator.ui.adapters
 
-import android.net.Uri
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import md.webmasterstudio.domenator.R
+
 
 class ReportItem(val date: String, val km: String, val quantityAndPricePerUnit: String)
 
@@ -25,6 +25,13 @@ class ReportAdapter(private var reportItems: List<ReportItem>) :
         holder.reportDate.text = reportItem.date
         holder.reportDistance.text = reportItem.km
         holder.reportConsumption.text = reportItem.quantityAndPricePerUnit
+
+        if (position == reportItems.lastIndex) {
+            holder.stroke.visibility = View.INVISIBLE
+            holder.grayHelperStroke.visibility = View.VISIBLE
+        } else if (position == 0) {
+            holder.whiteHelperStroke.visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount() = reportItems.size
@@ -38,6 +45,9 @@ class ReportAdapter(private var reportItems: List<ReportItem>) :
         val reportDate: TextView = itemView.findViewById(R.id.reportDate)
         val reportDistance: TextView = itemView.findViewById(R.id.reportDistance)
         val reportConsumption: TextView = itemView.findViewById(R.id.reportConsumption)
+        val stroke: View = itemView.findViewById(R.id.stroke)
+        val whiteHelperStroke: View = itemView.findViewById(R.id.whiteHelperStroke)
+        val grayHelperStroke: View = itemView.findViewById(R.id.grayHelperStroke)
     }
 
 }

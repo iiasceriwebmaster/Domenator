@@ -28,9 +28,9 @@ class ReportActivity : AppCompatActivity() {
         }
         // Create dummy list of notifications
         val reports = mutableListOf<ReportItem>()
-        for (i in 1..10) {
+        for (i in 10 downTo 1) {
             val date = "2024-03-$i" // Example date
-            val report = ReportItem(date, "002569 km", "150 L | 26.80$/L")
+            val report = ReportItem(date, "002569 km", "150 L | 26.80 $/L")
             reports.add(report)
         }
 
