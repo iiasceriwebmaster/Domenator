@@ -23,10 +23,8 @@ class ReportAdapter(private var reportItems: List<ReportItem>) :
     override fun onBindViewHolder(holder: ReportViewHolder, position: Int) {
         val reportItem = reportItems[position]
         holder.reportDate.text = reportItem.date
-        // Load image into ImageView using Glide or Picasso or any other image loading library
-//        Glide.with(holder.itemView)
-//            .load(imageUri)
-//            .into(holder.imageView)
+        holder.reportDistance.text = reportItem.km
+        holder.reportConsumption.text = reportItem.quantityAndPricePerUnit
     }
 
     override fun getItemCount() = reportItems.size
@@ -38,6 +36,8 @@ class ReportAdapter(private var reportItems: List<ReportItem>) :
 
     inner class ReportViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val reportDate: TextView = itemView.findViewById(R.id.reportDate)
+        val reportDistance: TextView = itemView.findViewById(R.id.reportDistance)
+        val reportConsumption: TextView = itemView.findViewById(R.id.reportConsumption)
     }
 
 }

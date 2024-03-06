@@ -15,6 +15,7 @@ import md.webmasterstudio.domenator.md.webmasterstudio.domenator.adapters.ImageA
 import md.webmasterstudio.domenator.ui.viewmodels.CarReceptionViewModel
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 import md.webmasterstudio.domenator.ui.activities.NotificationActivity
+import md.webmasterstudio.domenator.ui.activities.ReportActivity
 
 class CarReceptionActivity : AppCompatActivity() {
 

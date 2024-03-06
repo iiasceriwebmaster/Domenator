@@ -34,7 +34,7 @@
             android:name=".md.webmasterstudio.domenator.activities.CarReceptionActivity"
             android:exported="true" />
         <activity
-            android:name=".md.webmasterstudio.domenator.activities.ReportActivity"
+            android:name=".ui.activities.ReportActivity"
             android:exported="true" />
         <activity
             android:name=".md.webmasterstudio.domenator.activities.login.LoginActivity"

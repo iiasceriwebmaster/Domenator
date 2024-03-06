@@ -1,4 +1,4 @@
-package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities
+package md.webmasterstudio.domenator.ui.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

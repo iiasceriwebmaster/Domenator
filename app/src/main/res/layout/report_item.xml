@@ -15,15 +15,38 @@
 
         <TextView
             android:id="@+id/reportDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
+            android:layout_weight="2"
             android:textColor="@color/app_text_gray"
             android:textSize="13sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <!-- Dot -->
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:background="@drawable/listdot"/>
+
+            <!-- Stroke -->
+            <View
+                android:id="@+id/stroke"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/report_stroke"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="6"
             android:orientation="vertical">
 
             <TextView
@@ -32,21 +55,23 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:textStyle="bold">
-
-            </TextView>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/reportConsumption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/app_text_gray"
-                android:textSize="13sp">
-
-            </TextView>
-
+                android:textSize="13sp" />
 
         </LinearLayout>
+
+        <ImageButton
+            android:background="@color/transparent"
+            android:src="@drawable/ic_crayon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </layout>
