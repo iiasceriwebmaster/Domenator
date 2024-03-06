@@ -36,4 +36,6 @@
     <string name="title">Title</string>
     <string name="km_title">002569 km</string>
     <string name="title_date">01.01.2023</string>
+    <string name="no_records_yet">You have no records yet. Press the \'+\' button to add fuel data.</string>
+    <string name="you_didn_t_add_any_photos_yet_press_button_to_add_them">You didn\'t add any photos yet, press 📷 button to add them</string>
 </resources>

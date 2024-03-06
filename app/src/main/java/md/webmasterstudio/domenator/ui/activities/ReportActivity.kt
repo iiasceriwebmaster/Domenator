@@ -1,6 +1,8 @@
 package md.webmasterstudio.domenator.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,7 +37,64 @@ class ReportActivity : AppCompatActivity() {
         }
 
         // Create adapter and set it to ListView or RecyclerView
+
+        if (reports.isNotEmpty()) {
+            binding.emptyTextLL.visibility = View.GONE
+            binding.reportRecyclerView.visibility = View.VISIBLE
+        }
+
         val adapter = ReportAdapter(reports)
         binding.reportRecyclerView.adapter = adapter
+
+        binding.rightButton.setOnClickListener {
+            startActivity(Intent(this, NotificationActivity::class.java))
+        }
+
+        binding.leftButton.setOnClickListener {
+            binding.activityReportMainLayout.open()
+        }
+        binding.navView.menu.getItem(0).isChecked = false
+        binding.navView.setNavigationItemSelectedListener { menuItem ->
+            binding.activityReportMainLayout.close()
+            when (menuItem.itemId) {
+                R.id.nav_personal_cabinet -> {
+                    // Open personal cabinet
+                    startActivity(Intent(this, UserProfileActivity::class.java))
+                    return@setNavigationItemSelectedListener true
+                }
+
+                R.id.nav_car_acceptance -> {
+                    // Open car acceptance activity
+                    startActivity(Intent(this, CarReceptionActivity::class.java))
+                    return@setNavigationItemSelectedListener true
+                }
+
+                R.id.nav_driver_regulations -> {
+                    // Open driver regulations activity
+                    val intent = Intent(this, TextualActivity::class.java)
+                    intent.putExtra("txt", "driver regulations")
+                    startActivity(intent)
+                    return@setNavigationItemSelectedListener true
+                }
+
+                R.id.nav_driver_help -> {
+                    // Open driver help activity
+                    val intent = Intent(this, TextualActivity::class.java)
+                    intent.putExtra("txt", "driver help")
+                    startActivity(intent)
+                    return@setNavigationItemSelectedListener true
+                }
+
+                R.id.nav_logout -> {
+                    // Perform logout action
+//                logoutUser()
+                    return@setNavigationItemSelectedListener true
+                }
+
+                else -> return@setNavigationItemSelectedListener super.onOptionsItemSelected(
+                    menuItem
+                )
+            }
+        }
     }
 }

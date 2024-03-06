@@ -103,6 +103,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
                 android:id="@+id/grid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -112,6 +113,25 @@
                 app:spanCount="4"
                 tools:itemCount="12"
                 tools:listitem="@layout/image_item" />
+
+
+            <LinearLayout
+                android:layout_marginHorizontal="60dp"
+                android:id="@+id/emptyTextLL"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:textAlignment="center"
+                    android:text="@string/you_didn_t_add_any_photos_yet_press_button_to_add_them"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/app_text_gray"
+                    android:textSize="@dimen/s_txt_size"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -2,6 +2,7 @@ package md.webmasterstudio.domenator.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -82,15 +83,18 @@ class CarReceptionActivity : AppCompatActivity() {
         viewModel.selectedPhotos.observe(this, Observer { photos ->
             // Update adapter data
             adapter.updateData(photos)
+            updateEmptyUI()
         })
 
         viewModel.selectedDocuments.observe(this, Observer { documents ->
             // Update adapter data
             adapter.updateData(documents)
+            updateEmptyUI()
         })
 
         // Observing radio button changes
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            updateEmptyUI()
             when (checkedId) {
                 R.id.radioBtnPhotos -> {
                     // Load selected photos
@@ -129,5 +133,27 @@ class CarReceptionActivity : AppCompatActivity() {
 
     private fun isDocument(): Boolean {
         return binding.radioGroup.checkedRadioButtonId == R.id.radioBtnDocuments
+    }
+
+    private fun updateEmptyUI() {
+        if (isDocument()) {
+            val documents = viewModel.selectedDocuments.value ?: mutableListOf()
+            if (documents.size > 0) {
+                binding.emptyTextLL.visibility = View.GONE
+                binding.grid.visibility = View.VISIBLE
+            } else {
+                binding.emptyTextLL.visibility = View.VISIBLE
+                binding.grid.visibility = View.GONE
+            }
+        } else {
+            val photos = viewModel.selectedPhotos.value ?: mutableListOf()
+            if (photos.size > 0) {
+                binding.emptyTextLL.visibility = View.GONE
+                binding.grid.visibility = View.VISIBLE
+            } else {
+                binding.emptyTextLL.visibility = View.VISIBLE
+                binding.grid.visibility = View.GONE
+            }
+        }
     }
 }
