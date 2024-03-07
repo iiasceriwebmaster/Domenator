@@ -3,6 +3,7 @@ package md.webmasterstudio.domenator.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityMainBinding
+import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
 import md.webmasterstudio.domenator.ui.fragments.CarInfoItem
 
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
 
                 R.id.nav_logout -> {
                     // Perform logout action
-//                logoutUser()
+                    logoutUser()
                     return@setNavigationItemSelectedListener true
                 }
 
@@ -86,6 +88,20 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
                 )
             }
         }
+
+        updateNavigationHeader(
+            intent.getStringExtra("name")!!,
+            intent.getStringExtra("surname")!!,
+            intent.getStringExtra("dateOfBirth")!!
+        )
+    }
+
+    fun logoutUser() {
+        // Perform logout action, such as clearing user session and navigating to the login screen
+        // For example:
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish() // Finish the MainActivity to prevent returning to it after logout
     }
 
 
@@ -116,5 +132,12 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
     override fun onBackPressed() {
         finish()
         super.onBackPressed()
+    }
+
+    fun updateNavigationHeader(name: String, surname: String, dateOfBirth: String) {
+        val headerView = binding.navView.getHeaderView(0)
+        val fullName = "$name $surname"
+        headerView.findViewById<TextView>(R.id.nav_header_title).text = fullName
+        headerView.findViewById<TextView>(R.id.nav_header_subtitle).text = dateOfBirth
     }
 }

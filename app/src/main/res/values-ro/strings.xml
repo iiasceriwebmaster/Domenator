@@ -22,8 +22,8 @@
     <string name="title_activity_nav">ActivitateNav</string>
     <string name="navigation_drawer_open">Deschideți sertarul de navigare</string>
     <string name="navigation_drawer_close">Închideți sertarul de navigare</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">John Doe</string>
+    <string name="nav_header_subtitle">03.10.1999</string>
     <string name="nav_header_desc">Antet de navigare</string>
     <string name="action_settings">Setări</string>
 

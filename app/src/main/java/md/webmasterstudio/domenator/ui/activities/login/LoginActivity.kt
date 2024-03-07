@@ -1,4 +1,4 @@
-package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login
+package md.webmasterstudio.domenator.ui.activities.login
 
 import android.app.Activity
 import android.content.Intent
@@ -16,8 +16,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
+import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoggedInUserView
 import md.webmasterstudio.domenator.ui.activities.MainActivity
-import md.webmasterstudio.domenator.ui.activities.login.LoginViewModel
 import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
@@ -137,16 +137,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+        val name = model.name
+        val surname = model.surname
+        val dateOfBirth = model.dateOfBirth
 
         // Start the new activity
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("name", name)
+        intent.putExtra("surname", surname)
+        intent.putExtra("dateOfBirth", dateOfBirth)
         startActivity(intent)
     }
 

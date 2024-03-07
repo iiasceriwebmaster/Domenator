@@ -40,7 +40,7 @@
             android:exported="true" />
         <activity
             android:launchMode="singleTop"
-            android:name=".md.webmasterstudio.domenator.activities.login.LoginActivity"
+            android:name=".ui.activities.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
