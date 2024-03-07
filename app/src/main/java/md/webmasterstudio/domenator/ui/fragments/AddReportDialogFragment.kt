@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
@@ -65,27 +66,9 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
             editTextDate.setText(currentDate)
         }
 
-        // Text change listeners for EditText fields
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                // Check if all EditText fields are filled
-                val date = editTextDate.text.toString()
-                val km = editTextKM.text.toString()
-                val fuel = editTextFuel.text.toString()
-                val price = editTextPrice.text.toString()
-                changeErrorState(editTextKM, editTextKM.isFocused && km.isBlank())
-                changeErrorState(editTextFuel, editTextFuel.isFocused && fuel.isBlank())
-                changeErrorState(editTextPrice, editTextPrice.isFocused && price.isBlank())
-            }
-        }
-
-        editTextKM.addTextChangedListener(textWatcher)
-        editTextFuel.addTextChangedListener(textWatcher)
-        editTextPrice.addTextChangedListener(textWatcher)
+        editTextKM.addTextChangedListener(createTextWatcher(editTextKM))
+        editTextFuel.addTextChangedListener(createTextWatcher(editTextFuel))
+        editTextPrice.addTextChangedListener(createTextWatcher(editTextPrice))
 
         liveDate.observe(this) {
             editTextDate.setText(it)
@@ -149,6 +132,29 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
         }
 
         return dialog
+    }
+//
+//    // Function to move cursor to the start of " km" suffix
+//    private fun moveCursorToKmSuffix(editText: EditText) {
+//        val text = editText.text.toString()
+//        val kmIndex = text.indexOf(" km")
+//        if (kmIndex != -1) {
+//            // Move cursor to the start of " km" suffix
+//            editText.setSelection(kmIndex)
+//        }
+//    }
+
+    private fun createTextWatcher(editText: EditText): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val text = editText.text.toString()
+                changeErrorState(editText, editText.isFocused && text.isBlank())
+            }
+        }
     }
 
     fun changeErrorState(editText: EditText, isError: Boolean = true) {
