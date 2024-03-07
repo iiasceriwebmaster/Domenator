@@ -20,7 +20,7 @@
             android:id="@+id/editTextDate"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="6"
+            android:layout_weight="7"
             android:background="@drawable/edit_text_background"
             android:cursorVisible="false"
             android:drawableStart="@drawable/calendar_add_on_black"

@@ -58,4 +58,7 @@ dependencies {
     // Add Glide dependency
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
+    // Anim
+    implementation("com.daimajia.androidanimations:library:2.4@aar")
 }

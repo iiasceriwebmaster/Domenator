@@ -34,7 +34,7 @@
 
     <EditText
         android:drawablePadding="8dp"
-        android:drawableStart="@drawable/ic_km_black"
+        android:drawableStart="@drawable/ic_km_black_24"
         android:textColor="@color/black"
         android:textColorHint="@color/grey"
         android:id="@+id/editTextKM"

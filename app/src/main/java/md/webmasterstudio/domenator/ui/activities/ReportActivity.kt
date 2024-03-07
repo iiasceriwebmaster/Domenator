@@ -18,6 +18,7 @@ class ReportActivity : AppCompatActivity(),
 
     private lateinit var binding: ActivityReportBinding
     lateinit var reports: MutableList<ReportItem>
+    var editReportDialogItemPosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,7 @@ class ReportActivity : AppCompatActivity(),
         binding.titleDate.text = date
 
         binding.standardFab.setOnClickListener {
+            editReportDialogItemPosition = -1
             showDialog()
         }
 
@@ -112,7 +114,11 @@ class ReportActivity : AppCompatActivity(),
     }
 
     override fun onReportInfoAdded(reportItem: ReportItem) {
-        reports.add(reportItem)
+        if (editReportDialogItemPosition == -1)
+            reports.add(0, reportItem)
+        else {
+            reports[editReportDialogItemPosition] = reportItem
+        }
         updateListUI()
     }
 
@@ -125,10 +131,16 @@ class ReportActivity : AppCompatActivity(),
             binding.reportRecyclerView.visibility = View.GONE
         }
 
-        val adapter = ReportAdapter(reports) {
-            val reportItem = reports[it]
+        val onEditClick: (Int) -> Unit = { position ->
+            editReportDialogItemPosition = position
+
+            val reportItem = reports[position]
             showDialog(reportItem)
         }
+
+        reports.sortByDescending { it.date }
+
+        val adapter = ReportAdapter(reports, onEditClick)
         binding.reportRecyclerView.adapter = adapter
     }
 

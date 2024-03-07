@@ -6,13 +6,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.ui.adapters.ReportItem
 import java.text.SimpleDateFormat
@@ -20,9 +22,16 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+enum class ConfirmButtonName(val value: String) {
+    ADD("Add"),
+    EDIT("Edit")
+}
+
 class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     val liveDate = MutableLiveData<String>()
+    var confirmButtonIsAdd = true
+    var confirmButtonName = ConfirmButtonName.ADD.value
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
@@ -37,6 +46,8 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
         val changeBtn = view.findViewById<Button>(R.id.pickDateBtn)
 
         if (arguments != null) {
+            confirmButtonIsAdd = false
+
             // Retrieve data from arguments bundle
             val km = arguments?.getString("km")
             val date = arguments?.getString("date")
@@ -48,6 +59,8 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
             editTextFuel.setText(quantity)
             editTextPrice.setText(pricePerUnit)
         } else {
+            confirmButtonIsAdd = true
+
             val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
             editTextDate.setText(currentDate)
         }
@@ -90,12 +103,19 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
             datePicker.show()
         }
 
+        updateConfirmButtonName()
 
-
-        builder.setView(view)
+        val dialog = builder.setView(view)
             .setTitle("Add Report Info")
-            .setPositiveButton("Add") { dialog, _ ->
+            .setPositiveButton(confirmButtonName, null)
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+            .create()
 
+        dialog.setOnShowListener {
+            val addBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            addBtn.setOnClickListener {
                 // Retrieve data from EditText fields and pass it back to the activity
                 val date = editTextDate.text.toString()
                 val km = editTextKM.text.toString()
@@ -105,18 +125,30 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
                 if (km.isNotBlank() && fuel.isNotBlank() && price.isNotBlank()) {
                     val reportItem = ReportItem(date, km, fuel, price)
                     // Pass the data back to the activity
-                    (requireActivity() as? DialogAddReportFragmentListener)?.onReportInfoAdded(reportItem)
+                    (requireActivity() as? DialogAddReportFragmentListener)?.onReportInfoAdded(
+                        reportItem
+                    )
                     dialog.dismiss() // Dismiss the dialog after adding
                 } else {
-                    // Show a message indicating that at least one field is required
-                    Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                    dialog.setTitle("Please fill in all fields")
+                    changeErrorState(editTextKM, km.isBlank())
+                    changeErrorState(editTextFuel, fuel.isBlank())
+                    changeErrorState(editTextPrice, price.isBlank())
+
+                    if (km.isBlank()) {
+                        applyAnimation(editTextKM)
+                    }
+                    if (fuel.isBlank()) {
+                        applyAnimation(editTextFuel)
+                    }
+                    if (price.isBlank()) {
+                        applyAnimation(editTextPrice)
+                    }
                 }
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.cancel()
-            }
+        }
 
-        return builder.create()
+        return dialog
     }
 
     fun changeErrorState(editText: EditText, isError: Boolean = true) {
@@ -131,6 +163,30 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        liveDate.postValue("$dayOfMonth-$month-$year")
+        // Create a Calendar instance and set the selected date
+        val selectedDate = Calendar.getInstance().apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, month)
+            set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        }.time
+
+        // Format the selected date
+        val formattedDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(selectedDate)
+
+        // Update the liveDate LiveData with the formatted date
+        liveDate.postValue(formattedDate)
+    }
+
+    private fun updateConfirmButtonName() {
+        confirmButtonName = if (confirmButtonIsAdd)
+            ConfirmButtonName.ADD.value
+        else
+            ConfirmButtonName.EDIT.value
+    }
+
+    private fun applyAnimation(view: View) {
+        YoYo.with(Techniques.Shake)
+            .duration(700)
+            .playOn(view)
     }
 }
