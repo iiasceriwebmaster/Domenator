@@ -18,7 +18,7 @@ class ReportActivity : AppCompatActivity(),
     AddReportDialogFragment.DialogAddReportFragmentListener {
 
     private lateinit var binding: ActivityReportBinding
-    lateinit var reports: MutableList<ReportItem>
+    private lateinit var reports: MutableList<ReportItem>
     var editReportDialogItemPosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
