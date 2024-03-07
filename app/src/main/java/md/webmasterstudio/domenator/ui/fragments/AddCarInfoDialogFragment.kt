@@ -70,7 +70,7 @@ class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetLis
         }
 
         val dialog = builder.setView(view)
-            .setTitle("Add Report Info")
+            .setTitle("Add Car Info")
             .setPositiveButton("Add", null)
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.cancel()

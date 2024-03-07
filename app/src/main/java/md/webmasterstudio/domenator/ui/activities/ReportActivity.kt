@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
+import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
 import md.webmasterstudio.domenator.ui.adapters.ReportItem
 import md.webmasterstudio.domenator.ui.fragments.AddReportDialogFragment
@@ -45,12 +46,7 @@ class ReportActivity : AppCompatActivity(),
             showDialog()
         }
 
-        reports = mutableListOf<ReportItem>()
-//        for (i in 10 downTo 1) {
-//            val date = "2024-03-$i" // Example date
-//            val report = ReportItem(date, "002569 km", "150 L | 26.80 $/L")
-//            reports.add(report)
-//        }
+        reports = mutableListOf()
 
         updateListUI()
 
@@ -103,7 +99,7 @@ class ReportActivity : AppCompatActivity(),
 
                 R.id.nav_logout -> {
                     // Perform logout action
-//                logoutUser()
+                    logoutUser()
                     return@setNavigationItemSelectedListener true
                 }
 
@@ -157,6 +153,12 @@ class ReportActivity : AppCompatActivity(),
             dialog.arguments = bundle
         }
         dialog.show(supportFragmentManager, "AddReportDialogFragment")
+    }
+
+    fun logoutUser() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 

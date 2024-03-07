@@ -41,7 +41,6 @@ class NotificationAdapter(context: Context, notificationItems: List<Notification
         notificationPreview.text = notification?.content
 
         if (notification != null) {
-            Log.d("NotificationAdapter", "updateUI called for position $position with isExpanded: ${notification.isExpanded}")
             if (notification.isExpanded) {
 
                 notificationPreview.maxLines = Int.MAX_VALUE
@@ -58,14 +57,11 @@ class NotificationAdapter(context: Context, notificationItems: List<Notification
 
         // Set click listener on entire item view
         mConvertView.setOnClickListener {
-            Log.d("NotificationAdapter", "Click listener called for position $position")
             notificationStatusIV.visibility = View.GONE
             notification?.isExpanded = notification?.isExpanded?.xor(true) == true
-            Log.d("NotificationAdapter", "isExpanded set to: ${notification?.isExpanded}")
 
 
             if (notification != null) {
-                Log.d("NotificationAdapter", "updateUI called for position $position with isExpanded: ${notification.isExpanded}")
                 if (notification.isExpanded) {
 
                     notificationPreview.maxLines = Int.MAX_VALUE
@@ -79,7 +75,6 @@ class NotificationAdapter(context: Context, notificationItems: List<Notification
             mConvertView.post {
                 tapToSeeMore.visibility = if (notification?.isExpanded == true) View.GONE else View.VISIBLE
             }
-            Log.d("NotificationAdapter", "After updateUI, isExpanded is now: ${notification?.isExpanded}")
         }
 
         // Update visibility based on isExpanded state
