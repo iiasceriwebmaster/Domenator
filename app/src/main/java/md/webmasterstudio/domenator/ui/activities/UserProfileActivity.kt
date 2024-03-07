@@ -40,6 +40,10 @@ class UserProfileActivity : AppCompatActivity() {
             insets
         }
 
+        binding.leftButton.setOnClickListener {
+            onBackPressed()
+        }
+
         // Mock user data
         val user = getMockUserData()
 

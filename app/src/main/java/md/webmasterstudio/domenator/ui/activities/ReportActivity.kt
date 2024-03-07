@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
@@ -156,5 +157,14 @@ class ReportActivity : AppCompatActivity(),
             dialog.arguments = bundle
         }
         dialog.show(supportFragmentManager, "AddReportDialogFragment")
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        // Clear selected item in the navigation drawer
+        binding.navView.menu.forEachIndexed { index, item ->
+            item.isChecked = false
+        }
     }
 }

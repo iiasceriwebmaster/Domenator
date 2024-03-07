@@ -1,6 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <import type="android.view.View"/>
 
         <variable
             name="notification"
@@ -9,47 +10,64 @@
     </data>
 
     <LinearLayout
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@color/primary_color"
+        android:orientation="horizontal"
         android:padding="8dp">
 
-        <TextView
-            android:textColor="@color/white"
-            android:id="@+id/notificationDate"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_weight="9"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="@{notification.date}" />
+            android:orientation="vertical">
 
-        <TextView
-            android:textColor="@color/white"
-            android:id="@+id/notificationTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="@{notification.title}" />
+            <TextView
+                android:id="@+id/notificationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{notification.date}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:textColor="@color/white"
-            android:id="@+id/notificationContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@{notification.content}" />
+            <TextView
+                android:id="@+id/notificationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{notification.title}"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:textColor="@color/white"
-            android:id="@+id/tapToSeeMore"
+            <TextView
+                android:id="@+id/notificationContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{notification.content}"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tapToSeeMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tap_to_see_more"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/notificationStatusIV"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:src="@drawable/priority_high_36"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="@string/tap_to_see_more" />
+            android:layout_height="wrap_content" />
+        />
 
     </LinearLayout>
 
