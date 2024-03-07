@@ -12,5 +12,6 @@
     <color name="black">#000000</color> <!-- Dark text color -->
     <color name="grey">#808080</color> <!-- Light hint color -->
     <color name="report_stroke">#809598B6</color> <!-- Light hint color -->
+    <color name="red">#FF0000</color> <!-- Light hint color -->
 
 </resources>

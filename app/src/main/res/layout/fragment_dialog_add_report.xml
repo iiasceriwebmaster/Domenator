@@ -2,11 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center"
+    android:id="@+id/fragmentLL"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context="md.webmasterstudio.domenator.ui.fragments.AddReportDialogFragment">
 
     <LinearLayout
+        android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -20,7 +24,6 @@
             android:background="@drawable/edit_text_background"
             android:cursorVisible="false"
             android:drawableStart="@drawable/calendar_add_on_black"
-            android:drawablePadding="8dp"
             android:hint="@string/date"
             android:focusable="false"
             android:focusableInTouchMode="false"
@@ -32,7 +35,7 @@
             android:textSize="@dimen/s_txt_size"
             android:textColor="@color/white"
             android:backgroundTint="@color/primary_color"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:id="@+id/pickDateBtn"
             android:layout_width="wrap_content"

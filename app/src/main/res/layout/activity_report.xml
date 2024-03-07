@@ -160,6 +160,7 @@
             app:layout_anchorGravity="bottom|center">
 
             <Button
+                android:id="@+id/finishReportBtn"
                 style="@style/MainBtnStyle"
                 android:text="@string/finish_report" />
         </LinearLayout>

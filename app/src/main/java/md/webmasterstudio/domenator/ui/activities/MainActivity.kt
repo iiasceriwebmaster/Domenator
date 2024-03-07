@@ -112,4 +112,9 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
 
         startActivity(intent)
     }
+
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
+    }
 }

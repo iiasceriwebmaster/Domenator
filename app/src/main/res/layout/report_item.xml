@@ -89,6 +89,7 @@
         </LinearLayout>
 
         <ImageButton
+            android:id="@+id/editReportBtn"
             android:layout_marginTop="5dp"
             android:background="@color/transparent"
             android:src="@drawable/ic_crayon"

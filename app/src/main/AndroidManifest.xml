@@ -19,21 +19,27 @@
         tools:ignore="HardcodedDebugMode"
         tools:targetApi="31">
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.activities.TextualActivity"
             android:exported="false" />
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.activities.UserProfileActivity"
             android:exported="false" />
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.activities.NotificationActivity"
             android:exported="false" />
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.activities.CarReceptionActivity"
             android:exported="true" />
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.activities.ReportActivity"
             android:exported="true" />
         <activity
+            android:launchMode="singleTop"
             android:name=".md.webmasterstudio.domenator.activities.login.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -43,6 +49,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:launchMode="singleTop"
             android:name=".ui.activities.MainActivity"
             android:exported="true" />
     </application>

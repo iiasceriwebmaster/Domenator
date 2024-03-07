@@ -52,7 +52,7 @@ class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetLis
 
 
         builder.setView(view)
-            .setTitle("Add Info")
+            .setTitle("Add Car Info")
             .setPositiveButton("Add") { _, _ ->
                 // Retrieve data from EditText fields and pass it back to the activity
                 val date = editTextDate.text.toString()

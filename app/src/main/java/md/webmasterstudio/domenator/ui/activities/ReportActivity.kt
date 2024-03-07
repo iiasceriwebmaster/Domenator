@@ -11,12 +11,13 @@ import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
 import md.webmasterstudio.domenator.ui.adapters.ReportItem
-import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
 import md.webmasterstudio.domenator.ui.fragments.AddReportDialogFragment
 
-class ReportActivity : AppCompatActivity(), AddReportDialogFragment.DialogAddReportFragmentListener {
+class ReportActivity : AppCompatActivity(),
+    AddReportDialogFragment.DialogAddReportFragmentListener {
 
     private lateinit var binding: ActivityReportBinding
+    lateinit var reports: MutableList<ReportItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,26 +39,18 @@ class ReportActivity : AppCompatActivity(), AddReportDialogFragment.DialogAddRep
         binding.titleDate.text = date
 
         binding.standardFab.setOnClickListener {
-            val dialog = AddReportDialogFragment()
-            dialog.show(supportFragmentManager, "AddReportDialogFragment")
+            showDialog()
         }
 
-        val reports = mutableListOf<ReportItem>()
+        reports = mutableListOf<ReportItem>()
 //        for (i in 10 downTo 1) {
 //            val date = "2024-03-$i" // Example date
 //            val report = ReportItem(date, "002569 km", "150 L | 26.80 $/L")
 //            reports.add(report)
 //        }
 
-        // Create adapter and set it to ListView or RecyclerView
+        updateListUI()
 
-        if (reports.isNotEmpty()) {
-            binding.emptyTextLL.visibility = View.GONE
-            binding.reportRecyclerView.visibility = View.VISIBLE
-        }
-
-        val adapter = ReportAdapter(reports)
-        binding.reportRecyclerView.adapter = adapter
 
         binding.rightButton.setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
@@ -66,6 +59,13 @@ class ReportActivity : AppCompatActivity(), AddReportDialogFragment.DialogAddRep
         binding.leftButton.setOnClickListener {
             binding.activityReportMainLayout.open()
         }
+
+
+        binding.finishReportBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.navView.menu.getItem(0).isChecked = false
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             binding.activityReportMainLayout.close()
@@ -112,6 +112,37 @@ class ReportActivity : AppCompatActivity(), AddReportDialogFragment.DialogAddRep
     }
 
     override fun onReportInfoAdded(reportItem: ReportItem) {
+        reports.add(reportItem)
+        updateListUI()
+    }
 
+    private fun updateListUI() {
+        if (reports.isNotEmpty()) {
+            binding.emptyTextLL.visibility = View.GONE
+            binding.reportRecyclerView.visibility = View.VISIBLE
+        } else {
+            binding.emptyTextLL.visibility = View.VISIBLE
+            binding.reportRecyclerView.visibility = View.GONE
+        }
+
+        val adapter = ReportAdapter(reports) {
+            val reportItem = reports[it]
+            showDialog(reportItem)
+        }
+        binding.reportRecyclerView.adapter = adapter
+    }
+
+    private fun showDialog(reportItem: ReportItem? = null) {
+        val dialog = AddReportDialogFragment()
+
+        if (reportItem != null) {
+            val bundle = Bundle()
+            bundle.putString("km", reportItem.km)
+            bundle.putString("date", reportItem.date)
+            bundle.putString("pricePerUnit", reportItem.pricePerUnit)
+            bundle.putString("quantity", reportItem.quantity)
+            dialog.arguments = bundle
+        }
+        dialog.show(supportFragmentManager, "AddReportDialogFragment")
     }
 }

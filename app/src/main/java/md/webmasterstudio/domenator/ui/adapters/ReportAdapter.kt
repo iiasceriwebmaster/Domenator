@@ -1,6 +1,7 @@
 package md.webmasterstudio.domenator.ui.adapters
 
 import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import md.webmasterstudio.domenator.R
 
 class ReportItem(val date: String, val km: String, val quantity: String, val pricePerUnit: String)
 
-class ReportAdapter(private var reportItems: List<ReportItem>) :
+class ReportAdapter(private var reportItems: List<ReportItem>, private val onEditClick: (Int) -> Unit) :
     RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportViewHolder {
@@ -34,9 +35,18 @@ class ReportAdapter(private var reportItems: List<ReportItem>) :
         if (position == reportItems.lastIndex) {
             holder.stroke.visibility = View.INVISIBLE
             holder.grayHelperStroke.visibility = View.VISIBLE
-        } else if (position == 0) {
+        } else if (position == 0 && position != reportItems.lastIndex) {
             holder.whiteHelperStroke.visibility = View.VISIBLE
         }
+
+        holder.editReportBtn.setOnClickListener {
+            onEditClick(position)
+        }
+    }
+
+    fun updateData(newReportItems: List<ReportItem>) {
+        reportItems = newReportItems
+        notifyDataSetChanged()
     }
 
     override fun getItemCount() = reportItems.size
@@ -53,6 +63,8 @@ class ReportAdapter(private var reportItems: List<ReportItem>) :
         val stroke: View = itemView.findViewById(R.id.stroke)
         val whiteHelperStroke: View = itemView.findViewById(R.id.whiteHelperStroke)
         val grayHelperStroke: View = itemView.findViewById(R.id.grayHelperStroke)
+
+        val editReportBtn: View = itemView.findViewById(R.id.editReportBtn)
     }
 
 }
