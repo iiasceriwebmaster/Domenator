@@ -28,7 +28,8 @@ class ReportAdapter(private var reportItems: List<ReportItem>, private val onEdi
 
 
         val languageLiterSymbol = "L"
-        val fuelTxt = "${reportItem.quantity} $languageLiterSymbol | ${reportItem.pricePerUnit} \$/$languageLiterSymbol"
+        val languageCurrencySymbol = "€"
+        val fuelTxt = "${reportItem.quantity} $languageLiterSymbol | ${reportItem.pricePerUnit} $languageCurrencySymbol/$languageLiterSymbol"
 
         holder.reportConsumption.text = fuelTxt
 

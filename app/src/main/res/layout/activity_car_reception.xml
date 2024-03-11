@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="@dimen/margin_title_top"
-                android:text="Car reception"
+                android:text="@string/car_reception"
                 android:textColor="@color/white"
                 android:textSize="@dimen/m_txt_size">
 

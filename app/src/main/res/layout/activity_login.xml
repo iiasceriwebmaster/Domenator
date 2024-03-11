@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layout_anchor="@id/LL1">
 
@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DOMENATOR SP. Z O.O"
+                android:text="@string/domenator_business_name"
                 android:textColor="@color/white60">
 
             </TextView>
@@ -90,7 +90,7 @@
                     android:background="@drawable/edit_text_background"
                     android:drawableStart="@drawable/ic_email"
                     android:drawablePadding="8dp"
-                    android:hint="@string/prompt_email"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
                     android:selectAllOnFocus="true"
                     android:textColor="@color/black"
