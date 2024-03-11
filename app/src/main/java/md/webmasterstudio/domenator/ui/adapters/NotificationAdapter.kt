@@ -9,13 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.entity.Notification
 
-class NotificationItem(val date: String, val title: String, val content: String) {
-    var isExpanded: Boolean = false
-}
-
-class NotificationAdapter(context: Context, notificationItems: List<NotificationItem>) :
-    ArrayAdapter<NotificationItem>(context, 0, notificationItems) {
+class NotificationAdapter(context: Context, notificationItems: List<Notification>) :
+    ArrayAdapter<Notification>(context, 0, notificationItems) {
 
     companion object {
         const val TEXT_THRESHOLD_CHARACTERS = 45

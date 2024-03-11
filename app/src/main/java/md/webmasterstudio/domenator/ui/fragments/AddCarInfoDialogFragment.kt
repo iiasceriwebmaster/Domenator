@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
@@ -17,14 +16,11 @@ import androidx.lifecycle.MutableLiveData
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.ui.adapters.ReportItem
+import md.webmasterstudio.domenator.data.db.entity.CarInfo
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-
-
-data class CarInfoItem(val date: String, val km: String, val licencePlateNr: String)
 
 class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
@@ -69,10 +65,13 @@ class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetLis
             datePicker.show()
         }
 
+        val addCarInfoText = context?.resources?.getString(R.string.add_car_info)
+        val addText = context?.resources?.getString(R.string.add)
+        val cancelText = context?.resources?.getString(R.string.cancel)
         val dialog = builder.setView(view)
-            .setTitle("Add Car Info")
-            .setPositiveButton("Add", null)
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setTitle(addCarInfoText)
+            .setPositiveButton(addText, null)
+            .setNegativeButton(cancelText) { dialog, _ ->
                 dialog.cancel()
             }
             .create()
@@ -81,18 +80,24 @@ class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetLis
             val addBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
             addBtn.setOnClickListener {
                 val date = editTextDate.text.toString()
-                val km = editTextKM.text.toString().replace(" km", "")
+                val km = editTextKM.text.toString()
                 val licencePlateNr = editTextLicencePlateNr.text.toString()
 
                 // Pass the data back to the activity
 
                 if (km.isNotBlank() && licencePlateNr.isNotBlank()) {
-                    val carInfoItem = CarInfoItem(date, km, licencePlateNr)
+                    val carInfoItem = CarInfo(
+                        date = date,
+                        speedometerValue = km.toLong(),
+                        licencePlateNr = licencePlateNr
+                    )
                     // Pass the data back to the activity
                     (requireActivity() as? DialogAddCarFragmentListener)?.onCarInfoAdded(carInfoItem)
                     dialog.dismiss() // Dismiss the dialog after adding
                 } else {
-                    dialog.setTitle("Please fill in all fields")
+                    val pleaseFillInAllTheFieldsText =
+                        context?.resources?.getString(R.string.please_fill_in_all_fields)
+                    dialog.setTitle(pleaseFillInAllTheFieldsText)
                     changeErrorState(editTextKM, km.isBlank())
                     changeErrorState(editTextLicencePlateNr, licencePlateNr.isBlank())
 
@@ -119,30 +124,12 @@ class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetLis
             override fun afterTextChanged(s: Editable?) {
                 val text = editText.text.toString()
                 changeErrorState(editText, editText.isFocused && text.isBlank())
-//                val text = editText.text.toString().replace(" km", "")
-
-//                if (editText.id == R.id.editTextKM) {
-//                    editText.removeTextChangedListener(this) // Remove the TextWatcher temporarily
-//                    val newText = "$text km"
-//                    editText.setText(newText)
-//                    editText.setSelection(text.length) // Move cursor to the end
-//                    editText.addTextChangedListener(this) // Reattach the TextWatcher
-//                }
             }
         }
     }
 
-//    private fun moveCursorToKmSuffix(editText: EditText) {
-//        val text = editText.text.toString()
-//        val kmIndex = text.indexOf(" km")
-//        if (kmIndex != -1) {
-//            // Move cursor to the start of " km" suffix
-//            editText.setSelection(kmIndex)
-//        }
-//    }
-
     interface DialogAddCarFragmentListener {
-        fun onCarInfoAdded(carInfoItem: CarInfoItem)
+        fun onCarInfoAdded(carInfoItem: CarInfo)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

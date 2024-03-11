@@ -6,5 +6,6 @@ package md.webmasterstudio.domenator.data.model
 data class LoggedInUser(
     val name: String,
     val surname: String,
-    val dateOfBirth: String
+    val dateOfBirth: String,
+    val email: String
 )

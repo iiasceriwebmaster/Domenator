@@ -1,19 +1,17 @@
 package md.webmasterstudio.domenator.ui.adapters
 
-import android.graphics.Color
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.entity.ReportInfo
 
-
-class ReportItem(val date: String, val km: String, val quantity: String, val pricePerUnit: String)
-
-class ReportAdapter(private var reportItems: List<ReportItem>, private val onEditClick: (Int) -> Unit) :
+class ReportAdapter(
+    private var reportItems: List<ReportInfo>,
+    private val onEditClick: (Int) -> Unit
+) :
     RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReportViewHolder {
@@ -24,12 +22,13 @@ class ReportAdapter(private var reportItems: List<ReportItem>, private val onEdi
     override fun onBindViewHolder(holder: ReportViewHolder, position: Int) {
         val reportItem = reportItems[position]
         holder.reportDate.text = reportItem.date
-        holder.reportDistance.text = reportItem.km
+        holder.reportDistance.text = reportItem.speedometerValue.toString()
 
 
         val languageLiterSymbol = "L"
         val languageCurrencySymbol = "€"
-        val fuelTxt = "${reportItem.quantity} $languageLiterSymbol | ${reportItem.pricePerUnit} $languageCurrencySymbol/$languageLiterSymbol"
+        val fuelTxt =
+            "${reportItem.fuelAmount} $languageLiterSymbol | ${reportItem.fuelPrice} $languageCurrencySymbol/$languageLiterSymbol"
 
         holder.reportConsumption.text = fuelTxt
 
@@ -45,7 +44,7 @@ class ReportAdapter(private var reportItems: List<ReportItem>, private val onEdi
         }
     }
 
-    fun updateData(newReportItems: List<ReportItem>) {
+    fun updateData(newReportItems: List<ReportInfo>) {
         reportItems = newReportItems
         notifyDataSetChanged()
     }

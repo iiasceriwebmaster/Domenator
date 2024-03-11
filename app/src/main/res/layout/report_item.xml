@@ -4,7 +4,7 @@
 
         <variable
             name="report"
-            type="md.webmasterstudio.domenator.ui.adapters.ReportItem" />
+            type="md.webmasterstudio.domenator.data.db.entity.ReportInfo" />
 
     </data>
 

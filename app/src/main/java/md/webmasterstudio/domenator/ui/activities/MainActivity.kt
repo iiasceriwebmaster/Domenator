@@ -1,5 +1,6 @@
 package md.webmasterstudio.domenator.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -10,10 +11,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.entity.CarInfo
 import md.webmasterstudio.domenator.databinding.ActivityMainBinding
 import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
-import md.webmasterstudio.domenator.ui.fragments.CarInfoItem
 
 class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarFragmentListener {
 
@@ -89,11 +90,7 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
             }
         }
 
-        updateNavigationHeader(
-            intent.getStringExtra("name")!!,
-            intent.getStringExtra("surname")!!,
-            intent.getStringExtra("dateOfBirth")!!
-        )
+        updateNavigationHeader(this)
     }
 
     fun logoutUser() {
@@ -119,10 +116,10 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
         }
     }
 
-    override fun onCarInfoAdded(carInfoItem: CarInfoItem) {
+    override fun onCarInfoAdded(carInfoItem: CarInfo) {
         val intent = Intent(this, CarReceptionActivity::class.java)
 
-        intent.putExtra("km", carInfoItem.km)
+        intent.putExtra("km", carInfoItem.speedometerValue)
         intent.putExtra("date", carInfoItem.date)
         intent.putExtra("licencePlateNr", carInfoItem.licencePlateNr)
 
@@ -134,10 +131,10 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
         super.onBackPressed()
     }
 
-    fun updateNavigationHeader(name: String, surname: String, dateOfBirth: String) {
+    fun updateNavigationHeader(context: Context) {
         val headerView = binding.navView.getHeaderView(0)
-        val fullName = "$name $surname"
+        val fullName = "John Doe"
         headerView.findViewById<TextView>(R.id.nav_header_title).text = fullName
-        headerView.findViewById<TextView>(R.id.nav_header_subtitle).text = dateOfBirth
+        headerView.findViewById<TextView>(R.id.nav_header_subtitle).text = "01/01/2003"
     }
 }

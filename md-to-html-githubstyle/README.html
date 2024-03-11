@@ -1,0 +1,522 @@
+
+      <html>
+        <head>
+          <title>Domenator</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta charset="UTF-8">
+        </head>
+        <body>
+          <div id='content'>
+      <h1 id="domenator">Domenator</h1>
+<h2 id="основная-конечная-точка-api">Основная конечная точка API</h2>
+<p>Базовый URL для пользовательского API: <code>https://domenator.webfun.cf/</code>.<br />
+Все запросы и ответы отправляются по HTTPS.</p>
+<h2 id="все-конечные-точки-и-ожидаемые-данные">Все конечные точки и ожидаемые данные</h2>
+<p><code>GET /get_lang</code>:</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;ru&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;app_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Domenator&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;prompt_password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Пароль&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;action_sign_in&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Войдите в свой аккаунт&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;action_sign_in_short&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Войти&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;welcome&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Добро пожаловать!&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;invalid_username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Недействительное имя пользователя&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;invalid_password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Пароль должен быть &gt;5 символов&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;login_failed&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Ошибка входа&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;main_mid_text&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Чтобы начать добавлять данные о затраченном топливе, нажмите кнопку “Начать отчет”&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;start_report&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Начать отчет&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;finish_report&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Завершить Отчет&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;sign_in_into_your_account&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Войдите в свой аккаунт&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;select_app_language&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Выберите язык приложения&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;photos&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Фотографии&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;documents&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Документы&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;todo&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Список задач&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;save&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Сохранить&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;title_activity_nav&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;АктивностьНавигации&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;navigation_drawer_open&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Открыть панель навигации&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;navigation_drawer_close&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Закрыть панель навигации&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;nav_header_title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Android Studio&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;nav_header_subtitle&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;android.studio@android.com&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;nav_header_desc&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Заголовок навигации&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;action_settings&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Настройки&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;menu_home&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Домой&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;menu_gallery&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Галерея&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;menu_slideshow&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Слайд-шоу&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;view_more&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Показать больше&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;tap_to_see_more&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Нажмите, чтобы увидеть больше&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Заголовок&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;km_title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;002569 км&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;title_date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;01.01.2023&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;no_records_yet&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;У вас пока нет записей. Нажмите “+”, чтобы добавить данные о топливе &quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;you_didn_t_add_any_photos_yet_press_button_to_add_them&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Вы еще не добавили ни одной фотографии, нажмите кнопку , чтобы добавить их&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;user_profile&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Личный кабинет&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;car_acceptance&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Приемка автомобиля&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;driver_regulations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Регламент водителя&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;driver_help&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Помощь водителям&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;logout&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Выйти&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;licence_plate_nr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Номер машины&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;speedometer_value&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Показатели спидометра&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;pick_date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Выбрать дату&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Дата&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;fuel_quantity&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Количество топлива&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;fuel_price&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Цена топлива&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;change&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Изменить&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;select_picture&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Выбрать изображение&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;you_have_not_picked_image&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Вы не выбрали изображение&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Имя&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;surname&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Фамилия&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Email&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;date_of_birth&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Дата рождения&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;are_you_sure_you_want_to_delete_this_image&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Вы уверены, что хотите удалить это изображение?&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;delete&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Удалить&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;cancel&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Отменить&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;add&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Добавить&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;please_fill_in_all_fields&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Заполните все поля&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;add_report_info&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Добавить информацию об отчете&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;add_car_info&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Добавить информацию об автомобиле&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;car_reception&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Прием машины&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;domenator_business_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;DOMENATOR SP. Z O.O&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;edit&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Редактировать&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;ro&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;app_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Domenator&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;prompt_email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Email...............................&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;en&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;app_name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Domenator&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;prompt_email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;mail...............................&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>POST /login</code> *email *password:</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;firstName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TestName&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;lastName&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TestSurname&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;birthDate&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;11.05.2022&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;TestEmail&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>GET /drivers_regulations</code>:</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;RegulationsTitle&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;You should let your supervisor know in case of any: 1), 2), 3)...&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>GET /drivers_help</code>:</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;HelpTitle&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;In case of any trouble we are here to help...&quot;</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>GET /get_notifications</code>:</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;04-05-2023&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Notification Title&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Notification Content&quot;</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;04-05-2023&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;title&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Notification Title&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;content&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Notification Content&quot;</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>POST &amp; PATCH(-&gt; photos) /car_info</code> *id: 1, *date: "01.01.2023", *licencePlateNr: "KLH 150", *speedometerValue: 2569, *carPhotos: ["BASE64", "BASE64"] (парам мб и пустым), *documentPhotos: ["BASE64", "BASE64"] (парам мб и пустым):</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>GET /car_info</code> *id: 1:</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">&quot;date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;01.01.2023&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;licencePlateNr&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;KLH 150&quot;</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;speedometerValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2569</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;carPhotos&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-string">&quot;BASE64 string&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-string">&quot;BASE64 string&quot;</span>
+    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">&quot;documentPhotos&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-string">&quot;BASE64 string&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-string">&quot;BASE64 string&quot;</span>
+    <span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>POST /reports_info</code> *car_id: 1, *date: "01.01.2023", *fuelAmount: 123.5, *speedometerValue:2569, *fuelPrice: 1.5</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+<p><code>GET /reports_info</code> *car_id: 1</p>
+<pre><code class="hljs json language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ok&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;success&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1&quot;</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">&quot;data&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;car_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;01.01.2023&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;fuelAmount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123.5</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;speedometerValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2569</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;fuelPrice&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.5</span>
+    <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;car_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;date&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;02.01.2023&quot;</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;fuelAmount&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">65.3</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;speedometerValue&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">2631</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">&quot;fuelPrice&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1.61</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">]</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
+
+          </div>
+          <style type='text/css'>body {
+    font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background-color: #fbfbfb;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    body>#content {
+        padding: 0px 20px 20px 20px !important;
+    }
+}
+
+body>#content {
+    margin: 0px;
+    max-width: 900px;
+    border: 1px solid #e1e4e8;
+    padding: 10px 40px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+hr {
+    color: #bbb;
+    background-color: #bbb;
+    height: 1px;
+    flex: 0 1 auto;
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+}
+
+.hljs-operator {
+    color: #868686;
+    /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+}
+
+
+/**
+ * Links
+ */
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+}
+
+
+/**
+  * Code blocks
+  */
+
+code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+}
+
+pre>code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+    font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+
+blockquote {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    border-left-width: 3px;
+    padding: 0 1em;
+    color: #828282;
+    border-left: 4px solid #e8e8e8;
+    padding-left: 15px;
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+blockquote * {
+    font-style: normal !important;
+    letter-spacing: 0;
+    color: #6a737d !important;
+}
+
+.hljs-punctuation {
+    color: rgb(226, 226, 82);
+}
+
+
+/**
+ * Tables
+ */
+
+table {
+    border-spacing: 2px;
+    display: block;
+    font-size: 14px;
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    font-weight: 600;
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+
+/**
+ * Others
+ */
+
+img {
+    max-width: 100%;
+}
+
+p {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #24292e;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+li+li {
+    margin-top: 0.25em;
+}
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #24292e;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #eaecef;
+    color: #111;
+    /* Darker */
+}
+
+code>* {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}</style>
+          <style type='text/css'>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.hljs {
+  color: #abb2bf;
+  background: #282c34
+}
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd
+}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75
+}
+.hljs-literal {
+  color: #56b6c2
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee
+}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-link {
+  text-decoration: underline
+}</style>
+        </body>
+      </html>

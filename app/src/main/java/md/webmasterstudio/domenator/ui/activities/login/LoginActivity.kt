@@ -136,16 +136,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val name = model.name
-        val surname = model.surname
-        val dateOfBirth = model.dateOfBirth
-
+        //TODO: sqlite etc.
+        
         // Start the new activity
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("name", name)
-        intent.putExtra("surname", surname)
-        intent.putExtra("dateOfBirth", dateOfBirth)
         startActivity(intent)
     }
 

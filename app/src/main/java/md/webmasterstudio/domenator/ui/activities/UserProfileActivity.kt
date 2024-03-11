@@ -5,20 +5,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import md.webmasterstudio.domenator.data.db.entity.User
 import md.webmasterstudio.domenator.databinding.ActivityUserProfileBinding
-
-data class User(
-    val name: String,
-    val surname: String,
-    val email: String,
-    val dateOfBirth: String
-)
 
 fun getMockUserData(): User {
     // Mock user data
     return User(
-        name = "John",
-        surname = "Doe",
+        uid = 1,
+        firstName = "John",
+        lastName = "Doe",
         email = "john.doe@example.com",
         dateOfBirth = "1990-01-01" // Format as needed
     )
@@ -48,8 +43,8 @@ class UserProfileActivity : AppCompatActivity() {
         val user = getMockUserData()
 
         // Set user data to TextViews using View Binding
-        binding.textViewName.text = "Name: ${user.name}"
-        binding.textViewSurname.text = "Surname: ${user.surname}"
+        binding.textViewName.text = "Name: ${user.firstName}"
+        binding.textViewSurname.text = "Surname: ${user.lastName}"
         binding.textViewEmail.text = "Email: ${user.email}"
         binding.textViewDOB.text = "Date of Birth: ${user.dateOfBirth}"
 

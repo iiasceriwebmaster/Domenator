@@ -75,7 +75,8 @@
       "add_report_info": "Добавить информацию об отчете",
       "add_car_info": "Добавить информацию об автомобиле",
       "car_reception": "Прием машины",
-      "domenator_business_name": "DOMENATOR SP. Z O.O"
+      "domenator_business_name": "DOMENATOR SP. Z O.O",
+      "edit": "Редактировать"
     },
     "ro": {
       "app_name": "Domenator",
@@ -142,15 +143,18 @@
       "date": "04-05-2023",
       "title": "Notification Title",
       "content": "Notification Content"
+    },
+    {
+      "id": 2,
+      "date": "04-05-2023",
+      "title": "Notification Title",
+      "content": "Notification Content"
     }
   ]
 }
 ```
 
-`POST & PATCH(-> photos) /car_info` *id: 1, *date: "01.01.2023", *licencePlateNr: "KLH 150", *
-  speedometerValue: 2569,
-  *carPhotos: ["BASE64", "BASE64"] (парам мб и пустым), *documentPhotos: ["BASE64", "BASE64"] (парам
-  мб и пустым):
+`POST & PATCH(-> photos) /car_info` *id: 1, *date: "01.01.2023", *licencePlateNr: "KLH 150", *speedometerValue: 2569, *carPhotos: ["BASE64", "BASE64"] (парам мб и пустым), *documentPhotos: ["BASE64", "BASE64"] (парам мб и пустым):
 
 ```json
 {
@@ -160,7 +164,7 @@
 }
 ```
 
-`GET /car_info`:
+`GET /car_info` *id: 1:
 
 ```json
 {
@@ -183,8 +187,7 @@
 }
 ```
 
-`POST /reports_info` *car_id: 1, *date: "01.01.2023", *fuelAmount: 123.5, *speedometerValue:
-  2569, *fuelPrice: 1.5
+`POST /reports_info` *car_id: 1, *date: "01.01.2023", *fuelAmount: 123.5, *speedometerValue:2569, *fuelPrice: 1.5
 
 ```json
 {

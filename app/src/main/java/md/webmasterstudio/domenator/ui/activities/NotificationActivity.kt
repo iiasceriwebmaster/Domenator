@@ -5,9 +5,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import md.webmasterstudio.domenator.data.db.entity.Notification
 import md.webmasterstudio.domenator.databinding.ActivityNotificationBinding
 import md.webmasterstudio.domenator.ui.adapters.NotificationAdapter
-import md.webmasterstudio.domenator.ui.adapters.NotificationItem
 
 class NotificationActivity : AppCompatActivity() {
 
@@ -33,7 +33,7 @@ class NotificationActivity : AppCompatActivity() {
         }
 
         // Create dummy list of notifications
-        val notifications = mutableListOf<NotificationItem>()
+        val notifications = mutableListOf<Notification>()
         for (i in 1..10) {
             val date = "2024-03-$i" // Example date
             val title = "Notification $i" // Example title
@@ -41,7 +41,7 @@ class NotificationActivity : AppCompatActivity() {
                 "Preview of Notification $i With this modification, \n" +
                         "clicking on any item within the list will toggle the isExpanded state of the corresponding\n" +
                         "NotificationItem, and notifyDataSetChanged() will " // Example preview
-            val notification = NotificationItem(date, title, preview)
+            val notification = Notification(date=date, title=title, content = preview)
             notifications.add(notification)
         }
 

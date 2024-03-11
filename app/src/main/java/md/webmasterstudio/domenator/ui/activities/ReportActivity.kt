@@ -1,25 +1,27 @@
 package md.webmasterstudio.domenator.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.entity.ReportInfo
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
-import md.webmasterstudio.domenator.ui.adapters.ReportItem
 import md.webmasterstudio.domenator.ui.fragments.AddReportDialogFragment
 
 class ReportActivity : AppCompatActivity(),
     AddReportDialogFragment.DialogAddReportFragmentListener {
 
     private lateinit var binding: ActivityReportBinding
-    private lateinit var reports: MutableList<ReportItem>
+    private lateinit var reports: MutableList<ReportInfo>
     var editReportDialogItemPosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +36,7 @@ class ReportActivity : AppCompatActivity(),
         }
 
         val date = intent.getStringExtra("date")
-        val km = intent.getStringExtra("km") + " km"
+        val km = intent.getLongExtra("km", 0).toString() + " km"
         val licencePlateNr = intent.getStringExtra("licencePlateNr")
 
         binding.licencePlateNrTV.text = licencePlateNr
@@ -108,9 +110,11 @@ class ReportActivity : AppCompatActivity(),
                 )
             }
         }
+
+        updateNavigationHeader(this)
     }
 
-    override fun onReportInfoAdded(reportItem: ReportItem) {
+    override fun onReportInfoAdded(reportItem: ReportInfo) {
         if (editReportDialogItemPosition == -1)
             reports.add(0, reportItem)
         else {
@@ -141,15 +145,15 @@ class ReportActivity : AppCompatActivity(),
         binding.reportRecyclerView.adapter = adapter
     }
 
-    private fun showDialog(reportItem: ReportItem? = null) {
+    private fun showDialog(reportItem: ReportInfo? = null) {
         val dialog = AddReportDialogFragment()
 
         if (reportItem != null) {
             val bundle = Bundle()
-            bundle.putString("km", reportItem.km)
+            bundle.putString("km", reportItem.speedometerValue.toString())
             bundle.putString("date", reportItem.date)
-            bundle.putString("pricePerUnit", reportItem.pricePerUnit)
-            bundle.putString("quantity", reportItem.quantity)
+            bundle.putString("pricePerUnit", reportItem.fuelPrice.toString())
+            bundle.putString("quantity", reportItem.fuelAmount.toString())
             dialog.arguments = bundle
         }
         dialog.show(supportFragmentManager, "AddReportDialogFragment")
@@ -168,5 +172,12 @@ class ReportActivity : AppCompatActivity(),
         binding.navView.menu.forEachIndexed { index, item ->
             item.isChecked = false
         }
+    }
+
+    fun updateNavigationHeader(context: Context) {
+        val headerView = binding.navView.getHeaderView(0)
+        val fullName = "John Doe"
+        headerView.findViewById<TextView>(R.id.nav_header_title).text = fullName
+        headerView.findViewById<TextView>(R.id.nav_header_subtitle).text = "01/01/2003"
     }
 }

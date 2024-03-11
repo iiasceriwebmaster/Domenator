@@ -37,7 +37,7 @@ class CarReceptionActivity : AppCompatActivity() {
         }
 
         val date = intent.getStringExtra("date")
-        val km = intent.getStringExtra("km")
+        val km = intent.getLongExtra("km", 0)
         val licencePlateNr = intent.getStringExtra("licencePlateNr")
 
         binding

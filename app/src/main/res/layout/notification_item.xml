@@ -5,7 +5,7 @@
 
         <variable
             name="notification"
-            type="md.webmasterstudio.domenator.ui.adapters.NotificationItem" />
+            type="md.webmasterstudio.domenator.data.db.entity.Notification" />
 
     </data>
 

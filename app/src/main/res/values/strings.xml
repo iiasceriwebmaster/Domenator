@@ -32,7 +32,7 @@
     <string name="km_title">002569 км</string>
     <string name="title_date">01.01.2023</string>
     <string name="no_records_yet">У вас пока нет записей. Нажмите “+”, чтобы добавить данные о топливе </string>
-    <string name="you_didn_t_add_any_photos_yet_press_button_to_add_them">Вы еще не добавили ни одной фотографии, нажмите кнопку , чтобы добавить их</string>
+    <string name="you_didn_t_add_any_photos_yet_press_button_to_add_them">Вы еще не добавили ни одной фотографии, нажмите кнопку 📷, чтобы добавить их</string>
     <string name="user_profile">Личный кабинет</string>
     <string name="car_acceptance">Приемка автомобиля</string>
     <string name="driver_regulations">Регламент водителя</string>
@@ -60,4 +60,5 @@
     <string name="add_car_info">Добавить информацию об автомобиле</string>
     <string name="car_reception">Прием машины</string>
     <string name="domenator_business_name">DOMENATOR SP. Z O.O</string>
+    <string name="edit">Редактировать</string>
 </resources>

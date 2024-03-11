@@ -6,6 +6,6 @@ package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.log
 data class LoggedInUserView(
     val name: String,
     val surname: String,
-    val dateOfBirth: String
-    //... other data fields that may be accessible to the UI
+    val dateOfBirth: String,
+    val email: String
 )
