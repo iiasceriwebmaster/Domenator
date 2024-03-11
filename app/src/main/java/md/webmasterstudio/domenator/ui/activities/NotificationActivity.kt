@@ -33,16 +33,7 @@ class NotificationActivity : AppCompatActivity() {
         notificationViewModel = NotificationViewModel(appDatabase.notificationsDao())
 
         // Create dummy list of notifications
-        for (i in 1..10) {
-            val date = "2024-03-$i" // Example date
-            val title = "NotificationEntity $i" // Example title
-            val preview =
-                "Preview of NotificationEntity $i With this modification, \n" +
-                        "clicking on any item within the list will toggle the isExpanded state of the corresponding\n" +
-                        "NotificationItem, and notifyDataSetChanged() will " // Example preview
-            val notificationEntity = NotificationEntity(date=date, title=title, content = preview)
-            notificationViewModel.insert(notificationEntity)
-        }
+//        dummyList()
 
         notificationViewModel.allNotifications.observe(this) { notifications ->
             // Update the adapter with the observed list of notifications
@@ -52,6 +43,18 @@ class NotificationActivity : AppCompatActivity() {
 
         binding.leftButton.setOnClickListener {
             onBackPressed()
+        }
+    }
+    fun dummyList() {
+        for (i in 1..10) {
+            val date = "2024-03-$i" // Example date
+            val title = "NotificationEntity $i" // Example title
+            val preview =
+                "Preview of NotificationEntity $i With this modification, \n" +
+                        "clicking on any item within the list will toggle the isExpanded state of the corresponding\n" +
+                        "NotificationItem, and notifyDataSetChanged() will " // Example preview
+            val notificationEntity = NotificationEntity(date=date, title=title, content = preview)
+            notificationViewModel.insert(notificationEntity)
         }
     }
 
