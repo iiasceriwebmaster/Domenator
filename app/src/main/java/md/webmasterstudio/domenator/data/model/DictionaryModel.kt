@@ -1,7 +1,6 @@
 package md.webmasterstudio.domenator.data.model
 
 import android.util.Log
-import md.webmasterstudio.domenator.App
 import md.webmasterstudio.domenator.R
 import org.json.JSONException
 import org.json.JSONObject

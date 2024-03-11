@@ -2,59 +2,57 @@ package md.webmasterstudio.domenator.ui.activities
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import md.webmasterstudio.domenator.data.db.entity.Notification
+import md.webmasterstudio.domenator.data.db.DomenatorDatabase
+import md.webmasterstudio.domenator.data.db.entity.NotificationEntity
 import md.webmasterstudio.domenator.databinding.ActivityNotificationBinding
 import md.webmasterstudio.domenator.ui.adapters.NotificationAdapter
+import md.webmasterstudio.domenator.ui.viewmodels.NotificationViewModel
 
 class NotificationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityNotificationBinding
+    private lateinit var notificationViewModel: NotificationViewModel
+    private lateinit var appDatabase: DomenatorDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupViews()
-
-        binding.leftButton.setOnClickListener {
-            onBackPressed()
-        }
-    }
-
-    private fun setupViews() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        appDatabase = DomenatorDatabase.getInstance(applicationContext)
+        notificationViewModel = NotificationViewModel(appDatabase.notificationsDao())
+
         // Create dummy list of notifications
-        val notifications = mutableListOf<Notification>()
         for (i in 1..10) {
             val date = "2024-03-$i" // Example date
-            val title = "Notification $i" // Example title
+            val title = "NotificationEntity $i" // Example title
             val preview =
-                "Preview of Notification $i With this modification, \n" +
+                "Preview of NotificationEntity $i With this modification, \n" +
                         "clicking on any item within the list will toggle the isExpanded state of the corresponding\n" +
                         "NotificationItem, and notifyDataSetChanged() will " // Example preview
-            val notification = Notification(date=date, title=title, content = preview)
-            notifications.add(notification)
+            val notificationEntity = NotificationEntity(date=date, title=title, content = preview)
+            notificationViewModel.insert(notificationEntity)
         }
 
-        // Create adapter and set it to ListView or RecyclerView
-        val adapter = NotificationAdapter(this, notifications)
-        binding.notificationListView.adapter = adapter
+        notificationViewModel.allNotifications.observe(this) { notifications ->
+            // Update the adapter with the observed list of notifications
+            val adapter = NotificationAdapter(this, notifications)
+            binding.notificationListView.adapter = adapter
+        }
 
-//        // Handle click on notification items (optional)
-//        binding.notificationListView.setOnItemClickListener { _, _, position, _ ->
-//            // Handle click action on notification item here
-//            val notification = adapter.getItem(position)
-//            notification?.isExpanded = !notification?.isExpanded!!
-//            adapter.notifyDataSetChanged()
-//        }
+        binding.leftButton.setOnClickListener {
+            onBackPressed()
+        }
     }
+
 }

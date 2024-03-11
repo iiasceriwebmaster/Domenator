@@ -4,7 +4,7 @@ import android.app.Application
 import android.util.Log
 import md.webmasterstudio.domenator.data.model.DictionaryModel
 
-class App: Application() {
+class Domenator: Application() {
 
     private var ruDictionary = DictionaryModel()
     private var roDictionary = DictionaryModel()
@@ -13,7 +13,7 @@ class App: Application() {
     private var appLanguage = "ru"
 
     companion object {
-        lateinit var instance: App
+        lateinit var instance: Domenator
     }
 
     override fun onCreate() {
@@ -22,8 +22,8 @@ class App: Application() {
     }
 
     fun getDictionary(): DictionaryModel {
-        Log.d("CREATION", "App -> DictionaryModel -> getDictionary $appLanguage")
-        Log.d("CREATION", "App -> DictionaryModel -> getDictionary 2 $ruDictionary")
+        Log.d("CREATION", "Domenator -> DictionaryModel -> getDictionary $appLanguage")
+        Log.d("CREATION", "Domenator -> DictionaryModel -> getDictionary 2 $ruDictionary")
         return when (appLanguage) {
             "ru" -> ruDictionary
             "ro" -> roDictionary

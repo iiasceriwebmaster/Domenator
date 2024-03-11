@@ -1,7 +1,6 @@
 package md.webmasterstudio.domenator.ui.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +8,10 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.data.db.entity.Notification
+import md.webmasterstudio.domenator.data.db.entity.NotificationEntity
 
-class NotificationAdapter(context: Context, notificationItems: List<Notification>) :
-    ArrayAdapter<Notification>(context, 0, notificationItems) {
+class NotificationAdapter(context: Context, notificationEntityItems: List<NotificationEntity>) :
+    ArrayAdapter<NotificationEntity>(context, 0, notificationEntityItems) {
 
     companion object {
         const val TEXT_THRESHOLD_CHARACTERS = 45

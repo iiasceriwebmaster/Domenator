@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.data.db.entity.CarInfo
+import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityMainBinding
 import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
@@ -116,12 +116,12 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
         }
     }
 
-    override fun onCarInfoAdded(carInfoItem: CarInfo) {
+    override fun onCarInfoAdded(carInfoEntityItem: CarInfoEntity) {
         val intent = Intent(this, CarReceptionActivity::class.java)
 
-        intent.putExtra("km", carInfoItem.speedometerValue)
-        intent.putExtra("date", carInfoItem.date)
-        intent.putExtra("licencePlateNr", carInfoItem.licencePlateNr)
+        intent.putExtra("km", carInfoEntityItem.speedometerValue)
+        intent.putExtra("date", carInfoEntityItem.date)
+        intent.putExtra("licencePlateNr", carInfoEntityItem.licencePlateNr)
 
         startActivity(intent)
     }

@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.data.db.entity.ReportInfo
+import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 
 class ReportAdapter(
-    private var reportItems: List<ReportInfo>,
+    private var reportItems: List<ReportInfoEntity>,
     private val onEditClick: (Int) -> Unit
 ) :
     RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
@@ -44,7 +44,7 @@ class ReportAdapter(
         }
     }
 
-    fun updateData(newReportItems: List<ReportInfo>) {
+    fun updateData(newReportItems: List<ReportInfoEntity>) {
         reportItems = newReportItems
         notifyDataSetChanged()
     }

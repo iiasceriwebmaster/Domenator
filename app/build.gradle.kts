@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -45,7 +46,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     // To use Kotlin annotation processing tool (kapt)
-//    kapt("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
 //    // To use Kotlin Symbol Processing (KSP)
 //    ksp("androidx.room:room-compiler:$room_version")
 
@@ -67,6 +68,7 @@ dependencies {
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
 
+    implementation("com.google.code.gson:gson:2.10.1")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

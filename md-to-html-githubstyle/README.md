@@ -141,14 +141,14 @@
     {
       "id": 1,
       "date": "04-05-2023",
-      "title": "Notification Title",
-      "content": "Notification Content"
+      "title": "NotificationEntity Title",
+      "content": "NotificationEntity Content"
     },
     {
       "id": 2,
       "date": "04-05-2023",
-      "title": "Notification Title",
-      "content": "Notification Content"
+      "title": "NotificationEntity Title",
+      "content": "NotificationEntity Content"
     }
   ]
 }

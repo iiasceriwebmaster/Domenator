@@ -1,7 +1,7 @@
 package md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login
 
 /**
- * User details post authentication that is exposed to the UI
+ * UserEntity details post authentication that is exposed to the UI
  */
 data class LoggedInUserView(
     val name: String,

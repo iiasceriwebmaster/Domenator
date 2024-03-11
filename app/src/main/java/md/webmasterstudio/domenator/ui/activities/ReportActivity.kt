@@ -6,22 +6,24 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.data.db.entity.ReportInfo
+import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
 import md.webmasterstudio.domenator.ui.fragments.AddReportDialogFragment
+import md.webmasterstudio.domenator.ui.viewmodels.ReportViewModel
 
 class ReportActivity : AppCompatActivity(),
     AddReportDialogFragment.DialogAddReportFragmentListener {
 
     private lateinit var binding: ActivityReportBinding
-    private lateinit var reports: MutableList<ReportInfo>
+    private val viewModel: ReportViewModel by viewModels()
     var editReportDialogItemPosition = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,8 +49,6 @@ class ReportActivity : AppCompatActivity(),
             editReportDialogItemPosition = -1
             showDialog()
         }
-
-        reports = mutableListOf()
 
         updateListUI()
 
@@ -114,17 +114,17 @@ class ReportActivity : AppCompatActivity(),
         updateNavigationHeader(this)
     }
 
-    override fun onReportInfoAdded(reportItem: ReportInfo) {
+    override fun onReportInfoAdded(report: ReportInfoEntity) {
         if (editReportDialogItemPosition == -1)
-            reports.add(0, reportItem)
+            viewModel.addReport(report)
         else {
-            reports[editReportDialogItemPosition] = reportItem
+            viewModel.updateReport(editReportDialogItemPosition, report)
         }
         updateListUI()
     }
 
     private fun updateListUI() {
-        if (reports.isNotEmpty()) {
+        if (viewModel.reports.value?.isNotEmpty()!!) {
             binding.emptyTextLL.visibility = View.GONE
             binding.reportRecyclerView.visibility = View.VISIBLE
         } else {
@@ -135,17 +135,17 @@ class ReportActivity : AppCompatActivity(),
         val onEditClick: (Int) -> Unit = { position ->
             editReportDialogItemPosition = position
 
-            val reportItem = reports[position]
+            val reportItem = viewModel.reports.value!![position]
             showDialog(reportItem)
         }
 
-        reports.sortByDescending { it.date }
+        viewModel.sortReports()
 
-        val adapter = ReportAdapter(reports, onEditClick)
+        val adapter = ReportAdapter(viewModel.reports.value!!, onEditClick)
         binding.reportRecyclerView.adapter = adapter
     }
 
-    private fun showDialog(reportItem: ReportInfo? = null) {
+    private fun showDialog(reportItem: ReportInfoEntity? = null) {
         val dialog = AddReportDialogFragment()
 
         if (reportItem != null) {

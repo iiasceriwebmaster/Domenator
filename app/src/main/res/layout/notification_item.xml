@@ -4,8 +4,8 @@
         <import type="android.view.View"/>
 
         <variable
-            name="notification"
-            type="md.webmasterstudio.domenator.data.db.entity.Notification" />
+            name="notificationEntity"
+            type="md.webmasterstudio.domenator.data.db.entity.NotificationEntity" />
 
     </data>
 
@@ -27,7 +27,7 @@
                 android:id="@+id/notificationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{notification.date}"
+                android:text="@{notificationEntity.date}"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -36,7 +36,7 @@
                 android:id="@+id/notificationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{notification.title}"
+                android:text="@{notificationEntity.title}"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{notification.content}"
+                android:text="@{notificationEntity.content}"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 

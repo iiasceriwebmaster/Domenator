@@ -13,13 +13,13 @@ import androidx.lifecycle.Observer
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
 import md.webmasterstudio.domenator.ui.adapters.ImageAdapter
-import md.webmasterstudio.domenator.ui.viewmodels.CarReceptionViewModel
+import md.webmasterstudio.domenator.ui.viewmodels.CarInfoViewModel
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 
 class CarReceptionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCarReceptionBinding
-    private val viewModel: CarReceptionViewModel by viewModels()
+    private val carInfoViewModel: CarInfoViewModel by viewModels()
     private lateinit var adapter: ImageAdapter
     private var PICK_IMAGE_MULTIPLE = 123
 
@@ -67,7 +67,7 @@ class CarReceptionActivity : AppCompatActivity() {
 
         // Initialize adapter
         adapter = ImageAdapter(mutableListOf(), this) {deletedUri ->
-            viewModel.removeSelectedImage(deletedUri, isDocument())
+            carInfoViewModel.removeSelectedImage(deletedUri, isDocument())
         }
         binding.grid.adapter = adapter
 
@@ -93,13 +93,13 @@ class CarReceptionActivity : AppCompatActivity() {
         }
 
         // Observing selected photos and documents
-        viewModel.selectedPhotos.observe(this, Observer { photos ->
+        carInfoViewModel.selectedPhotos.observe(this, Observer { photos ->
             // Update adapter data
             adapter.updateData(photos)
             updateEmptyUI()
         })
 
-        viewModel.selectedDocuments.observe(this, Observer { documents ->
+        carInfoViewModel.selectedDocuments.observe(this, Observer { documents ->
             // Update adapter data
             adapter.updateData(documents)
             updateEmptyUI()
@@ -111,13 +111,13 @@ class CarReceptionActivity : AppCompatActivity() {
             when (checkedId) {
                 R.id.radioBtnPhotos -> {
                     // Load selected photos
-                    val photos = viewModel.selectedPhotos.value ?: mutableListOf()
+                    val photos = carInfoViewModel.selectedPhotos.value ?: mutableListOf()
                     adapter.updateData(photos)
                 }
 
                 R.id.radioBtnDocuments -> {
                     // Load selected documents
-                    val documents = viewModel.selectedDocuments.value ?: mutableListOf()
+                    val documents = carInfoViewModel.selectedDocuments.value ?: mutableListOf()
                     adapter.updateData(documents)
                 }
             }
@@ -133,11 +133,11 @@ class CarReceptionActivity : AppCompatActivity() {
                 val count = clipData!!.itemCount
                 for (i in 0 until count) {
                     val imageUri = clipData.getItemAt(i).uri
-                    viewModel.addSelectedImage(imageUri, isDocument())
+                    carInfoViewModel.addSelectedImage(imageUri, isDocument())
                 }
             } else {
                 val imageUri = data.data
-                viewModel.addSelectedImage(imageUri!!, isDocument())
+                carInfoViewModel.addSelectedImage(imageUri!!, isDocument())
             }
         } else {
             Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show()
@@ -150,7 +150,7 @@ class CarReceptionActivity : AppCompatActivity() {
 
     private fun updateEmptyUI() {
         if (isDocument()) {
-            val documents = viewModel.selectedDocuments.value ?: mutableListOf()
+            val documents = carInfoViewModel.selectedDocuments.value ?: mutableListOf()
             if (documents.size > 0) {
                 binding.emptyTextLL.visibility = View.GONE
                 binding.grid.visibility = View.VISIBLE
@@ -159,7 +159,7 @@ class CarReceptionActivity : AppCompatActivity() {
                 binding.grid.visibility = View.GONE
             }
         } else {
-            val photos = viewModel.selectedPhotos.value ?: mutableListOf()
+            val photos = carInfoViewModel.selectedPhotos.value ?: mutableListOf()
             if (photos.size > 0) {
                 binding.emptyTextLL.visibility = View.GONE
                 binding.grid.visibility = View.VISIBLE

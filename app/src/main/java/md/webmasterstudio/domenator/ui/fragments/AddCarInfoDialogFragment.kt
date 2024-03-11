@@ -16,7 +16,7 @@ import androidx.lifecycle.MutableLiveData
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.data.db.entity.CarInfo
+import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -86,13 +86,13 @@ class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetLis
                 // Pass the data back to the activity
 
                 if (km.isNotBlank() && licencePlateNr.isNotBlank()) {
-                    val carInfoItem = CarInfo(
+                    val carInfoEntityItem = CarInfoEntity(
                         date = date,
                         speedometerValue = km.toLong(),
                         licencePlateNr = licencePlateNr
                     )
                     // Pass the data back to the activity
-                    (requireActivity() as? DialogAddCarFragmentListener)?.onCarInfoAdded(carInfoItem)
+                    (requireActivity() as? DialogAddCarFragmentListener)?.onCarInfoAdded(carInfoEntityItem)
                     dialog.dismiss() // Dismiss the dialog after adding
                 } else {
                     val pleaseFillInAllTheFieldsText =
@@ -129,7 +129,7 @@ class AddCarInfoDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetLis
     }
 
     interface DialogAddCarFragmentListener {
-        fun onCarInfoAdded(carInfoItem: CarInfo)
+        fun onCarInfoAdded(carInfoEntityItem: CarInfoEntity)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

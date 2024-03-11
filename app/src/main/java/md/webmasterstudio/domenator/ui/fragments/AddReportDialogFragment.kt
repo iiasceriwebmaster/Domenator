@@ -16,7 +16,7 @@ import androidx.lifecycle.MutableLiveData
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import md.webmasterstudio.domenator.R
-import md.webmasterstudio.domenator.data.db.entity.ReportInfo
+import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -99,7 +99,7 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
                 val price = editTextPrice.text.toString()
 
                 if (km.isNotBlank() && fuel.isNotBlank() && price.isNotBlank()) {
-                    val reportItem = ReportInfo(carId = 0, date=date, speedometerValue = km.toLong(), fuelAmount = fuel.toFloat(), fuelPrice = price.toFloat())
+                    val reportItem = ReportInfoEntity(carId = 0, date=date, speedometerValue = km.toLong(), fuelAmount = fuel.toFloat(), fuelPrice = price.toFloat())
                     // Pass the data back to the activity
                     (requireActivity() as? DialogAddReportFragmentListener)?.onReportInfoAdded(
                         reportItem
@@ -160,7 +160,7 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
     }
 
     interface DialogAddReportFragmentListener {
-        fun onReportInfoAdded(reportItem: ReportInfo)
+        fun onReportInfoAdded(reportItem: ReportInfoEntity)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {

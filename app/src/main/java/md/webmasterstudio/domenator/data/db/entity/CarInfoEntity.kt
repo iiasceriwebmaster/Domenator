@@ -3,10 +3,12 @@ package md.webmasterstudio.domenator.data.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.google.gson.Gson
 
 @Entity(tableName = "car_info")
-data class CarInfo(
-    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+data class CarInfoEntity(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "date") val date: String?,
     @ColumnInfo(name = "licence_plate_nr") val licencePlateNr: String?,
     @ColumnInfo(name = "speedometer_value") val speedometerValue: Long?,
