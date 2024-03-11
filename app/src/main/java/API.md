@@ -1,11 +1,11 @@
 # Domenator
 
-## API Main Endpoint
+## Основная конечная точка API
 
-The base URL for the User API is `https://domenator.webfun.cf/`.
-All requests and responses are sent over HTTPS.
+Базовый URL для пользовательского API: `https://domenator.webfun.cf/`.
+Все запросы и ответы отправляются по HTTPS.
 
-## All endpoints and expected data
+## Все конечные точки и ожидаемые данные
 
 `GET /get_lang`:
 
