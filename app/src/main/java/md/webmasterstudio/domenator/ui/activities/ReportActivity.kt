@@ -124,7 +124,7 @@ class ReportActivity : AppCompatActivity(),
     }
 
     private fun updateListUI() {
-        if (viewModel.reports.value?.isNotEmpty()!!) {
+        if (viewModel.reports.value?.isNotEmpty() == true) {
             binding.emptyTextLL.visibility = View.GONE
             binding.reportRecyclerView.visibility = View.VISIBLE
         } else {
