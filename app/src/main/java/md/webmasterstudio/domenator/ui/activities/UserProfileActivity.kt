@@ -5,12 +5,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import md.webmasterstudio.domenator.data.db.entity.UserEntity
+import md.webmasterstudio.domenator.data.db.entity.User
 import md.webmasterstudio.domenator.databinding.ActivityUserProfileBinding
 
-fun getMockUserData(): UserEntity {
+fun getMockUserData(): User {
     // Mock user data
-    return UserEntity(
+    return User(
         id = 1,
         firstName = "John",
         lastName = "Doe",

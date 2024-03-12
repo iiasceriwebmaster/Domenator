@@ -14,10 +14,10 @@ import md.webmasterstudio.domenator.data.db.dao.UserDao
 import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.data.db.entity.NotificationEntity
 import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
-import md.webmasterstudio.domenator.data.db.entity.UserEntity
+import md.webmasterstudio.domenator.data.db.entity.User
 
 
-@Database(entities = [UserEntity::class, CarInfoEntity::class, NotificationEntity::class, ReportInfoEntity::class], version = 2)
+@Database(entities = [User::class, CarInfoEntity::class, NotificationEntity::class, ReportInfoEntity::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class DomenatorDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao

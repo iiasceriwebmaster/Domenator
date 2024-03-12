@@ -14,16 +14,19 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.DomenatorDatabase
 import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoggedInUserView
 import md.webmasterstudio.domenator.ui.activities.MainActivity
+import md.webmasterstudio.domenator.ui.viewmodels.UserViewModel
 import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var appDatabase: DomenatorDatabase
 
     private fun setLocale(lang: String) {
         val currentLocale = resources.configuration.locale
@@ -64,10 +67,10 @@ class LoginActivity : AppCompatActivity() {
         binding.username.error = null
         binding.password.error = null
 
-        val username = binding.username
-        val password = binding.password
-        val login = binding.login
-        val loading = binding.loading
+        val usernameEditText = binding.username
+        val passwordEditText = binding.password
+        val loginBtn = binding.login
+        val loadingProgressBar = binding.loading
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -76,20 +79,20 @@ class LoginActivity : AppCompatActivity() {
             val loginState = it ?: return@Observer
 
             // disable login button unless both username / password is valid
-            login.isEnabled = loginState.isDataValid
+            loginBtn.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
-                username.error = getString(loginState.usernameError!!)
+                usernameEditText.error = getString(loginState.usernameError!!)
             }
             if (loginState.passwordError != null) {
-                password.error = getString(loginState.passwordError!!)
+                passwordEditText.error = getString(loginState.passwordError!!)
             }
         })
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
 
-            loading.visibility = View.GONE
+            loadingProgressBar.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
@@ -102,18 +105,18 @@ class LoginActivity : AppCompatActivity() {
             finish()
         })
 
-        username.afterTextChanged {
+        usernameEditText.afterTextChanged {
             loginViewModel.loginDataChanged(
-                username.text.toString(),
-                password.text.toString()
+                usernameEditText.text.toString(),
+                passwordEditText.text.toString()
             )
         }
 
-        password.apply {
+        passwordEditText.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    password.text.toString()
+                    usernameEditText.text.toString(),
+                    passwordEditText.text.toString()
                 )
             }
 
@@ -121,18 +124,26 @@ class LoginActivity : AppCompatActivity() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
+                            usernameEditText.text.toString(),
+                            passwordEditText.text.toString()
                         )
                 }
                 false
             }
 
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+            loginBtn.setOnClickListener {
+                loadingProgressBar.visibility = View.VISIBLE
+                loginViewModel.login(usernameEditText.text.toString(), passwordEditText.text.toString())
             }
         }
+
+        appDatabase = DomenatorDatabase.getInstance(applicationContext)
+        userViewModel = UserViewModel(appDatabase.userDao())
+
+        val email = usernameEditText.text.toString()
+        val password = passwordEditText.text.toString()
+        //TODO: when api done test:
+//        userViewModel.login(email, password)
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
