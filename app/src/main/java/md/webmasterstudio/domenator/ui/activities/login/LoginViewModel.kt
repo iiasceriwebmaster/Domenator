@@ -40,7 +40,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun loginDataChanged(username: String, password: String) {
         val currentState = _loginForm.value
         val newState = if (!isUserNameValid(username)) {
-            LoginFormState(usernameError = R.string.invalid_username)
+            LoginFormState(usernameError = R.string.invalid_email)
         } else if (!isPasswordValid(password)) {
             LoginFormState(passwordError = R.string.invalid_password)
         } else {
@@ -62,7 +62,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         }
     }
 
-    // A placeholder username validation check
+    // A placeholder email validation check
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains('@')) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()

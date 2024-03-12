@@ -14,6 +14,9 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
+import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.DomenatorDatabase
 import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoggedInUserView
@@ -37,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             config.locale = newLocale
             resources.updateConfiguration(config, resources.displayMetrics)
             // Clear error fields if locale is changed
-            binding.username.error = null
+            binding.email.error = null
             binding.password.error = null
         }
     }
@@ -64,30 +67,30 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Clear error fields after recreation
-        binding.username.error = null
+        binding.email.error = null
         binding.password.error = null
 
-        val usernameEditText = binding.username
+        val emailEditText = binding.email
         val passwordEditText = binding.password
-        val loginBtn = binding.login
+        val loginBtn = binding.loginBtn
         val loadingProgressBar = binding.loading
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-            // disable login button unless both username / password is valid
-            loginBtn.isEnabled = loginState.isDataValid
-
-            if (loginState.usernameError != null) {
-                usernameEditText.error = getString(loginState.usernameError!!)
-            }
-            if (loginState.passwordError != null) {
-                passwordEditText.error = getString(loginState.passwordError!!)
-            }
-        })
+//        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+//            val loginState = it ?: return@Observer
+//
+//            // disable login button unless both email / password is valid
+//            loginBtn.isEnabled = loginState.isDataValid
+//
+//            if (loginState.usernameError != null) {
+//                usernameEditText.error = getString(loginState.usernameError!!)
+//            }
+//            if (loginState.passwordError != null) {
+//                passwordEditText.error = getString(loginState.passwordError!!)
+//            }
+//        })
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
@@ -105,9 +108,9 @@ class LoginActivity : AppCompatActivity() {
             finish()
         })
 
-        usernameEditText.afterTextChanged {
+        emailEditText.afterTextChanged {
             loginViewModel.loginDataChanged(
-                usernameEditText.text.toString(),
+                emailEditText.text.toString(),
                 passwordEditText.text.toString()
             )
         }
@@ -115,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    usernameEditText.text.toString(),
+                    emailEditText.text.toString(),
                     passwordEditText.text.toString()
                 )
             }
@@ -124,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            usernameEditText.text.toString(),
+                            emailEditText.text.toString(),
                             passwordEditText.text.toString()
                         )
                 }
@@ -132,15 +135,25 @@ class LoginActivity : AppCompatActivity() {
             }
 
             loginBtn.setOnClickListener {
-                loadingProgressBar.visibility = View.VISIBLE
-                loginViewModel.login(usernameEditText.text.toString(), passwordEditText.text.toString())
+                val email = emailEditText.text.toString()
+                val password = passwordEditText.text.toString()
+                if (email == "" && !email.contains("@") && !email.contains(".")) {
+                    emailEditText.error = getString(R.string.invalid_email)
+                    applyAnimation(emailEditText)
+                } else if (password.length < 5) {
+                    passwordEditText.error = getString(R.string.invalid_password)
+                    applyAnimation(passwordEditText)
+                } else {
+                    loadingProgressBar.visibility = View.VISIBLE
+                    loginViewModel.login(emailEditText.text.toString(), passwordEditText.text.toString())
+                }
             }
         }
 
         appDatabase = DomenatorDatabase.getInstance(applicationContext)
         userViewModel = UserViewModel(appDatabase.userDao())
 
-        val email = usernameEditText.text.toString()
+        val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
         //TODO: when api done test:
 //        userViewModel.login(email, password)
@@ -156,6 +169,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun applyAnimation(view: View) {
+        YoYo.with(Techniques.Shake)
+            .duration(700)
+            .playOn(view)
     }
 }
 
