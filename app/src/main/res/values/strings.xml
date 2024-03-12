@@ -56,8 +56,8 @@
     <string name="cancel">Отменить</string>
     <string name="add">Добавить</string>
     <string name="please_fill_in_all_fields">Заполните все поля</string>
-    <string name="add_report_info">Добавить информацию об отчете</string>
-    <string name="add_car_info">Добавить информацию об автомобиле</string>
+    <string name="add_report_info">Добавте информацию об отчете</string>
+    <string name="add_car_info">Добавте информацию об автомобиле</string>
     <string name="car_reception">Прием машины</string>
     <string name="domenator_business_name">DOMENATOR SP. Z O.O</string>
     <string name="edit">Редактировать</string>
