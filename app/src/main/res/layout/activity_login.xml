@@ -48,6 +48,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/companyNameTV"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,6 +58,7 @@
             </TextView>
 
             <TextView
+                android:id="@+id/title"
                 android:textStyle="bold"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
@@ -83,6 +85,7 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:textSize="18sp"
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/login_fields_height"
@@ -128,7 +131,7 @@
                     android:layout_marginBottom="64dp"
                     android:text="@string/action_sign_in_short"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/wide_white_btn_text_size"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -166,11 +169,12 @@
         app:layout_anchorGravity="bottom|center">
 
         <TextView
+            android:id="@+id/languagePickerTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_app_language"
             android:textColor="@color/app_text_gray"
-            android:textSize="16sp">
+            android:textSize="14sp">
 
         </TextView>
 

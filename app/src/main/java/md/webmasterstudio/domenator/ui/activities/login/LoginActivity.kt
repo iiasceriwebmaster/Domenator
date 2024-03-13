@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -58,20 +59,8 @@ class LoginActivity : AppCompatActivity() {
 
         this.internetConnection = CheckInternetConnection(this)
 
-        binding.roLangBtn.setOnClickListener {
-            setLocale("ro")
-            recreate()
-        }
-
-        binding.ruLangBtn.setOnClickListener {
-            setLocale("ru")
-            recreate()
-        }
-
-        binding.enLangBtn.setOnClickListener {
-            setLocale("en")
-            recreate()
-        }
+        setupLanguageClicks()
+        setupFonts()
 
         // Clear error fields after recreation
         binding.email.error = null
@@ -174,6 +163,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun updateUiWithUser(model: LoggedInUserView) {
         //TODO: sqlite etc.
         
@@ -190,6 +180,32 @@ class LoginActivity : AppCompatActivity() {
         YoYo.with(Techniques.Shake)
             .duration(700)
             .playOn(view)
+    }
+
+    fun setupLanguageClicks() {
+        binding.roLangBtn.setOnClickListener {
+            setLocale("ro")
+            recreate()
+        }
+
+        binding.ruLangBtn.setOnClickListener {
+            setLocale("ru")
+            recreate()
+        }
+
+        binding.enLangBtn.setOnClickListener {
+            setLocale("en")
+            recreate()
+        }
+    }
+
+    private fun setupFonts() {
+        binding.companyNameTV.setTypeface(ResourcesCompat.getFont(this, R.font.barlowsemicondensed_semibold))
+        binding.title.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_bold))
+        binding.email.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
+        binding.password.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
+        binding.loginBtn.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
+        binding.languagePickerTV.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
     }
 }
 
