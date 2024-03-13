@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical"
         app:layout_anchor="@id/LL1">
 
@@ -79,15 +79,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginHorizontal="40dp"
-                android:orientation="vertical"
-                tools:ignore="UselessParent">
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/login_fields_height"
                     android:layout_marginTop="96dp"
                     android:background="@drawable/edit_text_background"
                     android:drawableStart="@drawable/ic_email"
@@ -104,7 +102,7 @@
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/login_fields_height"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/edit_text_background"
                     android:drawableStart="@drawable/ic_password"
@@ -124,9 +122,9 @@
                     android:background="@drawable/login_btn_background"
                     android:id="@+id/loginBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/login_fields_height"
                     android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="48dp"
                     android:layout_marginBottom="64dp"
                     android:text="@string/action_sign_in_short"
                     android:textColor="@color/white"
