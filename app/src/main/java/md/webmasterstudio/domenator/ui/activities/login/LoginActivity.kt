@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -14,14 +15,24 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.gson.JsonObject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.DomenatorDatabase
 import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoggedInUserView
+import md.webmasterstudio.domenator.networking.ApiClient
 import md.webmasterstudio.domenator.ui.activities.MainActivity
 import md.webmasterstudio.domenator.ui.viewmodels.UserViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
@@ -157,6 +168,26 @@ class LoginActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString()
         //TODO: when api done test:
 //        userViewModel.login(email, password)
+
+
+        lifecycleScope.launch {
+            getDictionaryCoroutine(this)
+        }
+    }
+
+    private suspend fun getDictionaryCoroutine(scope: CoroutineScope) {
+        val response = withContext(IO) {
+            ApiClient.instance?.userService?.getDictionary()
+        }
+
+        if (response != null && response.isSuccessful) {
+            val responseBody = response.body()
+            // Handle successful response and parse the Json Object (responseBody)
+        } else {
+            val errorBody = response?.errorBody()
+            val errorString = errorBody?.string() ?: "Unknown error"
+            // Handle API error (check errorBody for details)
+        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

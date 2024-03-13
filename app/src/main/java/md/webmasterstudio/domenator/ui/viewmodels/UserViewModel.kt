@@ -29,19 +29,19 @@ class UserViewModel(private val userDao: UserDao) : ViewModel() {
         }
     }
 
-    fun login(email: String, password: String) {
-        viewModelScope.launch {
-            val service = ApiClient.instance?.userService
-
-            // Fetch user from network if not cached
-            try {
-                val userResponse = service?.login(email, password)
-                _user.value = userResponse
-                userResponse?.let { userDao.insertUser(it) } // Store in Room for future access
-            } catch (e: Exception) {
-                // Handle network error
-                _user.value = null
-            }
-        }
-    }
+//    fun login(email: String, password: String) {
+//        viewModelScope.launch {
+//            val service = ApiClient.instance?.userService
+//
+//            // Fetch user from network if not cached
+//            try {
+//                val userResponse = service?.login(email, password)
+//                _user.value = userResponse
+//                userResponse?.let { userDao.insertUser(it) } // Store in Room for future access
+//            } catch (e: Exception) {
+//                // Handle network error
+//                _user.value = null
+//            }
+//        }
+//    }
 }

@@ -12,6 +12,7 @@ class ApiClient private constructor() {
 
     companion object {
         const val BASE_URL: String = "https://domenator.webfun.cf"
+//        const val BASE_URL: String = "https://deafinfocenter.webfun.cf"
         var instance: ApiClient? = null
             get() {
                 Log.d("CREATION", "ApiClient -> getInstance() ")
