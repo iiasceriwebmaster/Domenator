@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="80dp"
         android:orientation="vertical"
         app:layout_anchor="@id/LL1">
 
@@ -48,6 +48,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/domenator_business_name"
@@ -56,6 +57,8 @@
             </TextView>
 
             <TextView
+                android:fontFamily="Roboto"
+                android:textStyle="bold"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -119,13 +122,13 @@
                     app:layout_constraintTop_toBottomOf="@+id/email" />
 
                 <Button
+                    android:background="@drawable/login_btn_background"
                     android:id="@+id/loginBtn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="64dp"
-                    android:enabled="true"
                     android:text="@string/action_sign_in_short"
                     android:textColor="@color/white"
                     android:textSize="@dimen/wide_white_btn_text_size"

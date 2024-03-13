@@ -62,4 +62,8 @@
     <string name="domenator_business_name">DOMENATOR SP. Z O.O</string>
     <string name="edit">Редактировать</string>
     <string name="you_dont_have_notifications">У вас нет уведомлений</string>
+
+    <string name="dlg_no_internet_connection_message">Проверьте подключение к Интернету и повторите попытку.</string>
+    <string name="dlg_no_internet_connection_title">Нет подключения к интернету</string>
+    <string name="dlg_no_internet_connection_try_again_button">Повторить попытку</string>
 </resources>

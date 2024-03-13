@@ -6,7 +6,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -18,25 +17,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.google.gson.JsonObject
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.DomenatorDatabase
 import md.webmasterstudio.domenator.databinding.ActivityLoginBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.activities.login.LoggedInUserView
-import md.webmasterstudio.domenator.networking.ApiClient
+import md.webmasterstudio.domenator.networking.CheckInternetConnection
+import md.webmasterstudio.domenator.networking.UserRepository.getDictionaryCoroutine
 import md.webmasterstudio.domenator.ui.activities.MainActivity
 import md.webmasterstudio.domenator.ui.viewmodels.UserViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
 
+    private lateinit var internetConnection: CheckInternetConnection
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
     private lateinit var userViewModel: UserViewModel
@@ -61,6 +55,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        this.internetConnection = CheckInternetConnection(this)
 
         binding.roLangBtn.setOnClickListener {
             setLocale("ro")
@@ -156,6 +152,11 @@ class LoginActivity : AppCompatActivity() {
                     applyAnimation(passwordEditText)
                 } else {
                     loadingProgressBar.visibility = View.VISIBLE
+
+                    val email = emailEditText.text.toString()
+                    val password = passwordEditText.text.toString()
+                    //TODO: when api done test:
+                    //userViewModel.login(email, password)
                     loginViewModel.login(emailEditText.text.toString(), passwordEditText.text.toString())
                 }
             }
@@ -164,29 +165,12 @@ class LoginActivity : AppCompatActivity() {
         appDatabase = DomenatorDatabase.getInstance(applicationContext)
         userViewModel = UserViewModel(appDatabase.userDao())
 
-        val email = emailEditText.text.toString()
-        val password = passwordEditText.text.toString()
-        //TODO: when api done test:
-//        userViewModel.login(email, password)
-
-
-        lifecycleScope.launch {
-            getDictionaryCoroutine(this)
-        }
-    }
-
-    private suspend fun getDictionaryCoroutine(scope: CoroutineScope) {
-        val response = withContext(IO) {
-            ApiClient.instance?.userService?.getDictionary()
-        }
-
-        if (response != null && response.isSuccessful) {
-            val responseBody = response.body()
-            // Handle successful response and parse the Json Object (responseBody)
+        if (internetConnection.isOnline((this as Activity?)!!)) {
+            lifecycleScope.launch {
+                getDictionaryCoroutine(this, this@LoginActivity)
+            }
         } else {
-            val errorBody = response?.errorBody()
-            val errorString = errorBody?.string() ?: "Unknown error"
-            // Handle API error (check errorBody for details)
+            internetConnection.showDefaultNoInternetConnectionAlertDialog((this as Activity?)!!)
         }
     }
 
