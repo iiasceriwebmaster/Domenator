@@ -151,6 +151,8 @@
     <!-- Standard FloatingActionButton -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/standardFab"
+        app:tint="@color/white"
+        app:shapeAppearanceOverlay="@style/fab_rounded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

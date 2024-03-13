@@ -16,4 +16,8 @@ class NotificationViewModel(private val notificationDao: NotificationDao): ViewM
             notificationDao.insert(notification)
         }
     }
+
+    fun getAllNotifications(): List<NotificationEntity>? {
+        return allNotifications.value
+    }
 }

@@ -37,6 +37,9 @@ class NotificationAdapter(context: Context, notificationEntityItems: List<Notifi
         notificationPreview.text = notification?.content
 
         if (notification != null) {
+            mConvertView.post {
+                tapToSeeMore.visibility = if (notification.isExpanded) View.GONE else View.VISIBLE
+            }
             if (notification.isExpanded) {
 
                 notificationPreview.maxLines = Int.MAX_VALUE
@@ -45,9 +48,6 @@ class NotificationAdapter(context: Context, notificationEntityItems: List<Notifi
 
                 notificationPreview.maxLines = 1
                 notificationPreview.ellipsize = android.text.TextUtils.TruncateAt.END
-            }
-            mConvertView.post {
-                tapToSeeMore.visibility = if (notification?.isExpanded == true) View.GONE else View.VISIBLE
             }
         }
 

@@ -30,9 +30,22 @@
 
     <!-- Your ListView or other main content -->
     <ListView
+        android:visibility="gone"
         android:id="@+id/notificationListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/main2"/>
+
+    <TextView
+        android:layout_marginBottom="50dp"
+        android:id="@+id/notificationsEmptyText"
+        android:gravity="center"
+        android:layout_below="@id/main2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/you_dont_have_notifications"
+        android:textColor="@color/white"
+        android:textSize="@dimen/ms_txt_size"
+        />
 
 </RelativeLayout>

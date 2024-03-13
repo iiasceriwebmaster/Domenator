@@ -1,6 +1,7 @@
 package md.webmasterstudio.domenator.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -43,7 +44,17 @@ class NotificationActivity : AppCompatActivity() {
         binding.leftButton.setOnClickListener {
             onBackPressed()
         }
+
+        updateUI()
     }
+
+    fun updateUI() {
+        if (notificationViewModel.getAllNotifications()?.isEmpty() != true) {
+            binding.notificationListView.visibility = View.VISIBLE
+            binding.notificationsEmptyText.visibility = View.GONE
+        }
+    }
+
     fun dummyList() {
         for (i in 1..10) {
             val date = "2024-03-$i" // Example date
