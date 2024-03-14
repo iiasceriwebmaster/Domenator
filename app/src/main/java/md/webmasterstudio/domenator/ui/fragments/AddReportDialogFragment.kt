@@ -40,25 +40,24 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
 
         val changeBtn = view.findViewById<Button>(R.id.pickDateBtn)
 
-        if (arguments != null) {
+        carId = arguments?.getLong("car_id")!!
+
+        val km = arguments?.getString("km")
+        val date = arguments?.getString("date")
+        val pricePerUnit = arguments?.getString("pricePerUnit")
+        val quantity = arguments?.getString("quantity")
+
+
+        if (km.isNullOrEmpty() || date.isNullOrEmpty() || pricePerUnit.isNullOrEmpty() || quantity.isNullOrEmpty()) {
+            confirmButtonName = context?.resources?.getString(R.string.add).toString()
+            val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
+            editTextDate.setText(currentDate)
+        } else {
             confirmButtonName = context?.resources?.getString(R.string.edit).toString()
-
-            // Retrieve data from arguments bundle
-            val km = arguments?.getString("km")
-            val date = arguments?.getString("date")
-            val pricePerUnit = arguments?.getString("pricePerUnit")
-            val quantity = arguments?.getString("quantity")
-            carId = arguments?.getLong("car_id")!!
-
             editTextDate.setText(date)
             editTextKM.setText(km)
             editTextFuel.setText(quantity)
             editTextPrice.setText(pricePerUnit)
-        } else {
-            confirmButtonName = context?.resources?.getString(R.string.add).toString()
-
-            val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-            editTextDate.setText(currentDate)
         }
 
         editTextKM.addTextChangedListener(createTextWatcher(editTextKM))

@@ -13,10 +13,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.DomenatorDatabase
+import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
@@ -52,18 +54,7 @@ class ReportActivity : AppCompatActivity(),
         carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
         reportViewModel = ReportViewModel(appDatabase.reportsDao())
 
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                val carInfoEntities = carInfoViewModel.getCarInfoEntities()
-                withContext(Dispatchers.Main) {
-                    binding.licencePlateNrTV.text = carInfoEntities[0].licencePlateNr
-                    binding.titleKm.text = carInfoEntities[0].speedometerValue.toString()
-                    binding.titleDate.text = carInfoEntities[0].date
-                }
-            }
-        }
 
-        updateListUI()
         topBarClicks()
 
         binding.finishReportBtn.setOnClickListener {
@@ -84,17 +75,8 @@ class ReportActivity : AppCompatActivity(),
         navClicks()
 
         updateNavigationHeader(this)
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                val reports =
-                    reportViewModel.reportsInfoDao.getAll().toMutableList()
-                carId = carInfoViewModel.getCarInfoEntities()[0].id
-                withContext(Dispatchers.Main) {
-                    reportViewModel.reports.value = reports
-                    updateListUI()
-                }
-            }
-        }
+
+        handlesql()
     }
 
     fun topBarClicks() {
@@ -153,11 +135,50 @@ class ReportActivity : AppCompatActivity(),
         }
     }
 
-    override fun onReportInfoAdded(report: ReportInfoEntity) {
+    private fun handlesql() {
+        lifecycleScope.launch {
+            var retryCount = 0
+            var carInfoEntities: List<CarInfoEntity>? = null
+            while (retryCount < 3) {
+                try {
+                    withContext(Dispatchers.IO) {
+                        carInfoEntities = carInfoViewModel.getCarInfoEntities()
+                    }
+                    // If data retrieval is successful, break out of the loop
+                    break
+                } catch (e: Exception) {
+                    // Handle any exceptions here, for example, logging or displaying an error message
+                    // Increment retry count
+                    retryCount++
+                    // Wait for a delay between tries
+                    delay((200..300).random().toLong())
+                }
+            }
+
+            // Check if carInfoEntities is not null and not empty before updating UI
+            carInfoEntities?.takeIf { it.isNotEmpty() }?.let { entities ->
+                val reports =
+                    reportViewModel.reportsInfoDao.getAll().toMutableList()
+                withContext(Dispatchers.Main) {
+                    binding.licencePlateNrTV.text = entities[0].licencePlateNr
+                    binding.titleKm.text = entities[0].speedometerValue.toString()
+                    binding.titleDate.text = entities[0].date
+
+                    reportViewModel.reports.value = reports
+                    updateListUI()
+                }
+            } ?: run {
+                // Handle the case where carInfoEntities is null or empty
+                // For example, show an error message or handle the situation accordingly
+            }
+        }
+    }
+
+    override fun onReportInfoAdded(reportItem: ReportInfoEntity) {
         if (editReportDialogItemPosition == -1)
-            reportViewModel.addReport(report)
+            reportViewModel.addReport(reportItem)
         else {
-            reportViewModel.updateReport(editReportDialogItemPosition, report)
+            reportViewModel.updateReport(editReportDialogItemPosition, reportItem)
         }
         updateListUI()
     }

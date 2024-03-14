@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun adjustMargins(keyboardVisible: Boolean) {
-        val newMarginTopForViewWithMargin = if (keyboardVisible) 8 else 110  // Adjust based on your XML values
+        val newMarginTopForViewWithMargin = if (keyboardVisible) 8 else 160 // Adjust based on your XML values
         val newMarginTopForLoginBtn = if (keyboardVisible) 32 else 48  // Adjust based on your XML values
 
         val marginAnimationForViewWithMargin = MarginAnimation(binding.viewWithMargin, newMarginTopForViewWithMargin)
