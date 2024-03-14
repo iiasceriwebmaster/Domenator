@@ -11,16 +11,24 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
+import androidx.lifecycle.lifecycleScope
+import com.daimajia.androidanimations.library.BuildConfig
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.DomenatorDatabase
 import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityMainBinding
 import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.fragments.AddCarInfoDialogFragment
+import md.webmasterstudio.domenator.ui.viewmodels.CarInfoViewModel
 
 class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarFragmentListener {
 
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var carInfoViewModel: CarInfoViewModel
+    private lateinit var appDatabase: DomenatorDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,10 +40,26 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
             insets
         }
 
-        binding.startReportBtn.setOnClickListener {
-            val dialog = AddCarInfoDialogFragment()
-            dialog.show(supportFragmentManager, "AddCarInfoDialogFragment")
+        appDatabase = DomenatorDatabase.getInstance(applicationContext)
+        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
 
+        //TODO: Fix bugs
+        binding.startReportBtn.setOnClickListener {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    val carInfoEntities = carInfoViewModel.getCarInfoEntities()
+                    if (carInfoEntities.isNotEmpty()) {
+                        val intent = Intent(this@MainActivity, ReportActivity::class.java)
+                        intent.putExtra("date", carInfoEntities[0].date)
+                        intent.putExtra("km", carInfoEntities[0].speedometerValue)
+                        intent.putExtra("licencePlateNr", carInfoEntities[0].licencePlateNr)
+                        startActivity(intent)
+                    } else {
+                        val dialog = AddCarInfoDialogFragment()
+                        dialog.show(supportFragmentManager, "AddCarInfoDialogFragment")
+                    }
+                }
+            }
         }
 
         binding.leftButton.setOnClickListener {

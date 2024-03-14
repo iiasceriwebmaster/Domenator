@@ -1,17 +1,26 @@
 package md.webmasterstudio.domenator.ui.activities.login
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +37,7 @@ import md.webmasterstudio.domenator.networking.UserRepository.getDictionaryCorou
 import md.webmasterstudio.domenator.ui.activities.MainActivity
 import md.webmasterstudio.domenator.ui.viewmodels.UserViewModel
 import java.util.Locale
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -51,6 +61,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun adjustMargins(keyboardVisible: Boolean) {
+        val newMarginTopForViewWithMargin = if (keyboardVisible) 8 else 110  // Adjust based on your XML values
+        val newMarginTopForLoginBtn = if (keyboardVisible) 32 else 48  // Adjust based on your XML values
+
+        val marginAnimationForViewWithMargin = MarginAnimation(binding.viewWithMargin, newMarginTopForViewWithMargin)
+        marginAnimationForViewWithMargin.animate()
+
+        val marginAnimationForLoginBtn = MarginAnimation(binding.loginBtn, newMarginTopForLoginBtn)
+        marginAnimationForLoginBtn.animate()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,6 +79,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         this.internetConnection = CheckInternetConnection(this)
+         val STORAGE_PERMISSION_CODE = 101
+
+        //perm
+        val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        ActivityCompat.requestPermissions(this, permissions, STORAGE_PERMISSION_CODE)
 
         setupLanguageClicks()
         setupFonts()
@@ -66,10 +92,12 @@ class LoginActivity : AppCompatActivity() {
         binding.email.error = null
         binding.password.error = null
 
-        val emailEditText = binding.email
-        val passwordEditText = binding.password
+        val emailEditText: EditText = binding.email
+        val passwordEditText: EditText = binding.password
         val loginBtn = binding.loginBtn
         val loadingProgressBar = binding.loading
+
+        setupKeyboardListener()
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
@@ -207,6 +235,38 @@ class LoginActivity : AppCompatActivity() {
         binding.loginBtn.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
         binding.languagePickerTV.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
     }
+
+    fun setupKeyboardListener() {
+        binding.container.getViewTreeObserver().addOnGlobalLayoutListener(OnGlobalLayoutListener {
+            // on below line we are creating a variable for rect
+            val rect = Rect()
+
+
+            // on below line getting frame for our relative layout.
+            binding.container.getWindowVisibleDisplayFrame(rect)
+
+
+            // on below line getting screen height for relative layout.
+            val screenHeight: Int = binding.container.getRootView().height
+
+
+            // on below line getting keypad height.
+            val keypadHeight = screenHeight - rect.bottom
+
+
+            // on below line we are checking if keypad height is greater than screen height.
+            if (keypadHeight > screenHeight * 0.15) {
+                // displaying toast message as keyboard showing.
+
+                Log.i(this@LoginActivity::class.java.name, "Keyboard is showing")
+                adjustMargins(true)
+            } else {
+                // displaying toast message as keyboard closed.
+                adjustMargins(false)
+                Log.i(this@LoginActivity::class.java.name, "Keyboard closed")
+            }
+        })
+    }
 }
 
 /**
@@ -222,4 +282,19 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
     })
+}
+
+class MarginAnimation(private val view: View, private val newMargin: Int) : Animation() {
+
+    override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+        val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+//        layoutParams.topMargin = (newMargin * interpolatedTime).toInt()
+        layoutParams.topMargin = newMargin
+        view.layoutParams = layoutParams
+    }
+
+    fun animate() {
+        setDuration(700)  // Adjust duration as needed
+        view.startAnimation(this)
+    }
 }

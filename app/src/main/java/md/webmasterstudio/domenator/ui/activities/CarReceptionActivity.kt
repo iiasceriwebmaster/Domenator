@@ -1,29 +1,38 @@
 package md.webmasterstudio.domenator.ui.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.DomenatorDatabase
+import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
+import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 import md.webmasterstudio.domenator.ui.adapters.ImageAdapter
 import md.webmasterstudio.domenator.ui.viewmodels.CarInfoViewModel
-import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
+import md.webmasterstudio.domenator.utilities.FileUtilities.base64ListToUriList
+import md.webmasterstudio.domenator.utilities.FileUtilities.uriToBase64
 
 class CarReceptionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCarReceptionBinding
-    private val carInfoViewModel: CarInfoViewModel by viewModels()
+    private lateinit var carInfoViewModel: CarInfoViewModel
+    private lateinit var appDatabase: DomenatorDatabase
     private lateinit var adapter: ImageAdapter
     private var PICK_IMAGE_MULTIPLE = 123
-
+    private var isEditingMode = true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +48,10 @@ class CarReceptionActivity : AppCompatActivity() {
 
         setupFonts()
 
-        val date = intent.getStringExtra("date")
-        val km = intent.getLongExtra("km", 0)
-        val licencePlateNr = intent.getStringExtra("licencePlateNr")
 
-        binding
+
+        appDatabase = DomenatorDatabase.getInstance(applicationContext)
+        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
 
         binding.leftButton.setOnClickListener {
             onBackPressed()
@@ -74,15 +82,8 @@ class CarReceptionActivity : AppCompatActivity() {
         }
         binding.grid.adapter = adapter
 
-        binding.saveBtn.setOnClickListener {
-            val intent = Intent(this, ReportActivity::class.java)
 
-            intent.putExtra("km", km)
-            intent.putExtra("date", date)
-            intent.putExtra("licencePlateNr", licencePlateNr)
-            
-            startActivity(intent)
-        }
+
 
         binding.standardFab.setOnClickListener {
             val intent = Intent()
@@ -96,17 +97,88 @@ class CarReceptionActivity : AppCompatActivity() {
         }
 
         // Observing selected photos and documents
-        carInfoViewModel.selectedPhotos.observe(this, Observer { photos ->
-            // Update adapter data
-            adapter.updateData(photos)
-            updateEmptyUI()
-        })
+        carInfoViewModel.selectedPhotos.observe(
+            this@CarReceptionActivity,
+            Observer { photos ->
+                // Update adapter data
+                adapter.updateData(photos)
+                updateEmptyUI()
+            })
 
-        carInfoViewModel.selectedDocuments.observe(this, Observer { documents ->
-            // Update adapter data
-            adapter.updateData(documents)
-            updateEmptyUI()
-        })
+        carInfoViewModel.selectedDocuments.observe(
+            this@CarReceptionActivity,
+            Observer { documents ->
+                // Update adapter data
+                adapter.updateData(documents)
+                updateEmptyUI()
+            })
+
+        val date = intent.getStringExtra("date").toString()
+        val km = intent.getLongExtra("km", 0)
+        val licencePlateNr = intent.getStringExtra("licencePlateNr").toString()
+
+        binding.saveBtn.setOnClickListener {
+            val intent =
+                Intent(this@CarReceptionActivity, ReportActivity::class.java)
+
+//            intent.putExtra("date", date)
+//            intent.putExtra("km", km)
+//            intent.putExtra("licencePlateNr", licencePlateNr)
+
+
+//            val carPhotosUri = carInfoViewModel.selectedPhotos.value
+//            val documentPhotosUri = carInfoViewModel.selectedDocuments.value
+//
+//            val carPhotosBase64 =
+//                carPhotosUri?.map { uriToBase64(contentResolver, it) }
+//            val documentPhotosBase64 =
+//                documentPhotosUri?.map { uriToBase64(contentResolver, it) }
+//
+//            val carInfoEntity =
+//                CarInfoEntity(
+//                    date = date,
+//                    licencePlateNr = licencePlateNr,
+//                    speedometerValue = km,
+//                    carPhotos = carPhotosBase64,
+//                    documentPhotos = documentPhotosBase64
+//                )
+//            carInfoViewModel.insert(carInfoEntity)
+
+            carInfoViewModel.saveCarInfo(date, licencePlateNr, km, this@CarReceptionActivity)
+
+            startActivity(intent)
+        }
+        //
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val carInfoEntities = carInfoViewModel.getCarInfoEntities()
+                if (carInfoEntities.isNotEmpty()) {
+//                    withContext(Dispatchers.Main) {
+//                        binding.saveBtn.visibility = View.INVISIBLE
+//                        binding.standardFab.visibility = View.INVISIBLE
+//                    }
+//                    val carInfoEntity = carInfoEntities[0]
+//
+//                    // Usage example
+//                    val carPhotosBase64List: List<String>? = carInfoEntity.carPhotos
+//                    val documentPhotosBase64List: List<String>? = carInfoEntity.documentPhotos
+//
+//                    // Convert Base64 strings to URIs
+//                    val carPhotosUriList: List<Uri>? =
+//                        carPhotosBase64List?.let { base64ListToUriList(contentResolver, it) }
+//                    val documentPhotosUriList: List<Uri>? =
+//                        documentPhotosBase64List?.let { base64ListToUriList(contentResolver, it) }
+//
+//                    // Set the URIs to ViewModel
+//                    // Update ViewModel with the new lists
+//                    carInfoViewModel.selectedPhotos.value = carPhotosUriList?.toMutableList()
+//                    carInfoViewModel.selectedDocuments.value =
+//                        documentPhotosUriList?.toMutableList()
+                }
+
+            }
+        }
+        //
 
         // Observing radio button changes
         binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
