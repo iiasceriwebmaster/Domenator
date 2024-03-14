@@ -26,6 +26,7 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
 
     val liveDate = MutableLiveData<String>()
     var confirmButtonName = ""
+    var carId = 0L
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireActivity())
@@ -47,6 +48,7 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
             val date = arguments?.getString("date")
             val pricePerUnit = arguments?.getString("pricePerUnit")
             val quantity = arguments?.getString("quantity")
+            carId = arguments?.getLong("car_id")!!
 
             editTextDate.setText(date)
             editTextKM.setText(km)
@@ -99,11 +101,9 @@ class AddReportDialogFragment : DialogFragment(), DatePickerDialog.OnDateSetList
                 val price = editTextPrice.text.toString()
 
                 if (km.isNotBlank() && fuel.isNotBlank() && price.isNotBlank()) {
-                    val reportItem = ReportInfoEntity(carId = 0, date=date, speedometerValue = km.toLong(), fuelAmount = fuel.toFloat(), fuelPrice = price.toFloat())
+                    val reportItem = ReportInfoEntity(carId = carId, date=date, speedometerValue = km.toLong(), fuelAmount = fuel.toFloat(), fuelPrice = price.toFloat())
                     // Pass the data back to the activity
-                    (requireActivity() as? DialogAddReportFragmentListener)?.onReportInfoAdded(
-                        reportItem
-                    )
+                    (requireActivity() as? DialogAddReportFragmentListener)?.onReportInfoAdded(reportItem)
                     dialog.dismiss() // Dismiss the dialog after adding
                 } else {
                     val pleaseFillInAllTheFieldsText =

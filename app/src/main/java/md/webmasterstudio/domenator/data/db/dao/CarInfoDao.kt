@@ -24,4 +24,7 @@ interface CarInfoDao {
 
     @Delete
     fun delete(carInfoEntity: CarInfoEntity)
+
+    @Query("DELETE FROM car_info")
+    suspend fun deleteAll(): Int
 }

@@ -46,8 +46,6 @@ class CarReceptionActivity : AppCompatActivity() {
 
         setupFonts()
 
-
-
         appDatabase = DomenatorDatabase.getInstance(applicationContext)
         carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
 

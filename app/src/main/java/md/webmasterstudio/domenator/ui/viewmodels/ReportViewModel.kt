@@ -13,8 +13,10 @@ class ReportViewModel(val reportsInfoDao: ReportsInfoDao) : ViewModel() {
 
     val reports: MutableLiveData<MutableList<ReportInfoEntity>> = MutableLiveData(mutableListOf())
 
-    fun insert(reportInfoEntity: ReportInfoEntity) {
-
+    fun deleteAll() {
+        viewModelScope.launch {
+            reportsInfoDao.deleteAll()
+        }
     }
 
     fun addReport(report: ReportInfoEntity) {

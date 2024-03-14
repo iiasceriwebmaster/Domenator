@@ -33,6 +33,7 @@ class ReportActivity : AppCompatActivity(),
     var editReportDialogItemPosition = -1
     private lateinit var carInfoViewModel: CarInfoViewModel
     private lateinit var appDatabase: DomenatorDatabase
+    var carId = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,14 +63,41 @@ class ReportActivity : AppCompatActivity(),
             }
         }
 
+        updateListUI()
+        topBarClicks()
+
+        binding.finishReportBtn.setOnClickListener {
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    reportViewModel.deleteAll()
+                    carInfoViewModel.deleteAll()
+                }
+            }
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
         binding.standardFab.setOnClickListener {
             editReportDialogItemPosition = -1
             showDialog()
         }
 
-        updateListUI()
+        navClicks()
 
+        updateNavigationHeader(this)
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val reports =
+                    reportViewModel.reportsInfoDao.getAll().toMutableList()
+                carId = carInfoViewModel.getCarInfoEntities()[0].id
+                withContext(Dispatchers.Main) {
+                    reportViewModel.reports.value = reports
+                    updateListUI()
+                }
+            }
+        }
+    }
 
+    fun topBarClicks() {
         binding.rightButton.setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
         }
@@ -77,13 +105,9 @@ class ReportActivity : AppCompatActivity(),
         binding.leftButton.setOnClickListener {
             binding.activityReportMainLayout.open()
         }
+    }
 
-
-        binding.finishReportBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
+    fun navClicks() {
         binding.navView.menu.getItem(0).isChecked = false
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             binding.activityReportMainLayout.close()
@@ -127,17 +151,6 @@ class ReportActivity : AppCompatActivity(),
                 )
             }
         }
-
-        updateNavigationHeader(this)
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                reportViewModel.reports.value =
-                    reportViewModel.reportsInfoDao.getAll().toMutableList()
-                withContext(Dispatchers.Main) {
-                    updateListUI()
-                }
-            }
-        }
     }
 
     override fun onReportInfoAdded(report: ReportInfoEntity) {
@@ -173,15 +186,17 @@ class ReportActivity : AppCompatActivity(),
 
     private fun showDialog(reportItem: ReportInfoEntity? = null) {
         val dialog = AddReportDialogFragment()
-
+        val bundle = Bundle()
+        bundle.putLong("car_id", carId)
         if (reportItem != null) {
-            val bundle = Bundle()
+
             bundle.putString("km", reportItem.speedometerValue.toString())
             bundle.putString("date", reportItem.date)
             bundle.putString("pricePerUnit", reportItem.fuelPrice.toString())
             bundle.putString("quantity", reportItem.fuelAmount.toString())
-            dialog.arguments = bundle
+
         }
+        dialog.arguments = bundle
         dialog.show(supportFragmentManager, "AddReportDialogFragment")
     }
 

@@ -23,6 +23,12 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao) : ViewModel() {
         }
     }
 
+    fun deleteAll() {
+        viewModelScope.launch {
+            carInfoDao.deleteAll()
+        }
+    }
+
     fun getCarInfoEntities() : List<CarInfoEntity> {
         return carInfoDao.getAll()
     }
