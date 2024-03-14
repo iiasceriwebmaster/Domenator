@@ -6,26 +6,33 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
+import md.webmasterstudio.domenator.data.db.DomenatorDatabase
 import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityReportBinding
 import md.webmasterstudio.domenator.ui.activities.login.LoginActivity
 import md.webmasterstudio.domenator.ui.adapters.ReportAdapter
 import md.webmasterstudio.domenator.ui.fragments.AddReportDialogFragment
+import md.webmasterstudio.domenator.ui.viewmodels.CarInfoViewModel
 import md.webmasterstudio.domenator.ui.viewmodels.ReportViewModel
 
 class ReportActivity : AppCompatActivity(),
     AddReportDialogFragment.DialogAddReportFragmentListener {
 
     private lateinit var binding: ActivityReportBinding
-    private val viewModel: ReportViewModel by viewModels()
+    private lateinit var reportViewModel: ReportViewModel
     var editReportDialogItemPosition = -1
+    private lateinit var carInfoViewModel: CarInfoViewModel
+    private lateinit var appDatabase: DomenatorDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +47,20 @@ class ReportActivity : AppCompatActivity(),
 
         setupFonts()
 
-        val date = intent.getStringExtra("date")
-        val km = intent.getLongExtra("km", 0).toString() + " km"
-        val licencePlateNr = intent.getStringExtra("licencePlateNr")
+        appDatabase = DomenatorDatabase.getInstance(applicationContext)
+        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
+        reportViewModel = ReportViewModel(appDatabase.reportsDao())
 
-        binding.licencePlateNrTV.text = licencePlateNr
-        binding.titleKm.text = km
-        binding.titleDate.text = date
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val carInfoEntities = carInfoViewModel.getCarInfoEntities()
+                withContext(Dispatchers.Main) {
+                    binding.licencePlateNrTV.text = carInfoEntities[0].licencePlateNr
+                    binding.titleKm.text = carInfoEntities[0].speedometerValue.toString()
+                    binding.titleDate.text = carInfoEntities[0].date
+                }
+            }
+        }
 
         binding.standardFab.setOnClickListener {
             editReportDialogItemPosition = -1
@@ -115,19 +129,28 @@ class ReportActivity : AppCompatActivity(),
         }
 
         updateNavigationHeader(this)
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                reportViewModel.reports.value =
+                    reportViewModel.reportsInfoDao.getAll().toMutableList()
+                withContext(Dispatchers.Main) {
+                    updateListUI()
+                }
+            }
+        }
     }
 
     override fun onReportInfoAdded(report: ReportInfoEntity) {
         if (editReportDialogItemPosition == -1)
-            viewModel.addReport(report)
+            reportViewModel.addReport(report)
         else {
-            viewModel.updateReport(editReportDialogItemPosition, report)
+            reportViewModel.updateReport(editReportDialogItemPosition, report)
         }
         updateListUI()
     }
 
     private fun updateListUI() {
-        if (viewModel.reports.value?.isNotEmpty() == true) {
+        if (reportViewModel.reports.value?.isNotEmpty() == true) {
             binding.emptyTextLL.visibility = View.GONE
             binding.reportRecyclerView.visibility = View.VISIBLE
         } else {
@@ -138,13 +161,13 @@ class ReportActivity : AppCompatActivity(),
         val onEditClick: (Int) -> Unit = { position ->
             editReportDialogItemPosition = position
 
-            val reportItem = viewModel.reports.value!![position]
+            val reportItem = reportViewModel.reports.value!![position]
             showDialog(reportItem)
         }
 
-        viewModel.sortReports()
+        reportViewModel.sortReports()
 
-        val adapter = ReportAdapter(viewModel.reports.value!!, onEditClick, this)
+        val adapter = ReportAdapter(reportViewModel.reports.value!!, onEditClick, this)
         binding.reportRecyclerView.adapter = adapter
     }
 

@@ -32,8 +32,6 @@ class CarReceptionActivity : AppCompatActivity() {
     private lateinit var appDatabase: DomenatorDatabase
     private lateinit var adapter: ImageAdapter
     private var PICK_IMAGE_MULTIPLE = 123
-    private var isEditingMode = true
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,11 +119,6 @@ class CarReceptionActivity : AppCompatActivity() {
             val intent =
                 Intent(this@CarReceptionActivity, ReportActivity::class.java)
 
-//            intent.putExtra("date", date)
-//            intent.putExtra("km", km)
-//            intent.putExtra("licencePlateNr", licencePlateNr)
-
-
 //            val carPhotosUri = carInfoViewModel.selectedPhotos.value
 //            val documentPhotosUri = carInfoViewModel.selectedDocuments.value
 //
@@ -133,16 +126,6 @@ class CarReceptionActivity : AppCompatActivity() {
 //                carPhotosUri?.map { uriToBase64(contentResolver, it) }
 //            val documentPhotosBase64 =
 //                documentPhotosUri?.map { uriToBase64(contentResolver, it) }
-//
-//            val carInfoEntity =
-//                CarInfoEntity(
-//                    date = date,
-//                    licencePlateNr = licencePlateNr,
-//                    speedometerValue = km,
-//                    carPhotos = carPhotosBase64,
-//                    documentPhotos = documentPhotosBase64
-//                )
-//            carInfoViewModel.insert(carInfoEntity)
 
             carInfoViewModel.saveCarInfo(date, licencePlateNr, km, this@CarReceptionActivity)
 
@@ -153,11 +136,11 @@ class CarReceptionActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 val carInfoEntities = carInfoViewModel.getCarInfoEntities()
                 if (carInfoEntities.isNotEmpty()) {
-//                    withContext(Dispatchers.Main) {
-//                        binding.saveBtn.visibility = View.INVISIBLE
-//                        binding.standardFab.visibility = View.INVISIBLE
-//                    }
-//                    val carInfoEntity = carInfoEntities[0]
+                    withContext(Dispatchers.Main) {
+                        binding.saveBtn.visibility = View.INVISIBLE
+                        binding.standardFab.visibility = View.INVISIBLE
+                    }
+                    val carInfoEntity = carInfoEntities[0]
 //
 //                    // Usage example
 //                    val carPhotosBase64List: List<String>? = carInfoEntity.carPhotos

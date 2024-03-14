@@ -177,7 +177,7 @@
                 android:id="@+id/saveBtnCard"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                app:cardCornerRadius="200dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="4dp">
             <Button
                 android:id="@+id/finishReportBtn"

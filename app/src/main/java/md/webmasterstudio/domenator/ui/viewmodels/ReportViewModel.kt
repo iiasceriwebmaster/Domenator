@@ -3,35 +3,52 @@ package md.webmasterstudio.domenator.ui.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import md.webmasterstudio.domenator.data.db.dao.ReportsInfoDao
+import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 
-class ReportViewModel() : ViewModel() {
-    private val _addedReports = MutableLiveData<List<ReportInfoEntity>>()
+class ReportViewModel(val reportsInfoDao: ReportsInfoDao) : ViewModel() {
 
-    val reports: LiveData<List<ReportInfoEntity>>
-        get() = _addedReports
+    val reports: MutableLiveData<MutableList<ReportInfoEntity>> = MutableLiveData(mutableListOf())
+
+    fun insert(reportInfoEntity: ReportInfoEntity) {
+
+    }
 
     fun addReport(report: ReportInfoEntity) {
-        val reports = _addedReports.value?.toMutableList() ?: mutableListOf()
-        reports.add(0, report)
-        _addedReports.value = reports
+        val reportss = reports.value?.toMutableList() ?: mutableListOf()
+        reportss.add(0, report)
+        viewModelScope.launch {
+            reportsInfoDao.insert(report)
+        }
+        reports.value = reportss
     }
 
     fun updateReport(position: Int, report: ReportInfoEntity) {
-        val reports = _addedReports.value?.toMutableList() ?: mutableListOf()
-        reports[position] = report
-        _addedReports.value = reports
+        val reportss = reports.value?.toMutableList() ?: mutableListOf()
+        reportss[position] = report
+        viewModelScope.launch {
+            reportsInfoDao.update(report)
+        }
+        reports.value = reportss
     }
 
     fun sortReports() {
-        val reports = _addedReports.value?.toMutableList() ?: mutableListOf()
-        reports.sortByDescending { it.date }
-        _addedReports.value = reports
+        val reportss = reports.value?.toMutableList() ?: mutableListOf()
+        reportss.sortByDescending { it.date }
+        reports.value = reportss
     }
 
     fun removeReport(report: ReportInfoEntity) {
-        val reports = _addedReports.value?.toMutableList() ?: return
-        reports.remove(report)
-        _addedReports.value = reports
+        val reportss = reports.value?.toMutableList() ?: return
+        reportss.remove(report)
+
+        viewModelScope.launch {
+            reportsInfoDao.delete(report)
+        }
+
+        reports.value = reportss
     }
 }
