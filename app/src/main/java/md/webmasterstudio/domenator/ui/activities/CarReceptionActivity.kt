@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
@@ -35,6 +36,8 @@ class CarReceptionActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        setupFonts()
 
         val date = intent.getStringExtra("date")
         val km = intent.getLongExtra("km", 0)
@@ -146,6 +149,14 @@ class CarReceptionActivity : AppCompatActivity() {
 
     private fun isDocument(): Boolean {
         return binding.radioGroup.checkedRadioButtonId == R.id.radioBtnDocuments
+    }
+
+    private fun setupFonts() {
+        binding.emptyText.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
+        binding.saveBtn.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
+        binding.title.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
+        binding.radioBtnPhotos.setTypeface(ResourcesCompat.getFont(this, R.font.robotoserif_28pt_semibold))
+        binding.radioBtnDocuments.setTypeface(ResourcesCompat.getFont(this, R.font.robotoserif_28pt_semibold))
     }
 
     private fun updateEmptyUI() {

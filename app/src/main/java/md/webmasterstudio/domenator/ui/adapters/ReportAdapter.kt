@@ -1,16 +1,19 @@
 package md.webmasterstudio.domenator.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 
 class ReportAdapter(
     private var reportItems: List<ReportInfoEntity>,
-    private val onEditClick: (Int) -> Unit
+    private val onEditClick: (Int) -> Unit,
+    val context: Context
 ) :
     RecyclerView.Adapter<ReportAdapter.ReportViewHolder>() {
 
@@ -23,6 +26,7 @@ class ReportAdapter(
         val reportItem = reportItems[position]
         holder.reportDate.text = reportItem.date
         holder.reportDistance.text = reportItem.speedometerValue.toString()
+
 
 
         val languageLiterSymbol = "L"
@@ -42,6 +46,11 @@ class ReportAdapter(
         holder.editReportBtn.setOnClickListener {
             onEditClick(position)
         }
+
+
+        holder.reportDate.setTypeface(ResourcesCompat.getFont(context, R.font.roboto_regular))
+        holder.reportDistance.setTypeface(ResourcesCompat.getFont(context, R.font.roboto_medium))
+        holder.reportConsumption.setTypeface(ResourcesCompat.getFont(context, R.font.roboto_regular))
     }
 
     fun updateData(newReportItems: List<ReportInfoEntity>) {

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
@@ -36,6 +37,8 @@ class ReportActivity : AppCompatActivity(),
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        setupFonts()
 
         val date = intent.getStringExtra("date")
         val km = intent.getLongExtra("km", 0).toString() + " km"
@@ -141,7 +144,7 @@ class ReportActivity : AppCompatActivity(),
 
         viewModel.sortReports()
 
-        val adapter = ReportAdapter(viewModel.reports.value!!, onEditClick)
+        val adapter = ReportAdapter(viewModel.reports.value!!, onEditClick, this)
         binding.reportRecyclerView.adapter = adapter
     }
 
@@ -163,6 +166,14 @@ class ReportActivity : AppCompatActivity(),
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun setupFonts() {
+        binding.licencePlateNrTV.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
+        binding.titleKm.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
+        binding.titleDate.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
+        binding.finishReportBtn.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
+        binding.emptyTV.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
     }
 
 

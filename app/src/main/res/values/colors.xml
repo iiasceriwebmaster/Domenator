@@ -14,4 +14,6 @@
     <color name="report_stroke">#809598B6</color> <!-- Light hint color -->
     <color name="red">#FF0000</color> <!-- Light hint color -->
 
+
+    <color name="shadow_color">#808080</color> <!-- Light hint color -->
 </resources>

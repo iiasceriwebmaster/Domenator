@@ -7,6 +7,7 @@ import android.view.Menu
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.forEachIndexed
@@ -91,6 +92,8 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
         }
 
         updateNavigationHeader(this)
+
+        setupFonts()
     }
 
     fun logoutUser() {
@@ -124,6 +127,11 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
         intent.putExtra("licencePlateNr", carInfoEntityItem.licencePlateNr)
 
         startActivity(intent)
+    }
+
+    private fun setupFonts() {
+        binding.mainText.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
+        binding.startReportBtn.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
     }
 
     override fun onBackPressed() {

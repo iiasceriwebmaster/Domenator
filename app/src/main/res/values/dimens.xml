@@ -8,7 +8,7 @@
 
     <!-- Main -->
     <!-- Txt -->
-    <dimen name="s_txt_size">16sp</dimen>
+    <dimen name="s_txt_size">14sp</dimen>
     <dimen name="ms_txt_size">20sp</dimen>
     <dimen name="m_txt_size">24sp</dimen>
     <dimen name="l_txt_size">30sp</dimen>
@@ -20,7 +20,7 @@
     <dimen name="margin_title_horizontal">25dp</dimen>
     <dimen name="margin_title_top">15dp</dimen>
     <!-- Btn -->
-    <dimen name="wide_white_btn_text_size">20sp</dimen>
+    <dimen name="wide_white_btn_text_size">15sp</dimen>
     <dimen name="wide_white_btn_margin">20dp</dimen>
     <dimen name="wide_white_btn_height">60dp</dimen>
     <dimen name="spacing">2dp</dimen>
