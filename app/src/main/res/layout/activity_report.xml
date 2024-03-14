@@ -201,7 +201,7 @@
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-     NavigationView for the left menu
+<!--     NavigationView for the left menu-->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
