@@ -1,7 +1,6 @@
 package md.webmasterstudio.domenator.ui.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -17,13 +16,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.DomenatorDatabase
-import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 import md.webmasterstudio.domenator.ui.adapters.ImageAdapter
 import md.webmasterstudio.domenator.ui.viewmodels.CarInfoViewModel
-import md.webmasterstudio.domenator.utilities.FileUtilities.base64ListToUriList
-import md.webmasterstudio.domenator.utilities.FileUtilities.uriToBase64
 
 class CarReceptionActivity : AppCompatActivity() {
 
@@ -48,7 +44,7 @@ class CarReceptionActivity : AppCompatActivity() {
         setupFonts()
 
         appDatabase = DomenatorDatabase.getInstance(applicationContext)
-        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
+        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao(), appDatabase.imageDao())
 
         binding.leftButton.setOnClickListener {
             onBackPressed()

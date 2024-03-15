@@ -1,6 +1,7 @@
 package md.webmasterstudio.domenator.ui.viewmodels
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -8,11 +9,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import md.webmasterstudio.domenator.data.db.dao.CarInfoDao
+import md.webmasterstudio.domenator.data.db.dao.ImageDao
 import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
-import md.webmasterstudio.domenator.utilities.FileUtilities.saveImageToDevice
+import md.webmasterstudio.domenator.data.db.entity.ImageModel
+import md.webmasterstudio.domenator.utilities.BitmapConverter.convertBitmapToString
+import java.io.InputStream
+import java.util.UUID
 
-class CarInfoViewModel(val carInfoDao: CarInfoDao) : ViewModel() {
+
+class CarInfoViewModel(val carInfoDao: CarInfoDao, val imageDao: ImageDao) : ViewModel() {
     private val _date = MutableLiveData<String>()
     private val _km = MutableLiveData<String>()
     private val _licencePlateNr = MutableLiveData<String>()
@@ -29,7 +36,7 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao) : ViewModel() {
         }
     }
 
-    fun getCarInfoEntities() : List<CarInfoEntity> {
+    fun getCarInfoEntities(): List<CarInfoEntity> {
         return carInfoDao.getAll()
     }
 
@@ -93,25 +100,39 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao) : ViewModel() {
         val coroutineScope = viewModelScope
         coroutineScope.launch {
             if (!selectedPhotos.value.isNullOrEmpty() || !selectedDocuments.value.isNullOrEmpty()) {
-                val photoPaths = mutableListOf<String>()
+                val photoIds = mutableListOf<String>()
                 for (uri in selectedPhotos.value!!) {
-                    photoPaths.add(saveImageToDevice(context, uri, false))
+                    val randomUID = UUID.randomUUID().toString()
+                    val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                    val imageModel = ImageModel(randomUID.toString(), convertBitmapToString(bitmap))
+                    runBlocking { imageDao.insertNewImage(imageModel) }
+
+                    photoIds.add(randomUID)
                 }
-                val documentPaths = mutableListOf<String>()
+                val documentIds = mutableListOf<String>()
                 for (uri in selectedDocuments.value!!) {
-                    documentPaths.add(saveImageToDevice(context, uri, true))
+                    val randomUID = UUID.randomUUID().toString()
+                    val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                    val imageModel = ImageModel(randomUID, convertBitmapToString(bitmap))
+                    runBlocking { imageDao.insertNewImage(imageModel) }
+                    documentIds.add(randomUID)
                 }
                 val carInfoEntity = CarInfoEntity(
                     date = date,
                     licencePlateNr = licencePlateNr,
                     speedometerValue = speedometerValue,
-                    photoPaths = photoPaths,
-                    documentPaths = documentPaths
+                    photoIds = photoIds,
+                    documentIds = documentIds
                 )
                 carInfoDao.insert(carInfoEntity)
                 onInsertDone()
             } else {
-                Log.e("Domenator saveCarInfo", "!selectedPhotos.value.isNullOrEmpty() || !selectedDocuments.value.isNullOrEmpty()")
+                Log.e(
+                    "Domenator saveCarInfo",
+                    "!selectedPhotos.value.isNullOrEmpty() || !selectedDocuments.value.isNullOrEmpty()"
+                )
             }
         }
     }

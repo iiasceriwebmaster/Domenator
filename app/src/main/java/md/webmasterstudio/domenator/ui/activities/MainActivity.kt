@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
         }
 
         appDatabase = DomenatorDatabase.getInstance(applicationContext)
-        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
+        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao(), appDatabase.imageDao())
 
         //TODO: Fix bugs
         binding.startReportBtn.setOnClickListener {
