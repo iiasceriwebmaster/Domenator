@@ -87,7 +87,8 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao) : ViewModel() {
         date: String,
         licencePlateNr: String,
         speedometerValue: Long,
-        context: Context
+        context: Context,
+        onInsertDone: () -> Unit
     ) {
         val coroutineScope = viewModelScope
         coroutineScope.launch {
@@ -108,6 +109,7 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao) : ViewModel() {
                     documentPaths = documentPaths
                 )
                 carInfoDao.insert(carInfoEntity)
+                onInsertDone()
             } else {
                 Log.e("Domenator saveCarInfo", "!selectedPhotos.value.isNullOrEmpty() || !selectedDocuments.value.isNullOrEmpty()")
             }

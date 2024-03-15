@@ -116,10 +116,12 @@ class CarReceptionActivity : AppCompatActivity() {
             val date = intent.getStringExtra("date").toString()
             val km = intent.getLongExtra("km", 0)
             val licencePlateNr = intent.getStringExtra("licencePlateNr").toString()
-            carInfoViewModel.saveCarInfo(date, licencePlateNr, km, this@CarReceptionActivity)
-            val intent =
-                Intent(this@CarReceptionActivity, ReportActivity::class.java)
-            startActivity(intent)
+            carInfoViewModel.saveCarInfo(date, licencePlateNr, km, this@CarReceptionActivity) {
+                val intent =
+                    Intent(this@CarReceptionActivity, ReportActivity::class.java)
+                startActivity(intent)
+            }
+
 //            val carPhotosUri = carInfoViewModel.selectedPhotos.value
 //            val documentPhotosUri = carInfoViewModel.selectedDocuments.value
 //

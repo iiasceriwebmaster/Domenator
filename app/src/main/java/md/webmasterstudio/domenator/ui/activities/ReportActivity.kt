@@ -158,14 +158,11 @@ class ReportActivity : AppCompatActivity(),
             // Check if carInfoEntities is not null and not empty before updating UI
             carInfoEntities?.takeIf { it.isNotEmpty() }?.let { entities ->
                 withContext(Dispatchers.IO) {
-                    val reports =
-                    reportViewModel.reportsInfoDao.getAll().toMutableList()
+                    reportViewModel.loadReports()
                     withContext(Dispatchers.Main) {
                         binding.licencePlateNrTV.text = entities[0].licencePlateNr
                         binding.titleKm.text = entities[0].speedometerValue.toString()
                         binding.titleDate.text = entities[0].date
-
-                        reportViewModel.reports.value = reports
                         updateListUI()
                     }
                 }

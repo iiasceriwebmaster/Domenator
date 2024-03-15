@@ -11,7 +11,11 @@ import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 
 class ReportViewModel(val reportsInfoDao: ReportsInfoDao) : ViewModel() {
 
-    val reports: MutableLiveData<MutableList<ReportInfoEntity>> = MutableLiveData(mutableListOf())
+    var reports: MutableLiveData<MutableList<ReportInfoEntity>> = MutableLiveData(mutableListOf())
+
+    fun loadReports() {
+        reports.postValue(reportsInfoDao.getAll().toMutableList())
+    }
 
     fun deleteAll() {
         viewModelScope.launch {
