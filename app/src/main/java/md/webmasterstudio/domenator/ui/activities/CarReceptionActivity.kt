@@ -32,6 +32,7 @@ class CarReceptionActivity : AppCompatActivity() {
     private lateinit var appDatabase: DomenatorDatabase
     private lateinit var adapter: ImageAdapter
     private var PICK_IMAGE_MULTIPLE = 123
+    private var isViewMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,14 +110,16 @@ class CarReceptionActivity : AppCompatActivity() {
                 updateEmptyUI()
             })
 
-        val date = intent.getStringExtra("date").toString()
-        val km = intent.getLongExtra("km", 0)
-        val licencePlateNr = intent.getStringExtra("licencePlateNr").toString()
+
 
         binding.saveBtn.setOnClickListener {
+            val date = intent.getStringExtra("date").toString()
+            val km = intent.getLongExtra("km", 0)
+            val licencePlateNr = intent.getStringExtra("licencePlateNr").toString()
+            carInfoViewModel.saveCarInfo(date, licencePlateNr, km, this@CarReceptionActivity)
             val intent =
                 Intent(this@CarReceptionActivity, ReportActivity::class.java)
-
+            startActivity(intent)
 //            val carPhotosUri = carInfoViewModel.selectedPhotos.value
 //            val documentPhotosUri = carInfoViewModel.selectedDocuments.value
 //
@@ -124,16 +127,13 @@ class CarReceptionActivity : AppCompatActivity() {
 //                carPhotosUri?.map { uriToBase64(contentResolver, it) }
 //            val documentPhotosBase64 =
 //                documentPhotosUri?.map { uriToBase64(contentResolver, it) }
-
-            carInfoViewModel.saveCarInfo(date, licencePlateNr, km, this@CarReceptionActivity)
-
-            startActivity(intent)
         }
         //
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
                 val carInfoEntities = carInfoViewModel.getCarInfoEntities()
                 if (carInfoEntities.isNotEmpty()) {
+                    isViewMode = true
                     withContext(Dispatchers.Main) {
                         binding.saveBtn.visibility = View.INVISIBLE
                         binding.standardFab.visibility = View.INVISIBLE
@@ -213,8 +213,20 @@ class CarReceptionActivity : AppCompatActivity() {
     }
 
     private fun updateEmptyUI() {
+        val documents = carInfoViewModel.selectedDocuments.value ?: mutableListOf()
+        val photos = carInfoViewModel.selectedPhotos.value ?: mutableListOf()
+
+        if (documents.isNotEmpty() && photos.isNotEmpty()) {
+            binding.saveBtnCard.visibility = View.VISIBLE
+        }
+
+        if (isViewMode) {
+            binding.saveBtnCard.visibility = View.GONE
+            binding.standardFab.visibility = View.GONE
+        }
+
         if (isDocument()) {
-            val documents = carInfoViewModel.selectedDocuments.value ?: mutableListOf()
+
             if (documents.size > 0) {
                 binding.emptyTextLL.visibility = View.GONE
                 binding.grid.visibility = View.VISIBLE
@@ -223,7 +235,7 @@ class CarReceptionActivity : AppCompatActivity() {
                 binding.grid.visibility = View.GONE
             }
         } else {
-            val photos = carInfoViewModel.selectedPhotos.value ?: mutableListOf()
+
             if (photos.size > 0) {
                 binding.emptyTextLL.visibility = View.GONE
                 binding.grid.visibility = View.VISIBLE
