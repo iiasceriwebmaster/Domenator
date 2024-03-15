@@ -1,6 +1,7 @@
 package md.webmasterstudio.domenator.ui.viewmodels
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
@@ -15,6 +16,7 @@ import md.webmasterstudio.domenator.data.db.dao.ImageDao
 import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.data.db.entity.ImageModel
 import md.webmasterstudio.domenator.utilities.BitmapConverter.convertBitmapToString
+import md.webmasterstudio.domenator.utilities.BitmapConverter.convertStringToBitmap
 import java.io.InputStream
 import java.util.UUID
 
@@ -23,6 +25,8 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao, val imageDao: ImageDao) : Vie
     private val _date = MutableLiveData<String>()
     private val _km = MutableLiveData<String>()
     private val _licencePlateNr = MutableLiveData<String>()
+    val selectedPhotos: MutableLiveData<MutableList<Bitmap>> = MutableLiveData(mutableListOf())
+    val selectedDocuments: MutableLiveData<MutableList<Bitmap>> = MutableLiveData(mutableListOf())
 
     fun insert(carInfoEntity: CarInfoEntity) {
         viewModelScope.launch {
@@ -38,6 +42,28 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao, val imageDao: ImageDao) : Vie
 
     fun getCarInfoEntities(): List<CarInfoEntity> {
         return carInfoDao.getAll()
+    }
+
+    fun loadImages() = runBlocking {
+        val carInfoEntity = carInfoDao.getAll()[0]
+
+        val photoIds = carInfoEntity.photoIds
+        val photoBitmaps: MutableList<Bitmap> = mutableListOf()
+        for (photoId in photoIds) {
+            val image = imageDao.getImageById(photoId)
+            val bitmap = image?.imageString?.let { convertStringToBitmap(it) }
+            bitmap?.let { photoBitmaps.add(it) }
+        }
+
+        val documentIds = carInfoEntity.documentIds
+        val documentBitmaps: MutableList<Bitmap> = mutableListOf()
+        for (documentId in documentIds) {
+            val image = imageDao.getImageById(documentId)
+            val bitmap = image?.imageString?.let { convertStringToBitmap(it) }
+            bitmap?.let { documentBitmaps.add(it) }
+        }
+        selectedPhotos.postValue(photoBitmaps)
+        selectedDocuments.postValue(documentBitmaps)
     }
 
     val date: LiveData<String>
@@ -62,23 +88,21 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao, val imageDao: ImageDao) : Vie
 
     // Initialize LiveData in ViewModel
     // Initialize LiveData in ViewModel constructor
-    val selectedPhotos: MutableLiveData<MutableList<Uri>> = MutableLiveData(mutableListOf())
-    val selectedDocuments: MutableLiveData<MutableList<Uri>> = MutableLiveData(mutableListOf())
 
 
-    fun addSelectedImage(imageUri: Uri, isDocument: Boolean) {
+    fun addSelectedImage(imageBitmap: Bitmap, isDocument: Boolean) {
         if (isDocument) {
             val documents = selectedDocuments.value?.toMutableList() ?: mutableListOf()
-            documents.add(imageUri)
+            documents.add(imageBitmap)
             selectedDocuments.value = documents
         } else {
             val photos = selectedPhotos.value?.toMutableList() ?: mutableListOf()
-            photos.add(imageUri)
+            photos.add(imageBitmap)
             selectedPhotos.value = photos
         }
     }
 
-    fun removeSelectedImage(imageUri: Uri, isDocument: Boolean) {
+    fun removeSelectedImage(imageUri: Bitmap, isDocument: Boolean) {
         if (isDocument) {
             val documents = selectedDocuments.value?.toMutableList() ?: return
             documents.remove(imageUri)
@@ -101,20 +125,17 @@ class CarInfoViewModel(val carInfoDao: CarInfoDao, val imageDao: ImageDao) : Vie
         coroutineScope.launch {
             if (!selectedPhotos.value.isNullOrEmpty() || !selectedDocuments.value.isNullOrEmpty()) {
                 val photoIds = mutableListOf<String>()
-                for (uri in selectedPhotos.value!!) {
+                for (bitmap in selectedPhotos.value!!) {
                     val randomUID = UUID.randomUUID().toString()
-                    val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
-                    val bitmap = BitmapFactory.decodeStream(inputStream)
-                    val imageModel = ImageModel(randomUID.toString(), convertBitmapToString(bitmap))
+                    val imageModel = ImageModel(randomUID, convertBitmapToString(bitmap))
                     runBlocking { imageDao.insertNewImage(imageModel) }
 
                     photoIds.add(randomUID)
                 }
                 val documentIds = mutableListOf<String>()
-                for (uri in selectedDocuments.value!!) {
+                for (bitmap in selectedDocuments.value!!) {
                     val randomUID = UUID.randomUUID().toString()
-                    val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
-                    val bitmap = BitmapFactory.decodeStream(inputStream)
+
                     val imageModel = ImageModel(randomUID, convertBitmapToString(bitmap))
                     runBlocking { imageDao.insertNewImage(imageModel) }
                     documentIds.add(randomUID)
