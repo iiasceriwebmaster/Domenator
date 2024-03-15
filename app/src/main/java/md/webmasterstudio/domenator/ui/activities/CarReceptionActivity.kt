@@ -13,9 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.DomenatorDatabase
+import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
 import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 import md.webmasterstudio.domenator.ui.adapters.ImageAdapter
@@ -129,7 +131,8 @@ class CarReceptionActivity : AppCompatActivity() {
         //
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                val carInfoEntities = carInfoViewModel.getCarInfoEntities()
+                var carInfoEntities: List<CarInfoEntity> = listOf()
+                runBlocking {  carInfoEntities = carInfoViewModel.getCarInfoEntities() }
                 if (carInfoEntities.isNotEmpty()) {
                     isViewMode = true
                     withContext(Dispatchers.Main) {
@@ -137,22 +140,10 @@ class CarReceptionActivity : AppCompatActivity() {
                         binding.standardFab.visibility = View.INVISIBLE
                     }
                     val carInfoEntity = carInfoEntities[0]
-//
-//                    // Usage example
-//                    val carPhotosBase64List: List<String>? = carInfoEntity.carPhotos
-//                    val documentPhotosBase64List: List<String>? = carInfoEntity.documentPhotos
-//
-//                    // Convert Base64 strings to URIs
-//                    val carPhotosUriList: List<Uri>? =
-//                        carPhotosBase64List?.let { base64ListToUriList(contentResolver, it) }
-//                    val documentPhotosUriList: List<Uri>? =
-//                        documentPhotosBase64List?.let { base64ListToUriList(contentResolver, it) }
-//
-//                    // Set the URIs to ViewModel
-//                    // Update ViewModel with the new lists
-//                    carInfoViewModel.selectedPhotos.value = carPhotosUriList?.toMutableList()
-//                    carInfoViewModel.selectedDocuments.value =
-//                        documentPhotosUriList?.toMutableList()
+
+                    //TODO: implement showing from DB
+
+                    updateEmptyUI()
                 }
 
             }
