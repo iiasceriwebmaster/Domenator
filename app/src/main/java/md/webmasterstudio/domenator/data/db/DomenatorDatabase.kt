@@ -8,22 +8,25 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.google.gson.Gson
 import md.webmasterstudio.domenator.data.db.dao.CarInfoDao
+import md.webmasterstudio.domenator.data.db.dao.ImageDao
 import md.webmasterstudio.domenator.data.db.dao.NotificationDao
 import md.webmasterstudio.domenator.data.db.dao.ReportsInfoDao
 import md.webmasterstudio.domenator.data.db.dao.UserDao
 import md.webmasterstudio.domenator.data.db.entity.CarInfoEntity
+import md.webmasterstudio.domenator.data.db.entity.ImageModel
 import md.webmasterstudio.domenator.data.db.entity.NotificationEntity
 import md.webmasterstudio.domenator.data.db.entity.ReportInfoEntity
 import md.webmasterstudio.domenator.data.db.entity.User
 
 
-@Database(entities = [User::class, CarInfoEntity::class, NotificationEntity::class, ReportInfoEntity::class], version = 2)
+@Database(entities = [User::class, CarInfoEntity::class, NotificationEntity::class, ReportInfoEntity::class, ImageModel::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class DomenatorDatabase: RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun reportsDao(): ReportsInfoDao
     abstract fun notificationsDao(): NotificationDao
     abstract fun carInfoDao(): CarInfoDao
+    abstract fun imageDao(): ImageDao
 
     companion object {
         @Volatile

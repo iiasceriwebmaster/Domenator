@@ -51,7 +51,7 @@ class ReportActivity : AppCompatActivity(),
         setupFonts()
 
         appDatabase = DomenatorDatabase.getInstance(applicationContext)
-        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
+        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao(), appDatabase.imageDao())
         reportViewModel = ReportViewModel(appDatabase.reportsDao())
 
 

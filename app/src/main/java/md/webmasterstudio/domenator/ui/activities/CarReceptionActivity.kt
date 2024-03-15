@@ -1,7 +1,7 @@
 package md.webmasterstudio.domenator.ui.activities
 
 import android.content.Intent
-import android.net.Uri
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import md.webmasterstudio.domenator.R
 import md.webmasterstudio.domenator.data.db.DomenatorDatabase
@@ -22,8 +23,7 @@ import md.webmasterstudio.domenator.databinding.ActivityCarReceptionBinding
 import md.webmasterstudio.domenator.md.webmasterstudio.domenator.viewutility.GridSpacingItemDecoration
 import md.webmasterstudio.domenator.ui.adapters.ImageAdapter
 import md.webmasterstudio.domenator.ui.viewmodels.CarInfoViewModel
-import md.webmasterstudio.domenator.utilities.FileUtilities.base64ListToUriList
-import md.webmasterstudio.domenator.utilities.FileUtilities.uriToBase64
+import java.io.InputStream
 
 class CarReceptionActivity : AppCompatActivity() {
 
@@ -48,7 +48,7 @@ class CarReceptionActivity : AppCompatActivity() {
         setupFonts()
 
         appDatabase = DomenatorDatabase.getInstance(applicationContext)
-        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao())
+        carInfoViewModel = CarInfoViewModel(appDatabase.carInfoDao(), appDatabase.imageDao())
 
         binding.leftButton.setOnClickListener {
             onBackPressed()
@@ -74,8 +74,8 @@ class CarReceptionActivity : AppCompatActivity() {
         )
 
         // Initialize adapter
-        adapter = ImageAdapter(mutableListOf(), this) {deletedUri ->
-            carInfoViewModel.removeSelectedImage(deletedUri, isDocument())
+        adapter = ImageAdapter(mutableListOf(), this) {deleteBitmap ->
+            carInfoViewModel.removeSelectedImage(deleteBitmap, isDocument())
         }
         binding.grid.adapter = adapter
 
@@ -98,7 +98,7 @@ class CarReceptionActivity : AppCompatActivity() {
             this@CarReceptionActivity,
             Observer { photos ->
                 // Update adapter data
-                adapter.updateData(photos)
+                adapter.updateData(photos, isViewMode)
                 updateEmptyUI()
             })
 
@@ -106,7 +106,7 @@ class CarReceptionActivity : AppCompatActivity() {
             this@CarReceptionActivity,
             Observer { documents ->
                 // Update adapter data
-                adapter.updateData(documents)
+                adapter.updateData(documents, isViewMode)
                 updateEmptyUI()
             })
 
@@ -133,32 +133,12 @@ class CarReceptionActivity : AppCompatActivity() {
         //
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
-                val carInfoEntities = carInfoViewModel.getCarInfoEntities()
+                var carInfoEntities: List<CarInfoEntity>
+                runBlocking {  carInfoEntities = carInfoViewModel.getCarInfoEntities() }
                 if (carInfoEntities.isNotEmpty()) {
                     isViewMode = true
-                    withContext(Dispatchers.Main) {
-                        binding.saveBtn.visibility = View.INVISIBLE
-                        binding.standardFab.visibility = View.INVISIBLE
-                    }
-                    val carInfoEntity = carInfoEntities[0]
-//
-//                    // Usage example
-//                    val carPhotosBase64List: List<String>? = carInfoEntity.carPhotos
-//                    val documentPhotosBase64List: List<String>? = carInfoEntity.documentPhotos
-//
-//                    // Convert Base64 strings to URIs
-//                    val carPhotosUriList: List<Uri>? =
-//                        carPhotosBase64List?.let { base64ListToUriList(contentResolver, it) }
-//                    val documentPhotosUriList: List<Uri>? =
-//                        documentPhotosBase64List?.let { base64ListToUriList(contentResolver, it) }
-//
-//                    // Set the URIs to ViewModel
-//                    // Update ViewModel with the new lists
-//                    carInfoViewModel.selectedPhotos.value = carPhotosUriList?.toMutableList()
-//                    carInfoViewModel.selectedDocuments.value =
-//                        documentPhotosUriList?.toMutableList()
+                    carInfoViewModel.loadImages()
                 }
-
             }
         }
         //
@@ -170,13 +150,13 @@ class CarReceptionActivity : AppCompatActivity() {
                 R.id.radioBtnPhotos -> {
                     // Load selected photos
                     val photos = carInfoViewModel.selectedPhotos.value ?: mutableListOf()
-                    adapter.updateData(photos)
+                    adapter.updateData(photos, isViewMode)
                 }
 
                 R.id.radioBtnDocuments -> {
                     // Load selected documents
                     val documents = carInfoViewModel.selectedDocuments.value ?: mutableListOf()
-                    adapter.updateData(documents)
+                    adapter.updateData(documents, isViewMode)
                 }
             }
         }
@@ -191,11 +171,19 @@ class CarReceptionActivity : AppCompatActivity() {
                 val count = clipData!!.itemCount
                 for (i in 0 until count) {
                     val imageUri = clipData.getItemAt(i).uri
-                    carInfoViewModel.addSelectedImage(imageUri, isDocument())
+                    val inputStream: InputStream? = this.contentResolver.openInputStream(imageUri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                    carInfoViewModel.addSelectedImage(bitmap, isDocument())
                 }
             } else {
                 val imageUri = data.data
-                carInfoViewModel.addSelectedImage(imageUri!!, isDocument())
+                val inputStream: InputStream? = imageUri?.let {
+                    this.contentResolver.openInputStream(
+                        it
+                    )
+                }
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+                carInfoViewModel.addSelectedImage(bitmap!!, isDocument())
             }
         } else {
             Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show()
