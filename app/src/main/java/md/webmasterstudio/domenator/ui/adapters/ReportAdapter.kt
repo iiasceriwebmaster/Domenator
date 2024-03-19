@@ -60,11 +60,6 @@ class ReportAdapter(
 
     override fun getItemCount() = reportItems.size
 
-//    fun updateData(newReport: ReportItem) {
-//        reportItems = newImageUris
-//        notifyDataSetChanged()
-//    }
-
     inner class ReportViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val reportDate: TextView = itemView.findViewById(R.id.reportDate)
         val reportDistance: TextView = itemView.findViewById(R.id.reportDistance)
