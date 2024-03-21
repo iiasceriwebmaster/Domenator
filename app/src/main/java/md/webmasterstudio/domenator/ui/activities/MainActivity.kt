@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
             startActivity(intent)
         }
 
-        binding.navView.menu.getItem(0).isChecked = false
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             binding.drawerLayout.close()
             when (menuItem.itemId) {
@@ -133,14 +132,6 @@ class MainActivity : AppCompatActivity(), AddCarInfoDialogFragment.DialogAddCarF
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.activity_main_drawer, menu)
         return true
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // Clear selected item in the navigation drawer
-        binding.navView.menu.forEachIndexed { index, item ->
-            item.isChecked = false
-        }
     }
 
     override fun onCarInfoAdded(carInfoEntityItem: CarInfoEntity) {

@@ -27,8 +27,6 @@ class ReportAdapter(
         holder.reportDate.text = reportItem.date
         holder.reportDistance.text = reportItem.speedometerValue.toString()
 
-
-
         val languageLiterSymbol = "L"
         val languageCurrencySymbol = "€"
         val fuelTxt =

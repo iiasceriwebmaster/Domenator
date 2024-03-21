@@ -90,7 +90,6 @@ class ReportActivity : AppCompatActivity(),
     }
 
     fun navClicks() {
-        binding.navView.menu.getItem(0).isChecked = false
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             binding.activityReportMainLayout.close()
             when (menuItem.itemId) {
@@ -232,15 +231,6 @@ class ReportActivity : AppCompatActivity(),
         binding.titleDate.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
         binding.finishReportBtn.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_medium))
         binding.emptyTV.setTypeface(ResourcesCompat.getFont(this, R.font.roboto_regular))
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-        // Clear selected item in the navigation drawer
-        binding.navView.menu.forEachIndexed { index, item ->
-            item.isChecked = false
-        }
     }
 
     fun updateNavigationHeader(context: Context) {

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:id="@+id/group_navs" android:checkableBehavior="single">
+    <group android:id="@+id/group_navs" android:checkableBehavior="none">
         <item
             android:id="@+id/nav_user_profile"
             android:icon="@drawable/baseline_account_circle_24"
