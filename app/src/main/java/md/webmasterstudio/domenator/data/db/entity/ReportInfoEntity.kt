@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "reports_info")
 data class ReportInfoEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 1,
     @ColumnInfo(name = "car_id") val carId: Long?,
     @ColumnInfo(name = "date") val date: String?,
     @ColumnInfo(name = "fuel_amount") val fuelAmount: Float?,

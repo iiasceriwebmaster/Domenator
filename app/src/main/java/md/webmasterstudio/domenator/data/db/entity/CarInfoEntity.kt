@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import java.util.UUID
 @Entity(tableName = "car_info")
 data class CarInfoEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 1,
     @ColumnInfo(name = "date") val date: String?,
     @ColumnInfo(name = "licence_plate_nr") val licencePlateNr: String?,
     @ColumnInfo(name = "speedometer_value") val speedometerValue: Long?,
